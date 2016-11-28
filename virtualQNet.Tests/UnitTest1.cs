@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace virtualQNet.Tests
+namespace VirtualQNet.Tests
 {
     [TestClass]
     public class UnitTest1

@@ -6,8 +6,8 @@
     <ProjectGuid>{CD7C09EB-3E78-4910-8E9B-F2BD51D444FC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>virtualQNet.Tests</RootNamespace>
-    <AssemblyName>virtualQNet.Tests</AssemblyName>
+    <RootNamespace>VirtualQNet.Tests</RootNamespace>
+    <AssemblyName>VirtualQNet.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
