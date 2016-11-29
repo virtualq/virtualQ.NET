@@ -2,7 +2,7 @@
 
 namespace VirtualQNet
 {
-    public abstract class Entity<T>
+    public abstract class Result<T>
     {
         [JsonProperty("id")]
         public long Id { get; set; }

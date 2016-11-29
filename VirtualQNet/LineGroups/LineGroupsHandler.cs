@@ -9,16 +9,15 @@ namespace VirtualQNet.LineGroups
 
         private const string LINE_GROUPS_PATH = "line_groups";
 
-        public async Task<LineGroup> UpdateLineGroup(long lineGroupId, LineGroupAttributes attributes)
+        public async Task UpdateLineGroup(long lineGroupId, LineGroupAttributes attributes)
         {
             try
             {
-                SingleEntityResult<LineGroup> result = await _ApiClient.Put<LineGroupAttributes, SingleEntityResult<LineGroup>>($"{LINE_GROUPS_PATH}/{lineGroupId}", attributes);
-
-                return result.Data;
+                await _ApiClient.Put<LineGroupAttributes>($"{LINE_GROUPS_PATH}/{lineGroupId}", attributes);
             }
             catch (Exception exception)
             {
+                // TODO: Properly handle server errors
                 throw new VirtualQException(exception.Message);
             }
         }

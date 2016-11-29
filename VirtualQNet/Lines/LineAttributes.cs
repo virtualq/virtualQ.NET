@@ -4,6 +4,7 @@ namespace VirtualQNet.Lines
 {
     public class LineAttributes
     {
+        // TODO: Mark all json properties as optional.
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -62,12 +63,12 @@ namespace VirtualQNet.Lines
         public bool AllowSms { get; set; }
 
         [JsonProperty("service_waiters_count")]
-        public int ServiceWaitersCount { get; set; }
+        public int ServiceCallersCount { get; set; }
 
         [JsonProperty("virtualq_ewt")]
         public int VirtualQEwt { get; set; }
 
         [JsonProperty("virtualq_waiters_count")]
-        public int VirtualQWaitersCount { get; set; }
+        public int VirtualQCallersCount { get; set; }
     }
 }

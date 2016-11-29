@@ -52,12 +52,24 @@ namespace VirtualQNet
             return await response.Content.ReadAsAsync<T>();
         }
 
+        public async Task Post<T>(string path, T model)
+        {
+            HttpResponseMessage response = await _Client.PostAsJsonAsync<T>(path, model);
+            response.EnsureSuccessStatusCode();
+        }
+
         public async Task<U> Post<T, U>(string path, T model)
         {
             HttpResponseMessage response = await _Client.PostAsJsonAsync<T>(path, model);
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadAsAsync<U>();
+        }
+
+        public async Task Put<T>(string path, T model)
+        {
+            HttpResponseMessage response = await _Client.PutAsJsonAsync<T>(path, model);
+            response.EnsureSuccessStatusCode();
         }
 
         public async Task<U> Put<T, U>(string path, T model)
