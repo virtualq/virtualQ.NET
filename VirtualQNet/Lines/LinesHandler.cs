@@ -15,7 +15,7 @@ namespace VirtualQNet.Lines
 
             try
             {
-                var line = await _ApiClient.Get<Line>($"{LINES_PATH}/{lineId}");
+                var line = await _ApiClient.Get<LineResult>($"{LINES_PATH}/{lineId}");
                 return line.Attributes.VirtualQLineState.Equals(STATUS_LINE_ACTIVE, StringComparison.InvariantCultureIgnoreCase);
             }
             catch (Exception exception)

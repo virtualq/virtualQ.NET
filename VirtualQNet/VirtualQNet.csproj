@@ -59,7 +59,7 @@
     <Compile Include="LineGroups\LineGroupAttributes.cs" />
     <Compile Include="LineGroups\LineGroupsHandler.cs" />
     <Compile Include="Lines\ILinesHandler.cs" />
-    <Compile Include="Lines\Line.cs" />
+    <Compile Include="Lines\LineResult.cs" />
     <Compile Include="Lines\LineAttributes.cs" />
     <Compile Include="Lines\LinesHandler.cs" />
     <Compile Include="SingleResult.cs" />
