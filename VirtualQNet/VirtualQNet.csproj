@@ -50,19 +50,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
-    <Compile Include="Entity.cs" />
+    <Compile Include="Result.cs" />
     <Compile Include="EntityHandler.cs" />
-    <Compile Include="MultipleEntityResults.cs" />
+    <Compile Include="MultipleResults.cs" />
     <Compile Include="IVirtualQ.cs" />
     <Compile Include="LineGroups\ILineGroupsHandler.cs" />
-    <Compile Include="LineGroups\LineGroup.cs" />
+    <Compile Include="LineGroups\LineGroupResult.cs" />
     <Compile Include="LineGroups\LineGroupAttributes.cs" />
     <Compile Include="LineGroups\LineGroupsHandler.cs" />
     <Compile Include="Lines\ILinesHandler.cs" />
     <Compile Include="Lines\Line.cs" />
     <Compile Include="Lines\LineAttributes.cs" />
     <Compile Include="Lines\LinesHandler.cs" />
-    <Compile Include="SingleEntityResult.cs" />
+    <Compile Include="SingleResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VirtualQ.cs" />
     <Compile Include="VirtualQException.cs" />
@@ -72,7 +72,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Waiter\" />
+    <Folder Include="Caller\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
