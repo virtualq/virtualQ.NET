@@ -20,6 +20,7 @@ namespace VirtualQNet.Lines
             }
             catch (Exception exception)
             {
+                // TODO: Properly handle server errors
                 throw new VirtualQException(exception.Message);
             }
         }

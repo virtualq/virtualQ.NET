@@ -2,7 +2,7 @@
 
 namespace VirtualQNet
 {
-    internal class SingleEntityResult<T>
+    internal class SingleResult<T>
     {
         [JsonProperty("data")]
         public T Data { get; set; }

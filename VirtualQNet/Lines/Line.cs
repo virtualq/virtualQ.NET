@@ -1,4 +1,4 @@
 ﻿namespace VirtualQNet.Lines
 {
-    public class Line: Entity<LineAttributes> { }
+    public class Line: Result<LineAttributes> { }
 }
