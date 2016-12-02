@@ -1,4 +1,6 @@
-﻿namespace VirtualQNet.LineGroups
+﻿using VirtualQNet.Results;
+
+namespace VirtualQNet.LineGroups
 {
-    public class LineGroupResult : Result<LineGroupAttributes> { }
+    internal class LineGroupResult : ApiResult<LineGroupAttributes> { }
 }

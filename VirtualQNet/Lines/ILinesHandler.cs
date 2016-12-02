@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using VirtualQNet.Results;
 
 namespace VirtualQNet.Lines
 {
     public interface ILinesHandler
     {
-        Task<bool> IsVirtualQActive(long lineId);
+        Task<Result<bool>> IsVirtualQActive(long lineId);
     }
 }
