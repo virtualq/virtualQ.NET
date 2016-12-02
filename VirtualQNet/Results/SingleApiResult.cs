@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace VirtualQNet
+namespace VirtualQNet.Results
 {
-    internal class SingleResult<T>
+    internal class SingleApiResult<T>
     {
         [JsonProperty("data")]
         public T Data { get; set; }

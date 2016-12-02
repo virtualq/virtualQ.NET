@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using VirtualQNet.Results;
 
 namespace VirtualQNet.LineGroups
 {
     public interface ILineGroupsHandler
     {
-        Task UpdateLineGroup(long lineGroupId, LineGroupAttributes attributes);
+        Task<Result> UpdateLineGroup(long lineGroupId, LineGroupAttributes attributes);
     }
 }

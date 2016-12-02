@@ -1,4 +1,6 @@
-﻿namespace VirtualQNet.Lines
+﻿using VirtualQNet.Results;
+
+namespace VirtualQNet.Lines
 {
-    public class LineResult: Result<LineAttributes> { }
+    internal class LineResult: ApiResult<LineAttributes> { }
 }

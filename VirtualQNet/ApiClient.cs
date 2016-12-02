@@ -1,35 +1,34 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using VirtualQNet.Results;
 
 namespace VirtualQNet
 {
     internal class ApiClient: IDisposable
     {
-        public ApiClient(string apiKey) : this(apiKey, null) { }
-
-        public ApiClient(string apiKey, IWebProxy proxy)
+        public ApiClient(string apiKey) : this(apiKey, null, null) { }
+        public ApiClient(string apiKey, IWebProxy proxy) : this(apiKey, proxy, null) { }
+        public ApiClient(string apiKey, IWebProxy proxy, Uri apiUri)
         {
             _ApiKey = apiKey;
-            _Client = SetUpClient(proxy);
+            _Client = SetUpClient(proxy, apiUri);
         }
 
         private string _ApiKey { get; }
         private HttpClient _Client { get; }
 
-        private HttpClient SetUpClient(IWebProxy proxy) {
-            // TODO: Get address from config file, otherwise fallback to hard-coded production address.
-            const string BASE_ADDRESS = "http://staging-api.virtualq.io/api/v2";
-            //const string BASE_ADDRESS = "https://api.virtualq.io/api/v2";
-
+        private HttpClient SetUpClient(IWebProxy proxy, Uri apiUri) {
+            const string BASE_ADDRESS = "https://api.virtualq.io/api/v2";
             const bool DISPOSE_HANDLER = true;
 
             HttpClient client = proxy == null
                 ? new HttpClient()
                 : new HttpClient(SetUpClientHandler(proxy), DISPOSE_HANDLER);
-            client.BaseAddress = new Uri(BASE_ADDRESS);
+            client.BaseAddress = apiUri ?? new Uri(BASE_ADDRESS);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("X-Api-Key", _ApiKey);
@@ -44,46 +43,113 @@ namespace VirtualQNet
                 UseProxy = true
             };
 
-        public async Task<T> Get<T>(string path)
+        private async Task<CallResult> HandleResponse(HttpResponseMessage response)
         {
-            HttpResponseMessage response = await _Client.GetAsync(path);
-            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+                return new CallResult { RequestWasSuccessful = true };
 
-            return await response.Content.ReadAsAsync<T>();
+            MultipleApiErrorResults errorResults = await response.Content
+                .ReadAsAsync<MultipleApiErrorResults>();
+            string errorMessage = errorResults.Errors.FirstOrDefault()?.Detail ?? string.Empty;
+
+            return new CallResult { RequestWasSuccessful = false, Error = errorMessage };
         }
 
-        public async Task Post<T>(string path, T model)
+        private async Task<CallResult<T>> HandleResponse<T>(HttpResponseMessage response)
         {
-            HttpResponseMessage response = await _Client.PostAsJsonAsync<T>(path, model);
-            response.EnsureSuccessStatusCode();
+            CallResult callResult = await HandleResponse(response);
+            CallResult<T> result = new CallResult<T>
+            {
+                RequestWasSuccessful = callResult.RequestWasSuccessful,
+                Error = callResult.Error
+            };
+
+            if (callResult.RequestWasSuccessful)
+            {
+                T value = await response.Content.ReadAsAsync<T>();
+                result.Value = value;
+            }
+
+            return result;
         }
 
-        public async Task<U> Post<T, U>(string path, T model)
-        {
-            HttpResponseMessage response = await _Client.PostAsJsonAsync<T>(path, model);
-            response.EnsureSuccessStatusCode();
+        private CallResult HandleException(Exception exception) =>
+            new CallResult
+            {
+                RequestWasSuccessful = false,
+                Error = exception.Message
+            };
 
-            return await response.Content.ReadAsAsync<U>();
+        public async Task<CallResult<T>> Get<T>(string path)
+        {
+            try
+            {
+                return await HandleResponse<T>(await _Client.GetAsync(path));
+            }
+            catch (Exception exception)
+            {
+                return HandleException(exception) as CallResult<T>;
+            }
         }
 
-        public async Task Put<T>(string path, T model)
+        public async Task<CallResult> Post<T>(string path, T model)
         {
-            HttpResponseMessage response = await _Client.PutAsJsonAsync<T>(path, model);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                return await HandleResponse(await _Client.PostAsJsonAsync(path, model));
+            }
+            catch (Exception exception)
+            {
+                return HandleException(exception);
+            }
         }
 
-        public async Task<U> Put<T, U>(string path, T model)
+        public async Task<CallResult<U>> Post<T, U>(string path, T model)
         {
-            HttpResponseMessage response = await _Client.PutAsJsonAsync<T>(path, model);
-            response.EnsureSuccessStatusCode();
-
-            return await response.Content.ReadAsAsync<U>();
+            try
+            {
+                return await HandleResponse<U>(await _Client.PostAsJsonAsync(path, model));
+            }
+            catch (Exception exception)
+            {
+                return HandleException(exception) as CallResult<U>;
+            }
         }
 
-        public async Task Delete(string path, long id)
+        public async Task<CallResult> Put<T>(string path, T model)
         {
-            HttpResponseMessage response = await _Client.DeleteAsync(path);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                return await HandleResponse(await _Client.PutAsJsonAsync(path, model));
+            }
+            catch (Exception exception)
+            {
+                return HandleException(exception);
+            }
+        }
+
+        public async Task<CallResult<U>> Put<T, U>(string path, T model)
+        {
+            try
+            {
+                return await HandleResponse<U>(await _Client.PutAsJsonAsync(path, model));
+            }
+            catch (Exception exception)
+            {
+                return HandleException(exception) as CallResult<U>;
+            }
+        }
+
+        public async Task<CallResult> Delete(string path, long id)
+        {
+            try
+            {
+                return await HandleResponse(await _Client.DeleteAsync(path));
+            }
+            catch (Exception exception)
+            {
+                return HandleException(exception);
+            }
         }
 
         #region IDisposable Support

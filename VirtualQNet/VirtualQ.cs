@@ -7,11 +7,11 @@ namespace VirtualQNet
 {
     public class VirtualQ: IDisposable, IVirtualQ
     {
-        public VirtualQ(string apiKey) : this(apiKey, null) { }
-
-        public VirtualQ(string apiKey, IWebProxy proxyConfiguration)
+        public VirtualQ(string apiKey) : this(apiKey, null, null) { }
+        public VirtualQ(string apiKey, IWebProxy proxyConfiguration): this(apiKey, proxyConfiguration, null) { }
+        public VirtualQ(string apiKey, IWebProxy proxyConfiguration, Uri apiUri)
         {
-            _ApiClient = new ApiClient(apiKey, proxyConfiguration);
+            _ApiClient = new ApiClient(apiKey, proxyConfiguration, apiUri);
 
             Lines = new LinesHandler(_ApiClient);
             LineGroups = new LineGroupsHandler(_ApiClient);

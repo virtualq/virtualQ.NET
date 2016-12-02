@@ -50,9 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
-    <Compile Include="Result.cs" />
+    <Compile Include="Results\ApiErrorResult.cs" />
+    <Compile Include="Results\ApiResult.cs" />
     <Compile Include="EntityHandler.cs" />
-    <Compile Include="MultipleResults.cs" />
+    <Compile Include="Results\CallResult.cs" />
+    <Compile Include="Results\MultipleApiErrorResults.cs" />
+    <Compile Include="Results\MultipleApiResults.cs" />
     <Compile Include="IVirtualQ.cs" />
     <Compile Include="LineGroups\ILineGroupsHandler.cs" />
     <Compile Include="LineGroups\LineGroupResult.cs" />
@@ -62,7 +65,8 @@
     <Compile Include="Lines\LineResult.cs" />
     <Compile Include="Lines\LineAttributes.cs" />
     <Compile Include="Lines\LinesHandler.cs" />
-    <Compile Include="SingleResult.cs" />
+    <Compile Include="Results\Result.cs" />
+    <Compile Include="Results\SingleApiResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VirtualQ.cs" />
     <Compile Include="VirtualQException.cs" />
