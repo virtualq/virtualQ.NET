@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
     <Compile Include="Caller\CallerAttributes.cs" />
-    <Compile Include="Caller\CallerHandler.cs" />
+    <Compile Include="Caller\CallersHandler.cs" />
     <Compile Include="Caller\CallerResult.cs" />
     <Compile Include="Caller\CallerParameters.cs" />
     <Compile Include="Caller\ICallerHandler.cs" />

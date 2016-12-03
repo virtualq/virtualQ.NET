@@ -19,15 +19,22 @@ namespace VirtualQNet
         private HttpClient _Client { get; }
 
         private HttpClient SetUpClient(string apiKey, VirtualQClientConfiguration configuration) {
-            const string BASE_ADDRESS = "https://api.virtualq.io/api/v2";
+            const string DEFAULT_BASE_ADDRESS = "https://api.virtualq.io";
+            const string API_ROUTE = "api/v2";
             const bool DISPOSE_HANDLER = true;
 
             HttpClient client = configuration?.ProxyConfiguration == null
                 ? new HttpClient()
                 : new HttpClient(SetUpClientHandlerForProxy(configuration.ProxyConfiguration), DISPOSE_HANDLER);
 
-            client.Timeout = configuration?.Timeout ?? new TimeSpan();
-            client.BaseAddress = configuration?.ApiUri ?? new Uri(BASE_ADDRESS);
+            if (configuration?.Timeout != null) client.Timeout = configuration.Timeout;
+
+            string baseAddress = string.IsNullOrWhiteSpace(configuration?.ApiBaseAddress)
+                ? DEFAULT_BASE_ADDRESS
+                : configuration.ApiBaseAddress;
+            string apiAddress = $"{baseAddress}/{API_ROUTE}";
+            client.BaseAddress = new Uri(apiAddress);
+
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("X-Api-Key", apiKey);

@@ -4,9 +4,9 @@ using VirtualQNet.Results;
 
 namespace VirtualQNet.Caller
 {
-    internal class CallerHandler : EntityHandler, ICallerHandler
+    internal class CallersHandler : EntityHandler, ICallerHandler
     {
-        public CallerHandler(ApiClient apiClient) : base(apiClient) { }
+        public CallersHandler(ApiClient apiClient) : base(apiClient) { }
 
         private const string WAITERS_PATH = "waiters";
         public async Task<Result> LineUpCaller(LineUpCallerParameters attributes)
