@@ -50,6 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
+    <Compile Include="Caller\CallerAttributes.cs" />
+    <Compile Include="Caller\CallerHandler.cs" />
+    <Compile Include="Caller\CallerResult.cs" />
+    <Compile Include="Caller\CallerParameters.cs" />
+    <Compile Include="Caller\ICallerHandler.cs" />
+    <Compile Include="Caller\LineUpCallerParameters.cs" />
+    <Compile Include="Caller\NotifyCallerTransferredParameters.cs" />
+    <Compile Include="IVirtualQConfiguration.cs" />
+    <Compile Include="LineGroups\UpdateLineGroupAttributes.cs" />
     <Compile Include="Results\ApiErrorResult.cs" />
     <Compile Include="Results\ApiResult.cs" />
     <Compile Include="EntityHandler.cs" />
@@ -75,9 +84,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Caller\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

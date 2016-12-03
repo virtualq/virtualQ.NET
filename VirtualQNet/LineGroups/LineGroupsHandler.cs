@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using VirtualQNet.Results;
 
 namespace VirtualQNet.LineGroups
@@ -10,10 +9,22 @@ namespace VirtualQNet.LineGroups
 
         private const string LINE_GROUPS_PATH = "line_groups";
 
-        public async Task<Result> UpdateLineGroup(long lineGroupId, LineGroupAttributes attributes)
+        public async Task<Result> UpdateLineGroup(long lineGroupId, UpdateLineGroupAttributes attributes)
         {
-            CallResult callResult = await _ApiClient.Put($"{LINE_GROUPS_PATH}/{lineGroupId}", attributes);
-            return new Result(callResult.RequestWasSuccessful, callResult.Error);
+            string path = $"{LINE_GROUPS_PATH}/{lineGroupId}";
+            LineGroupAttributes lineGroupAttributes = new LineGroupAttributes
+            {
+                ServiceAgentsCount = attributes.ServiceAgentsCount,
+                ServiceAverageTalkTime = attributes.ServiceAverageTalkTime,
+                ServiceEwt = attributes.ServiceEwt,
+                ServiceOpen = attributes.ServiceOpen,
+                ServiceWaitersCount = attributes.ServiceWaitersCount,
+                ServiceAgentList = attributes.ServiceAgentList
+            };
+
+            CallResult callResult = await _ApiClient.Put(path, lineGroupAttributes);
+
+            return new Result(callResult.RequestWasSuccessful, callResult.ErrorDescription);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using VirtualQNet.LineGroups;
+﻿using VirtualQNet.Caller;
+using VirtualQNet.LineGroups;
 using VirtualQNet.Lines;
 
 namespace VirtualQNet
@@ -7,5 +8,6 @@ namespace VirtualQNet
     {
         ILinesHandler Lines { get; }
         ILineGroupsHandler LineGroups { get; }
+        ICallerHandler Callers { get; }
     }
 }

@@ -10,33 +10,32 @@ namespace VirtualQNet
 {
     internal class ApiClient: IDisposable
     {
-        public ApiClient(string apiKey) : this(apiKey, null, null) { }
-        public ApiClient(string apiKey, IWebProxy proxy) : this(apiKey, proxy, null) { }
-        public ApiClient(string apiKey, IWebProxy proxy, Uri apiUri)
+        public ApiClient(string apiKey) : this(apiKey, null) { }
+        public ApiClient(string apiKey, IVirtualQClientConfiguration configuration)
         {
-            _ApiKey = apiKey;
-            _Client = SetUpClient(proxy, apiUri);
+            _Client = SetUpClient(apiKey, configuration);
         }
 
-        private string _ApiKey { get; }
         private HttpClient _Client { get; }
 
-        private HttpClient SetUpClient(IWebProxy proxy, Uri apiUri) {
+        private HttpClient SetUpClient(string apiKey, IVirtualQClientConfiguration configuration) {
             const string BASE_ADDRESS = "https://api.virtualq.io/api/v2";
             const bool DISPOSE_HANDLER = true;
 
-            HttpClient client = proxy == null
+            HttpClient client = configuration?.ProxyConfiguration == null
                 ? new HttpClient()
-                : new HttpClient(SetUpClientHandler(proxy), DISPOSE_HANDLER);
-            client.BaseAddress = apiUri ?? new Uri(BASE_ADDRESS);
+                : new HttpClient(SetUpClientHandlerForProxy(configuration.ProxyConfiguration), DISPOSE_HANDLER);
+
+            client.Timeout = configuration?.Timeout ?? new TimeSpan();
+            client.BaseAddress = configuration?.ApiUri ?? new Uri(BASE_ADDRESS);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("X-Api-Key", _ApiKey);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("X-Api-Key", apiKey);
 
             return client;
         }
 
-        private HttpClientHandler SetUpClientHandler(IWebProxy proxy) =>
+        private HttpClientHandler SetUpClientHandlerForProxy(IWebProxy proxy) =>
             new HttpClientHandler
             {
                 Proxy = proxy,
@@ -50,9 +49,16 @@ namespace VirtualQNet
 
             MultipleApiErrorResults errorResults = await response.Content
                 .ReadAsAsync<MultipleApiErrorResults>();
-            string errorMessage = errorResults.Errors.FirstOrDefault()?.Detail ?? string.Empty;
+            var error = errorResults.Errors.FirstOrDefault();
+            string errorMessage = error?.Detail ?? string.Empty;
+            int errorStatus = error?.Status ?? 0;
 
-            return new CallResult { RequestWasSuccessful = false, Error = errorMessage };
+            return new CallResult
+            {
+                RequestWasSuccessful = false,
+                ErrorStatus = errorStatus,
+                ErrorDescription = errorMessage
+            };
         }
 
         private async Task<CallResult<T>> HandleResponse<T>(HttpResponseMessage response)
@@ -61,7 +67,7 @@ namespace VirtualQNet
             CallResult<T> result = new CallResult<T>
             {
                 RequestWasSuccessful = callResult.RequestWasSuccessful,
-                Error = callResult.Error
+                ErrorDescription = callResult.ErrorDescription
             };
 
             if (callResult.RequestWasSuccessful)
@@ -77,7 +83,7 @@ namespace VirtualQNet
             new CallResult
             {
                 RequestWasSuccessful = false,
-                Error = exception.Message
+                ErrorDescription = exception.Message
             };
 
         public async Task<CallResult<T>> Get<T>(string path)

@@ -2,9 +2,8 @@
 
 namespace VirtualQNet.Lines
 {
-    public class LineAttributes
+    internal class LineAttributes
     {
-        // TODO: Mark all json properties as optional.
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -12,7 +11,7 @@ namespace VirtualQNet.Lines
         public string Category { get; set; }
 
         [JsonProperty("direct")]
-        public bool Direct { get; set; }
+        public bool? Direct { get; set; }
 
         [JsonProperty("fast-dial-description")]
         public string FastDialDescription { get; set; }
@@ -27,7 +26,7 @@ namespace VirtualQNet.Lines
         public string PrivateLinesKey { get; set; }
 
         [JsonProperty("ratings-average")]
-        public double RatingsAverage { get; set; }
+        public double? RatingsAverage { get; set; }
 
         [JsonProperty("service-phone-number")]
         public string ServicePhoneNumber { get; set; }
@@ -51,24 +50,24 @@ namespace VirtualQNet.Lines
     public class LineGroup
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("allow_callback")]
-        public bool AllowCallback { get; set; }
+        public bool? AllowCallback { get; set; }
 
         [JsonProperty("allow_sms")]
-        public bool AllowSms { get; set; }
+        public bool? AllowSms { get; set; }
 
         [JsonProperty("service_waiters_count")]
-        public int ServiceCallersCount { get; set; }
+        public int? ServiceCallersCount { get; set; }
 
         [JsonProperty("virtualq_ewt")]
-        public int VirtualQEwt { get; set; }
+        public int? VirtualQEwt { get; set; }
 
         [JsonProperty("virtualq_waiters_count")]
-        public int VirtualQCallersCount { get; set; }
+        public int? VirtualQCallersCount { get; set; }
     }
 }

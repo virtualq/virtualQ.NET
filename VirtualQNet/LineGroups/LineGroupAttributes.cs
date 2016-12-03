@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace VirtualQNet.LineGroups
 {
-    public class LineGroupAttributes
+    internal class LineGroupAttributes
     {
-        // TODO: Mark all json properties as optional.
         [JsonProperty("service_agents_count")]
         public int? ServiceAgentsCount { get; set; }
 
