@@ -8,7 +8,7 @@ namespace VirtualQNet
     public class VirtualQ: IDisposable, IVirtualQ
     {
         public VirtualQ(string apiKey) : this(apiKey, null) { }
-        public VirtualQ(string apiKey, IVirtualQClientConfiguration configuration)
+        public VirtualQ(string apiKey, VirtualQClientConfiguration configuration)
         {
             if (string.IsNullOrWhiteSpace(apiKey))
                 throw new ArgumentNullException(nameof(apiKey));

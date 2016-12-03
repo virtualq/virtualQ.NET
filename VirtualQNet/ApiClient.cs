@@ -11,14 +11,14 @@ namespace VirtualQNet
     internal class ApiClient: IDisposable
     {
         public ApiClient(string apiKey) : this(apiKey, null) { }
-        public ApiClient(string apiKey, IVirtualQClientConfiguration configuration)
+        public ApiClient(string apiKey, VirtualQClientConfiguration configuration)
         {
             _Client = SetUpClient(apiKey, configuration);
         }
 
         private HttpClient _Client { get; }
 
-        private HttpClient SetUpClient(string apiKey, IVirtualQClientConfiguration configuration) {
+        private HttpClient SetUpClient(string apiKey, VirtualQClientConfiguration configuration) {
             const string BASE_ADDRESS = "https://api.virtualq.io/api/v2";
             const bool DISPOSE_HANDLER = true;
 
