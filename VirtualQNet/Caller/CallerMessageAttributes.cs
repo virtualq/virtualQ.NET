@@ -2,7 +2,7 @@
 
 namespace VirtualQNet.Caller
 {
-    internal class CallerAttributes
+    internal class CallerMessageAttributes
     {
         [JsonProperty("line_id", NullValueHandling = NullValueHandling.Ignore)]
         public long? LineId { get; set; }

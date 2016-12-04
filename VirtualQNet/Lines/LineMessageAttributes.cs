@@ -2,7 +2,7 @@
 
 namespace VirtualQNet.Lines
 {
-    internal class LineAttributes
+    internal class LineMessageAttributes
     {
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }

@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
-    <Compile Include="Caller\CallerAttributes.cs" />
+    <Compile Include="Caller\CallerMessageAttributes.cs" />
     <Compile Include="Caller\CallersHandler.cs" />
     <Compile Include="Caller\CallerMessage.cs" />
     <Compile Include="Caller\CallerParameters.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="LineGroups\LineGroupsHandler.cs" />
     <Compile Include="Lines\ILinesHandler.cs" />
     <Compile Include="Lines\LineMessage.cs" />
-    <Compile Include="Lines\LineAttributes.cs" />
+    <Compile Include="Lines\LineMessageAttributes.cs" />
     <Compile Include="Lines\LinesHandler.cs" />
     <Compile Include="Results\Result.cs" />
     <Compile Include="Messages\SingleApiMessage.cs" />

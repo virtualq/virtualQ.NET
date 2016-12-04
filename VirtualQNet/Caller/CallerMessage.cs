@@ -2,5 +2,5 @@
 
 namespace VirtualQNet.Caller
 {
-    internal class CallerMessage : ApiMessage<CallerAttributes> { }
+    internal class CallerMessage : ApiMessage<CallerMessageAttributes> { }
 }

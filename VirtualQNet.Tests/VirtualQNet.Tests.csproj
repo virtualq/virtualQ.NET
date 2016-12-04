@@ -57,9 +57,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CallersHandlerTest.cs" />
+    <Compile Include="CallersHandlerTests.cs" />
     <Compile Include="ConfigurationHelper.cs" />
-    <Compile Include="LineGroupsHandlerTest.cs" />
+    <Compile Include="LineGroupsHandlerTests.cs" />
     <Compile Include="LinesHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,7 +70,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

@@ -18,7 +18,7 @@ namespace VirtualQNet.Caller
             if (string.IsNullOrWhiteSpace(attributes.Source))
                 throw new ArgumentException(nameof(attributes.Source));
 
-            CallerAttributes callerAttributes = new CallerAttributes
+            CallerMessageAttributes callerAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -38,7 +38,7 @@ namespace VirtualQNet.Caller
                 throw new ArgumentException(nameof(attributes.Phone));
 
             const string SERVICE_WAITER_SATE_CONNECT = "Connect";
-            CallerAttributes calleAttributes = new CallerAttributes
+            CallerMessageAttributes calleAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -57,7 +57,7 @@ namespace VirtualQNet.Caller
                 throw new ArgumentException(nameof(attributes.Phone));
 
             string path = $"{WAITERS_PATH}/0";
-            CallerAttributes callerAttributes = new CallerAttributes
+            CallerMessageAttributes callerAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,

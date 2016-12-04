@@ -18,7 +18,7 @@ namespace VirtualQNet.LineGroups
         public bool? ServiceOpen { get; set; }
 
         [JsonProperty("service_waiters_count", NullValueHandling = NullValueHandling.Ignore)]
-        public int? ServiceWaitersCount { get; set; }
+        public int? ServiceCallersCount { get; set; }
 
         [JsonProperty("service_agent_list", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> ServiceAgentList { get; set; }

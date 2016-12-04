@@ -25,7 +25,7 @@ namespace VirtualQNet.LineGroups
                         ServiceAverageTalkTime = attributes.ServiceAverageTalkTime,
                         ServiceEwt = attributes.ServiceEwt,
                         ServiceOpen = attributes.ServiceOpen,
-                        ServiceWaitersCount = attributes.ServiceWaitersCount,
+                        ServiceCallersCount = attributes.ServiceCallersCount,
                         ServiceAgentList = attributes.ServiceAgentList
                     }
                 }

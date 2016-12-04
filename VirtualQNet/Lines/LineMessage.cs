@@ -2,5 +2,5 @@
 
 namespace VirtualQNet.Lines
 {
-    internal class LineMessage: ApiMessage<LineAttributes> { }
+    internal class LineMessage: ApiMessage<LineMessageAttributes> { }
 }

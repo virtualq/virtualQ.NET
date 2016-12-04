@@ -5,7 +5,7 @@ using VirtualQNet.Results;
 namespace VirtualQNet.Tests
 {
     [TestClass]
-    public class LineGroupsHandlerTest
+    public class LineGroupsHandlerTests
     {
         [TestMethod]
         public void UpdateLinegroup_ValidGroupId_ExpectSuccess()
@@ -23,7 +23,7 @@ namespace VirtualQNet.Tests
                 {
                     ServiceAgentsCount = 60,
                     ServiceEwt = 70,
-                    ServiceWaitersCount = 120,
+                    ServiceCallersCount = 120,
 
                 };
 
