@@ -17,10 +17,15 @@ namespace VirtualQNet.Lines
 
             CallResult<LineMessage> callResult = await _ApiClient.Get<LineMessage>(path);
 
+            bool value = callResult.RequestWasSuccessful 
+                && callResult.Value.Attributes.VirtualQLineState.Equals(
+                    STATUS_LINE_ACTIVE,
+                    StringComparison.InvariantCultureIgnoreCase);
+
             return new Result<bool>(
                 callResult.RequestWasSuccessful,
                 CreateErrorResult(callResult),
-                callResult.Value.Attributes.VirtualQLineState.Equals(STATUS_LINE_ACTIVE, StringComparison.InvariantCultureIgnoreCase));
+                value);
         }
     }
 }

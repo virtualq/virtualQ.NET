@@ -8,7 +8,7 @@ namespace VirtualQNet.Tests
     public class LineGroupsHandlerTest
     {
         [TestMethod]
-        public void UpdateLinegroup_SendValidGroupId_ExpectSuccess()
+        public void UpdateLinegroup_ValidGroupId_ExpectSuccess()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
             VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
@@ -18,11 +18,13 @@ namespace VirtualQNet.Tests
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                long lineGroupIdToUpdate = 192;
+                long lineGroupIdToUpdate = 185;
                 UpdateLineGroupAttributes attributes = new UpdateLineGroupAttributes
                 {
                     ServiceAgentsCount = 60,
-                    ServiceEwt = 70
+                    ServiceEwt = 70,
+                    ServiceWaitersCount = 120,
+
                 };
 
                 Result result = client.LineGroups.UpdateLineGroup(lineGroupIdToUpdate, attributes).Result;
@@ -32,7 +34,7 @@ namespace VirtualQNet.Tests
         }
 
         [TestMethod]
-        public void UpdateLinegroup_SendInvalidGroupId_ExpectFailure()
+        public void UpdateLinegroup_InvalidGroupId_ExpectFailure()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
             VirtualQClientConfiguration configuration = new VirtualQClientConfiguration

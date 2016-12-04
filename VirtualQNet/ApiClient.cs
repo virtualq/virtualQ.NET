@@ -107,6 +107,13 @@ namespace VirtualQNet
                 ErrorDescription = exception.Message
             };
 
+        private CallResult<T> HandleException<T>(Exception exception) =>
+            new CallResult<T>
+            {
+                RequestWasSuccessful = false,
+                ErrorDescription = exception.Message
+            };
+
         private StringContent CreateContent<T>(T model) =>
             new StringContent(
                     JsonConvert.SerializeObject(model),
@@ -124,7 +131,7 @@ namespace VirtualQNet
             }
             catch (Exception exception)
             {
-                return HandleException(exception) as CallResult<T>;
+                return HandleException<T>(exception);
             }
         }
 
@@ -148,7 +155,7 @@ namespace VirtualQNet
             }
             catch (Exception exception)
             {
-                return HandleException(exception) as CallResult<U>;
+                return HandleException<U>(exception);
             }
         }
 
@@ -172,7 +179,7 @@ namespace VirtualQNet
             }
             catch (Exception exception)
             {
-                return HandleException(exception) as CallResult<U>;
+                return HandleException<U>(exception);
             }
         }
 
