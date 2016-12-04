@@ -80,7 +80,7 @@ namespace VirtualQNet.Caller
                 + $"&prone={attributes.Phone}"
                 + $"&line_id={attributes.LineId}";
 
-            CallResult<CallerResult> callResult = await _ApiClient.Get<CallerResult>(query);
+            CallResult<CallerMessage> callResult = await _ApiClient.Get<CallerMessage>(query);
 
             bool callerNotFound = callResult.ErrorStatus == ERROR_STATUS_NOT_FOUND;
             if (callerNotFound)
