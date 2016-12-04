@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using VirtualQNet.Messages;
 using VirtualQNet.Results;
 
 namespace VirtualQNet
@@ -16,28 +20,27 @@ namespace VirtualQNet
             _Client = SetUpClient(apiKey, configuration);
         }
 
+        private const string MEDIA_TYPE = "application/vnd.api+json";
+
         private HttpClient _Client { get; }
 
         private HttpClient SetUpClient(string apiKey, VirtualQClientConfiguration configuration) {
             const string DEFAULT_BASE_ADDRESS = "https://api.virtualq.io";
-            const string API_ROUTE = "api/v2";
             const bool DISPOSE_HANDLER = true;
 
             HttpClient client = configuration?.ProxyConfiguration == null
                 ? new HttpClient()
                 : new HttpClient(SetUpClientHandlerForProxy(configuration.ProxyConfiguration), DISPOSE_HANDLER);
 
-            if (configuration?.Timeout != null) client.Timeout = configuration.Timeout;
+            if (configuration?.Timeout != null) client.Timeout = configuration.Timeout.Value;
 
             string baseAddress = string.IsNullOrWhiteSpace(configuration?.ApiBaseAddress)
                 ? DEFAULT_BASE_ADDRESS
                 : configuration.ApiBaseAddress;
-            string apiAddress = $"{baseAddress}/{API_ROUTE}";
-            client.BaseAddress = new Uri(apiAddress);
+            client.BaseAddress = new Uri(baseAddress);
 
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("X-Api-Key", apiKey);
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
 
             return client;
         }
@@ -54,17 +57,28 @@ namespace VirtualQNet
             if (response.IsSuccessStatusCode)
                 return new CallResult { RequestWasSuccessful = true };
 
-            MultipleApiErrorResults errorResults = await response.Content
-                .ReadAsAsync<MultipleApiErrorResults>();
+            bool isNotJsonContent = !response.Content.Headers.ContentType.MediaType.ToLower().Contains("json");
+            if (isNotJsonContent)
+                response.EnsureSuccessStatusCode();
+
+            JsonMediaTypeFormatter typeFormatter = new JsonMediaTypeFormatter();
+            typeFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue(MEDIA_TYPE));
+            MultipleApiErrorMessage errorResults = await response.Content
+                .ReadAsAsync<MultipleApiErrorMessage>(new[] { typeFormatter });
             var error = errorResults.Errors.FirstOrDefault();
-            string errorMessage = error?.Detail ?? string.Empty;
+
             int errorStatus = error?.Status ?? 0;
+            string errorMessage = error?.Detail ?? string.Empty;
+            string errorCode = error?.Code ?? string.Empty;
+            string errorTitle = error?.Title ?? string.Empty;
 
             return new CallResult
             {
                 RequestWasSuccessful = false,
                 ErrorStatus = errorStatus,
-                ErrorDescription = errorMessage
+                ErrorCode = errorCode,
+                ErrorDescription = errorMessage,
+                ErrorTitle = errorTitle
             };
         }
 
@@ -93,11 +107,20 @@ namespace VirtualQNet
                 ErrorDescription = exception.Message
             };
 
+        private StringContent CreateContent<T>(T model) =>
+            new StringContent(
+                    JsonConvert.SerializeObject(model),
+                    Encoding.UTF8,
+                    MEDIA_TYPE);
+
+        private const string API_ROUTE = "api/v2";
+        private string BuildApiPath(string path) => $"{API_ROUTE}/{path}";
+
         public async Task<CallResult<T>> Get<T>(string path)
         {
             try
             {
-                return await HandleResponse<T>(await _Client.GetAsync(path));
+                return await HandleResponse<T>(await _Client.GetAsync(BuildApiPath(path)));
             }
             catch (Exception exception)
             {
@@ -109,7 +132,7 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse(await _Client.PostAsJsonAsync(path, model));
+                return await HandleResponse(await _Client.PostAsync(BuildApiPath(path), CreateContent(model)));
             }
             catch (Exception exception)
             {
@@ -121,7 +144,7 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse<U>(await _Client.PostAsJsonAsync(path, model));
+                return await HandleResponse<U>(await _Client.PostAsync(BuildApiPath(path), CreateContent(model)));
             }
             catch (Exception exception)
             {
@@ -133,7 +156,7 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse(await _Client.PutAsJsonAsync(path, model));
+                return await HandleResponse(await _Client.PutAsync(BuildApiPath(path), CreateContent(model)));
             }
             catch (Exception exception)
             {
@@ -145,7 +168,7 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse<U>(await _Client.PutAsJsonAsync(path, model));
+                return await HandleResponse<U>(await _Client.PutAsJsonAsync(BuildApiPath(path), CreateContent(model)));
             }
             catch (Exception exception)
             {
@@ -157,7 +180,7 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse(await _Client.DeleteAsync(path));
+                return await HandleResponse(await _Client.DeleteAsync(BuildApiPath(path)));
             }
             catch (Exception exception)
             {

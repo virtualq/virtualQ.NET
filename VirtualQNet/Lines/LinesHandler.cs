@@ -15,11 +15,11 @@ namespace VirtualQNet.Lines
             const string STATUS_LINE_ACTIVE = "active";
             string path = $"{LINES_PATH}/{lineId}";
 
-            CallResult<LineResult> callResult = await _ApiClient.Get<LineResult>(path);
+            CallResult<LineMessage> callResult = await _ApiClient.Get<LineMessage>(path);
 
             return new Result<bool>(
                 callResult.RequestWasSuccessful,
-                callResult.ErrorDescription,
+                CreateErrorResult(callResult),
                 callResult.Value.Attributes.VirtualQLineState.Equals(STATUS_LINE_ACTIVE, StringComparison.InvariantCultureIgnoreCase));
         }
     }

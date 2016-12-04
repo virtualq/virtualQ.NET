@@ -29,7 +29,7 @@ namespace VirtualQNet.Caller
 
             CallResult callResult = await _ApiClient.Post(WAITERS_PATH, callerAttributes);
 
-            return new Result(callResult.RequestWasSuccessful, callResult.ErrorDescription);
+            return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
 
         public async Task<Result> NotifyCallerConnected(CallerParameters attributes)
@@ -48,7 +48,7 @@ namespace VirtualQNet.Caller
 
             CallResult callResult = await _ApiClient.Put(path, calleAttributes);
 
-            return new Result(callResult.RequestWasSuccessful, callResult.ErrorDescription);
+            return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
 
         public async Task<Result> NotifyCallerTransferred(NotifyCallerTransferredParameters attributes)
@@ -67,7 +67,7 @@ namespace VirtualQNet.Caller
 
             CallResult callResult = await _ApiClient.Put(path, callerAttributes);
 
-            return new Result(callResult.RequestWasSuccessful, callResult.ErrorDescription);
+            return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
 
         public async Task<Result<bool>> VerifyCaller(CallerParameters attributes)
@@ -84,11 +84,11 @@ namespace VirtualQNet.Caller
 
             bool callerNotFound = callResult.ErrorStatus == ERROR_STATUS_NOT_FOUND;
             if (callerNotFound)
-                return new Result<bool>(true, string.Empty, false);
+                return new Result<bool>(true, null, false);
             else
                 return new Result<bool>(
                     callResult.RequestWasSuccessful,
-                    callResult.ErrorDescription,
+                    CreateErrorResult(callResult),
                     callResult.Value == null ? false : callResult.Value.Id > 0);
         }
     }

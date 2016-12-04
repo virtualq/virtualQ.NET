@@ -5,7 +5,7 @@ namespace VirtualQNet
 {
     public class VirtualQClientConfiguration
     {
-        public TimeSpan Timeout { get; set; }
+        public TimeSpan? Timeout { get; set; }
         public WebProxy ProxyConfiguration { get; set; }
         public string ApiBaseAddress { get; set; }
     }

@@ -4,6 +4,8 @@
     {
         public bool RequestWasSuccessful { get; set; }
         public int ErrorStatus { get; set; }
+        public string ErrorCode { get; set; }
+        public string ErrorTitle { get; set; }
         public string ErrorDescription { get; set; }
     }
 

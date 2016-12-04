@@ -1,6 +1,6 @@
-﻿using VirtualQNet.Results;
+﻿using VirtualQNet.Messages;
 
 namespace VirtualQNet.Caller
 {
-    internal class CallerResult : ApiResult<CallerAttributes> { }
+    internal class CallerResult : ApiMessage<CallerAttributes> { }
 }

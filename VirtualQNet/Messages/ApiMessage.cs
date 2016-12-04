@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 
-namespace VirtualQNet.Results
+namespace VirtualQNet.Messages
 {
-    internal abstract class ApiResult<T>
+    internal abstract class ApiMessage<T>
     {
-        [JsonProperty("id")]
-        public long Id { get; set; }
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Id { get; set; }
 
         [JsonProperty("type")]
         public string Type { get; set; }
