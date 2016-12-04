@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace VirtualQNet.Results
+namespace VirtualQNet.Messages
 {
-    internal class ApiErrorResult
+    public class ApiErrorMessage
     {
         [JsonProperty("status")]
         public int Status { get; set; }

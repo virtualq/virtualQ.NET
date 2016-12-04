@@ -5,6 +5,6 @@ namespace VirtualQNet.LineGroups
 {
     public interface ILineGroupsHandler
     {
-        Task<Result> UpdateLineGroup(long lineGroupId, LineGroupAttributes attributes);
+        Task<Result> UpdateLineGroup(long lineGroupId, UpdateLineGroupAttributes attributes);
     }
 }

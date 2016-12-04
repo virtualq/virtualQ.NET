@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace VirtualQNet.Results
+namespace VirtualQNet.Messages
 {
-    internal class MultipleApiResults<T>
+    internal class MultipleApiMessages<T>
     {
         [JsonProperty("data")]
         public IEnumerable<T> Data { get; set; }

@@ -1,42 +1,51 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using VirtualQNet.Messages;
 using VirtualQNet.Results;
 
 namespace VirtualQNet
 {
     internal class ApiClient: IDisposable
     {
-        public ApiClient(string apiKey) : this(apiKey, null, null) { }
-        public ApiClient(string apiKey, IWebProxy proxy) : this(apiKey, proxy, null) { }
-        public ApiClient(string apiKey, IWebProxy proxy, Uri apiUri)
+        public ApiClient(string apiKey) : this(apiKey, null) { }
+        public ApiClient(string apiKey, VirtualQClientConfiguration configuration)
         {
-            _ApiKey = apiKey;
-            _Client = SetUpClient(proxy, apiUri);
+            _Client = SetUpClient(apiKey, configuration);
         }
 
-        private string _ApiKey { get; }
+        private const string MEDIA_TYPE = "application/vnd.api+json";
+
         private HttpClient _Client { get; }
 
-        private HttpClient SetUpClient(IWebProxy proxy, Uri apiUri) {
-            const string BASE_ADDRESS = "https://api.virtualq.io/api/v2";
+        private HttpClient SetUpClient(string apiKey, VirtualQClientConfiguration configuration) {
+            const string DEFAULT_BASE_ADDRESS = "https://api.virtualq.io";
             const bool DISPOSE_HANDLER = true;
 
-            HttpClient client = proxy == null
+            HttpClient client = configuration?.ProxyConfiguration == null
                 ? new HttpClient()
-                : new HttpClient(SetUpClientHandler(proxy), DISPOSE_HANDLER);
-            client.BaseAddress = apiUri ?? new Uri(BASE_ADDRESS);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("X-Api-Key", _ApiKey);
+                : new HttpClient(SetUpClientHandlerForProxy(configuration.ProxyConfiguration), DISPOSE_HANDLER);
+
+            if (configuration?.Timeout != null) client.Timeout = configuration.Timeout.Value;
+
+            string baseAddress = string.IsNullOrWhiteSpace(configuration?.ApiBaseAddress)
+                ? DEFAULT_BASE_ADDRESS
+                : configuration.ApiBaseAddress;
+            client.BaseAddress = new Uri(baseAddress);
+
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
 
             return client;
         }
 
-        private HttpClientHandler SetUpClientHandler(IWebProxy proxy) =>
+        private HttpClientHandler SetUpClientHandlerForProxy(IWebProxy proxy) =>
             new HttpClientHandler
             {
                 Proxy = proxy,
@@ -48,11 +57,29 @@ namespace VirtualQNet
             if (response.IsSuccessStatusCode)
                 return new CallResult { RequestWasSuccessful = true };
 
-            MultipleApiErrorResults errorResults = await response.Content
-                .ReadAsAsync<MultipleApiErrorResults>();
-            string errorMessage = errorResults.Errors.FirstOrDefault()?.Detail ?? string.Empty;
+            bool isNotJsonContent = !response.Content.Headers.ContentType.MediaType.ToLower().Contains("json");
+            if (isNotJsonContent)
+                response.EnsureSuccessStatusCode();
 
-            return new CallResult { RequestWasSuccessful = false, Error = errorMessage };
+            JsonMediaTypeFormatter typeFormatter = new JsonMediaTypeFormatter();
+            typeFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue(MEDIA_TYPE));
+            MultipleApiErrorMessage errorResults = await response.Content
+                .ReadAsAsync<MultipleApiErrorMessage>(new[] { typeFormatter });
+            var error = errorResults.Errors.FirstOrDefault();
+
+            int errorStatus = error?.Status ?? 0;
+            string errorMessage = error?.Detail ?? string.Empty;
+            string errorCode = error?.Code ?? string.Empty;
+            string errorTitle = error?.Title ?? string.Empty;
+
+            return new CallResult
+            {
+                RequestWasSuccessful = false,
+                ErrorStatus = errorStatus,
+                ErrorCode = errorCode,
+                ErrorDescription = errorMessage,
+                ErrorTitle = errorTitle
+            };
         }
 
         private async Task<CallResult<T>> HandleResponse<T>(HttpResponseMessage response)
@@ -61,7 +88,7 @@ namespace VirtualQNet
             CallResult<T> result = new CallResult<T>
             {
                 RequestWasSuccessful = callResult.RequestWasSuccessful,
-                Error = callResult.Error
+                ErrorDescription = callResult.ErrorDescription
             };
 
             if (callResult.RequestWasSuccessful)
@@ -77,18 +104,34 @@ namespace VirtualQNet
             new CallResult
             {
                 RequestWasSuccessful = false,
-                Error = exception.Message
+                ErrorDescription = exception.Message
             };
+
+        private CallResult<T> HandleException<T>(Exception exception) =>
+            new CallResult<T>
+            {
+                RequestWasSuccessful = false,
+                ErrorDescription = exception.Message
+            };
+
+        private StringContent CreateContent<T>(T model) =>
+            new StringContent(
+                    JsonConvert.SerializeObject(model),
+                    Encoding.UTF8,
+                    MEDIA_TYPE);
+
+        private const string API_ROUTE = "api/v2";
+        private string BuildApiPath(string path) => $"{API_ROUTE}/{path}";
 
         public async Task<CallResult<T>> Get<T>(string path)
         {
             try
             {
-                return await HandleResponse<T>(await _Client.GetAsync(path));
+                return await HandleResponse<T>(await _Client.GetAsync(BuildApiPath(path)));
             }
             catch (Exception exception)
             {
-                return HandleException(exception) as CallResult<T>;
+                return HandleException<T>(exception);
             }
         }
 
@@ -96,7 +139,7 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse(await _Client.PostAsJsonAsync(path, model));
+                return await HandleResponse(await _Client.PostAsync(BuildApiPath(path), CreateContent(model)));
             }
             catch (Exception exception)
             {
@@ -108,11 +151,11 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse<U>(await _Client.PostAsJsonAsync(path, model));
+                return await HandleResponse<U>(await _Client.PostAsync(BuildApiPath(path), CreateContent(model)));
             }
             catch (Exception exception)
             {
-                return HandleException(exception) as CallResult<U>;
+                return HandleException<U>(exception);
             }
         }
 
@@ -120,7 +163,7 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse(await _Client.PutAsJsonAsync(path, model));
+                return await HandleResponse(await _Client.PutAsync(BuildApiPath(path), CreateContent(model)));
             }
             catch (Exception exception)
             {
@@ -132,11 +175,11 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse<U>(await _Client.PutAsJsonAsync(path, model));
+                return await HandleResponse<U>(await _Client.PutAsJsonAsync(BuildApiPath(path), CreateContent(model)));
             }
             catch (Exception exception)
             {
-                return HandleException(exception) as CallResult<U>;
+                return HandleException<U>(exception);
             }
         }
 
@@ -144,7 +187,7 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse(await _Client.DeleteAsync(path));
+                return await HandleResponse(await _Client.DeleteAsync(BuildApiPath(path)));
             }
             catch (Exception exception)
             {

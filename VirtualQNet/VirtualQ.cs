@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using VirtualQNet.Caller;
 using VirtualQNet.LineGroups;
 using VirtualQNet.Lines;
 
@@ -7,11 +7,13 @@ namespace VirtualQNet
 {
     public class VirtualQ: IDisposable, IVirtualQ
     {
-        public VirtualQ(string apiKey) : this(apiKey, null, null) { }
-        public VirtualQ(string apiKey, IWebProxy proxyConfiguration): this(apiKey, proxyConfiguration, null) { }
-        public VirtualQ(string apiKey, IWebProxy proxyConfiguration, Uri apiUri)
+        public VirtualQ(string apiKey) : this(apiKey, null) { }
+        public VirtualQ(string apiKey, VirtualQClientConfiguration configuration)
         {
-            _ApiClient = new ApiClient(apiKey, proxyConfiguration, apiUri);
+            if (string.IsNullOrWhiteSpace(apiKey))
+                throw new ArgumentNullException(nameof(apiKey));
+
+            _ApiClient = new ApiClient(apiKey, configuration);
 
             Lines = new LinesHandler(_ApiClient);
             LineGroups = new LineGroupsHandler(_ApiClient);
@@ -21,6 +23,7 @@ namespace VirtualQNet
 
         public ILinesHandler Lines { get; }
         public ILineGroupsHandler LineGroups { get; }
+        public ICallerHandler Callers { get; }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls

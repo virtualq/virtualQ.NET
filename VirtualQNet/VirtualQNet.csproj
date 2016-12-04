@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
@@ -50,23 +51,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
-    <Compile Include="Results\ApiErrorResult.cs" />
-    <Compile Include="Results\ApiResult.cs" />
+    <Compile Include="Caller\CallerMessageAttributes.cs" />
+    <Compile Include="Caller\CallersHandler.cs" />
+    <Compile Include="Caller\CallerMessage.cs" />
+    <Compile Include="Caller\CallerParameters.cs" />
+    <Compile Include="Caller\ICallerHandler.cs" />
+    <Compile Include="Caller\LineUpCallerParameters.cs" />
+    <Compile Include="Caller\NotifyCallerTransferredParameters.cs" />
+    <Compile Include="Results\ErrorResult.cs" />
+    <Compile Include="VirtualQConfiguration.cs" />
+    <Compile Include="LineGroups\UpdateLineGroupAttributes.cs" />
+    <Compile Include="Messages\ApiErrorMessage.cs" />
+    <Compile Include="Messages\ApiMessage.cs" />
     <Compile Include="EntityHandler.cs" />
     <Compile Include="Results\CallResult.cs" />
-    <Compile Include="Results\MultipleApiErrorResults.cs" />
-    <Compile Include="Results\MultipleApiResults.cs" />
+    <Compile Include="Messages\MultipleApiErrorMessage.cs" />
+    <Compile Include="Messages\MultipleApiMessages.cs" />
     <Compile Include="IVirtualQ.cs" />
     <Compile Include="LineGroups\ILineGroupsHandler.cs" />
-    <Compile Include="LineGroups\LineGroupResult.cs" />
-    <Compile Include="LineGroups\LineGroupAttributes.cs" />
+    <Compile Include="LineGroups\LineGroupMessage.cs" />
+    <Compile Include="LineGroups\LineGroupMessageAttributes.cs" />
     <Compile Include="LineGroups\LineGroupsHandler.cs" />
     <Compile Include="Lines\ILinesHandler.cs" />
-    <Compile Include="Lines\LineResult.cs" />
-    <Compile Include="Lines\LineAttributes.cs" />
+    <Compile Include="Lines\LineMessage.cs" />
+    <Compile Include="Lines\LineMessageAttributes.cs" />
     <Compile Include="Lines\LinesHandler.cs" />
     <Compile Include="Results\Result.cs" />
-    <Compile Include="Results\SingleApiResult.cs" />
+    <Compile Include="Messages\SingleApiMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VirtualQ.cs" />
     <Compile Include="VirtualQException.cs" />
@@ -75,9 +86,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Caller\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

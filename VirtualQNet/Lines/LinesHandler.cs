@@ -13,12 +13,19 @@ namespace VirtualQNet.Lines
         public async Task<Result<bool>> IsVirtualQActive(long lineId)
         {
             const string STATUS_LINE_ACTIVE = "active";
+            string path = $"{LINES_PATH}/{lineId}";
 
-            CallResult<LineResult> callResult = await _ApiClient.Get<LineResult>($"{LINES_PATH}/{lineId}");
+            CallResult<LineMessage> callResult = await _ApiClient.Get<LineMessage>(path);
+
+            bool value = callResult.RequestWasSuccessful 
+                && callResult.Value.Attributes.VirtualQLineState.Equals(
+                    STATUS_LINE_ACTIVE,
+                    StringComparison.InvariantCultureIgnoreCase);
+
             return new Result<bool>(
                 callResult.RequestWasSuccessful,
-                callResult.Error,
-                callResult.Value.Attributes.VirtualQLineState.Equals(STATUS_LINE_ACTIVE, StringComparison.InvariantCultureIgnoreCase));
+                CreateErrorResult(callResult),
+                value);
         }
     }
 }
