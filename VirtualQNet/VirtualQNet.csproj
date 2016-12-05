@@ -60,7 +60,7 @@
     <Compile Include="Caller\NotifyCallerTransferredParameters.cs" />
     <Compile Include="Results\ErrorResult.cs" />
     <Compile Include="VirtualQConfiguration.cs" />
-    <Compile Include="LineGroups\UpdateLineGroupAttributes.cs" />
+    <Compile Include="LineGroups\UpdateLineGroupParameters.cs" />
     <Compile Include="Messages\ApiErrorMessage.cs" />
     <Compile Include="Messages\ApiMessage.cs" />
     <Compile Include="EntityHandler.cs" />
@@ -80,7 +80,6 @@
     <Compile Include="Messages\SingleApiMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VirtualQ.cs" />
-    <Compile Include="VirtualQException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

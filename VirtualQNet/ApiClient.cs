@@ -52,6 +52,14 @@ namespace VirtualQNet
                 UseProxy = true
             };
 
+        private JsonMediaTypeFormatter CreateCustomMediatypeFormatter()
+        {
+            JsonMediaTypeFormatter typeFormatter = new JsonMediaTypeFormatter();
+            typeFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue(MEDIA_TYPE));
+
+            return typeFormatter;
+        }
+
         private async Task<CallResult> HandleResponse(HttpResponseMessage response)
         {
             if (response.IsSuccessStatusCode)
@@ -61,10 +69,8 @@ namespace VirtualQNet
             if (isNotJsonContent)
                 response.EnsureSuccessStatusCode();
 
-            JsonMediaTypeFormatter typeFormatter = new JsonMediaTypeFormatter();
-            typeFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue(MEDIA_TYPE));
             MultipleApiErrorMessage errorResults = await response.Content
-                .ReadAsAsync<MultipleApiErrorMessage>(new[] { typeFormatter });
+                .ReadAsAsync<MultipleApiErrorMessage>(new[] { CreateCustomMediatypeFormatter() });
             var error = errorResults.Errors.FirstOrDefault();
 
             int errorStatus = error?.Status ?? 0;
@@ -88,12 +94,15 @@ namespace VirtualQNet
             CallResult<T> result = new CallResult<T>
             {
                 RequestWasSuccessful = callResult.RequestWasSuccessful,
-                ErrorDescription = callResult.ErrorDescription
+                ErrorStatus = callResult.ErrorStatus,
+                ErrorCode = callResult.ErrorCode,
+                ErrorDescription = callResult.ErrorDescription,
+                ErrorTitle = callResult.ErrorTitle
             };
 
             if (callResult.RequestWasSuccessful)
             {
-                T value = await response.Content.ReadAsAsync<T>();
+                T value = await response.Content.ReadAsAsync<T>(new[] { CreateCustomMediatypeFormatter() });
                 result.Value = value;
             }
 

@@ -11,26 +11,20 @@ namespace VirtualQNet.LineGroups
         private const string LINE_GROUPS_PATH = "line_groups";
         private const string MESSAGE_TYPE = "line_groups";
 
-        public async Task<Result> UpdateLineGroup(long lineGroupId, UpdateLineGroupAttributes attributes)
+        public async Task<Result> UpdateLineGroup(long lineGroupId, UpdateLineGroupParameters attributes)
         {
             string path = $"{LINE_GROUPS_PATH}/{lineGroupId}";
-            SingleApiMessage<LineGroupMessage> message = new SingleApiMessage<LineGroupMessage>
+            LineGroupMessageAttributes messageAttributes = new LineGroupMessageAttributes
             {
-                Data = new LineGroupMessage
-                {
-                    Type = MESSAGE_TYPE,
-                    Attributes = new LineGroupMessageAttributes
-                    {
-                        ServiceAgentsCount = attributes.ServiceAgentsCount,
-                        ServiceAverageTalkTime = attributes.ServiceAverageTalkTime,
-                        ServiceEwt = attributes.ServiceEwt,
-                        ServiceOpen = attributes.ServiceOpen,
-                        ServiceCallersCount = attributes.ServiceCallersCount,
-                        ServiceAgentList = attributes.ServiceAgentList
-                    }
-                }
+                ServiceAgentsCount = attributes.ServiceAgentsCount,
+                ServiceAverageTalkTime = attributes.ServiceAverageTalkTime,
+                ServiceEwt = attributes.ServiceEwt,
+                ServiceOpen = attributes.ServiceOpen,
+                ServiceCallersCount = attributes.ServiceCallersCount,
+                ServiceAgentList = attributes.ServiceAgentList
             };
 
+            SingleApiMessage<LineGroupMessage> message = CreateMessage<LineGroupMessage, LineGroupMessageAttributes>(MESSAGE_TYPE, messageAttributes);
             CallResult callResult = await _ApiClient.Put(path, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));

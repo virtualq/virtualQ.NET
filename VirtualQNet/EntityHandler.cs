@@ -1,4 +1,6 @@
-﻿using VirtualQNet.Results;
+﻿using System;
+using VirtualQNet.Messages;
+using VirtualQNet.Results;
 
 namespace VirtualQNet
 {
@@ -10,6 +12,16 @@ namespace VirtualQNet
         }
 
         protected ApiClient _ApiClient { get; }
+
+        protected SingleApiMessage<T> CreateMessage<T, U>(string type, U attributes, long? id = null) where T: ApiMessage<U>
+        {
+            T data = Activator.CreateInstance(typeof(T)) as T;
+            data.Id = id;
+            data.Type = type;
+            data.Attributes = attributes;
+
+            return new SingleApiMessage<T> { Data = data };
+        }
 
         protected ErrorResult CreateErrorResult(CallResult callResult)
         {

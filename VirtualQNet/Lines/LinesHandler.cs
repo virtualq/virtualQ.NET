@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using VirtualQNet.Messages;
 using VirtualQNet.Results;
 
 namespace VirtualQNet.Lines
@@ -15,10 +16,10 @@ namespace VirtualQNet.Lines
             const string STATUS_LINE_ACTIVE = "active";
             string path = $"{LINES_PATH}/{lineId}";
 
-            CallResult<LineMessage> callResult = await _ApiClient.Get<LineMessage>(path);
+            CallResult<SingleApiMessage<LineMessage>> callResult = await _ApiClient.Get<SingleApiMessage<LineMessage>>(path);
 
             bool value = callResult.RequestWasSuccessful 
-                && callResult.Value.Attributes.VirtualQLineState.Equals(
+                && callResult.Value.Data.Attributes.VirtualQLineState.Equals(
                     STATUS_LINE_ACTIVE,
                     StringComparison.InvariantCultureIgnoreCase);
 

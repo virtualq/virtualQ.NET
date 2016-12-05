@@ -2,7 +2,7 @@
 
 namespace VirtualQNet.LineGroups
 {
-    public class UpdateLineGroupAttributes
+    public class UpdateLineGroupParameters
     {
         public int? ServiceAgentsCount { get; set; }
         public int? ServiceAverageTalkTime { get; set; }
