@@ -19,12 +19,11 @@ namespace VirtualQNet.Tests
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
                 long lineGroupIdToUpdate = 185;
-                UpdateLineGroupAttributes attributes = new UpdateLineGroupAttributes
+                UpdateLineGroupParameters attributes = new UpdateLineGroupParameters
                 {
                     ServiceAgentsCount = 60,
                     ServiceEwt = 70,
-                    ServiceCallersCount = 120,
-
+                    ServiceCallersCount = 120
                 };
 
                 Result result = client.LineGroups.UpdateLineGroup(lineGroupIdToUpdate, attributes).Result;
@@ -45,7 +44,7 @@ namespace VirtualQNet.Tests
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
                 long lineGroupIdToUpdate = 1925;
-                UpdateLineGroupAttributes attributes = new UpdateLineGroupAttributes
+                UpdateLineGroupParameters attributes = new UpdateLineGroupParameters
                 {
                     ServiceAgentsCount = 60,
                     ServiceEwt = 70

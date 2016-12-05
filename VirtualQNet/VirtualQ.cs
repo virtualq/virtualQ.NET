@@ -17,6 +17,7 @@ namespace VirtualQNet
 
             Lines = new LinesHandler(_ApiClient);
             LineGroups = new LineGroupsHandler(_ApiClient);
+            Callers = new CallersHandler(_ApiClient);
         }
 
         private ApiClient _ApiClient { get; }

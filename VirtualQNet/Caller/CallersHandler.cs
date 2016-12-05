@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using VirtualQNet.Messages;
 using VirtualQNet.Results;
 
 namespace VirtualQNet.Caller
@@ -9,6 +11,8 @@ namespace VirtualQNet.Caller
         public CallersHandler(ApiClient apiClient) : base(apiClient) { }
 
         private const string WAITERS_PATH = "waiters";
+        private const string MESSAGE_TYPE = "waiters";
+
         public async Task<Result> LineUpCaller(LineUpCallerParameters attributes)
         {
             if (string.IsNullOrWhiteSpace(attributes.Phone))
@@ -18,7 +22,7 @@ namespace VirtualQNet.Caller
             if (string.IsNullOrWhiteSpace(attributes.Source))
                 throw new ArgumentException(nameof(attributes.Source));
 
-            CallerMessageAttributes callerAttributes = new CallerMessageAttributes
+            CallerMessageAttributes messageAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -26,8 +30,8 @@ namespace VirtualQNet.Caller
                 Source = attributes.Source,
                 Language = attributes.Language
             };
-
-            CallResult callResult = await _ApiClient.Post(WAITERS_PATH, callerAttributes);
+            SingleApiMessage<CallerMessage> message = CreateMessage<CallerMessage, CallerMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            CallResult callResult = await _ApiClient.Post(WAITERS_PATH, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
@@ -37,8 +41,8 @@ namespace VirtualQNet.Caller
             if (string.IsNullOrWhiteSpace(attributes.Phone))
                 throw new ArgumentException(nameof(attributes.Phone));
 
-            const string SERVICE_WAITER_SATE_CONNECT = "Connect";
-            CallerMessageAttributes calleAttributes = new CallerMessageAttributes
+            const string SERVICE_WAITER_SATE_CONNECT = "Connected";
+            CallerMessageAttributes messageAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -46,7 +50,8 @@ namespace VirtualQNet.Caller
             };
             string path = $"{WAITERS_PATH}/0";
 
-            CallResult callResult = await _ApiClient.Put(path, calleAttributes);
+            SingleApiMessage<CallerMessage> message = CreateMessage<CallerMessage, CallerMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            CallResult callResult = await _ApiClient.Put(path, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
@@ -56,16 +61,17 @@ namespace VirtualQNet.Caller
             if (string.IsNullOrWhiteSpace(attributes.Phone))
                 throw new ArgumentException(nameof(attributes.Phone));
 
-            string path = $"{WAITERS_PATH}/0";
-            CallerMessageAttributes callerAttributes = new CallerMessageAttributes
+            CallerMessageAttributes messageAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
                 WaitTimeWhenUp = attributes.WaitTimeWhenUp,
                 AgentId = attributes.AgentId
             };
+            string path = $"{WAITERS_PATH}/0";
 
-            CallResult callResult = await _ApiClient.Put(path, callerAttributes);
+            SingleApiMessage<CallerMessage> message = CreateMessage<CallerMessage, CallerMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            CallResult callResult = await _ApiClient.Put(path, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
@@ -80,7 +86,7 @@ namespace VirtualQNet.Caller
                 + $"&prone={attributes.Phone}"
                 + $"&line_id={attributes.LineId}";
 
-            CallResult<CallerMessage> callResult = await _ApiClient.Get<CallerMessage>(query);
+            CallResult<MultipleApiMessages<CallerMessage>> callResult = await _ApiClient.Get<MultipleApiMessages<CallerMessage>>(query);
 
             bool callerNotFound = callResult.ErrorStatus == ERROR_STATUS_NOT_FOUND;
             if (callerNotFound)
@@ -89,7 +95,7 @@ namespace VirtualQNet.Caller
                 return new Result<bool>(
                     callResult.RequestWasSuccessful,
                     CreateErrorResult(callResult),
-                    callResult.Value == null ? false : callResult.Value.Id > 0);
+                    callResult.Value == null ? false : callResult.Value.Data.Any());
         }
     }
 }
