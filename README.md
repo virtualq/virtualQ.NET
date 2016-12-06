@@ -3,7 +3,7 @@
 
 You can download the code and add the VirtualQNet project to your solution. Add a reference it by project.
 
-## Ussage
+## Usage
 
 ```cs
 
