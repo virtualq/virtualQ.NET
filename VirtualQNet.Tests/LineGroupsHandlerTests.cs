@@ -21,9 +21,11 @@ namespace VirtualQNet.Tests
                 long lineGroupIdToUpdate = 185;
                 UpdateLineGroupParameters attributes = new UpdateLineGroupParameters
                 {
-                    ServiceAgentsCount = 60,
-                    ServiceEwt = 70,
-                    ServiceCallersCount = 120
+                    ServiceEwt = 300,
+                    ServiceCallersCount = 2,
+                    ServiceAverageTalkTime = 35,
+                    ServiceAgentsCount = 3,
+                    ServiceAgentList = new string[] { "A", "B", "C" }
                 };
 
                 Result result = client.LineGroups.UpdateLineGroup(lineGroupIdToUpdate, attributes).Result;

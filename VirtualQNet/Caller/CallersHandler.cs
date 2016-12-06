@@ -61,12 +61,14 @@ namespace VirtualQNet.Caller
             if (string.IsNullOrWhiteSpace(attributes.Phone))
                 throw new ArgumentException(nameof(attributes.Phone));
 
+            const string SERVICE_WAITER_SATE_FINISHED = "Finished";
             CallerMessageAttributes messageAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
                 WaitTimeWhenUp = attributes.WaitTimeWhenUp,
-                AgentId = attributes.AgentId
+                AgentId = attributes.AgentId,
+                ServiceCallerState = SERVICE_WAITER_SATE_FINISHED
             };
             string path = $"{WAITERS_PATH}/0";
 

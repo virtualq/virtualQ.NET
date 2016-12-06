@@ -24,7 +24,7 @@ namespace VirtualQNet.Tests
                     LineId = 3042,
                     Phone = "+17343305027",
                     Channel = "CallIn",
-                    Source = "Widget",
+                    Source = "Phone",
                     Language = "en"
                 };
 
@@ -96,7 +96,7 @@ namespace VirtualQNet.Tests
                 {
                     LineId = 3042,
                     Phone = "+17343305027",
-                    AgentId = "CGT234"
+                    AgentId = "B"
                 };
 
                 Result result = client.Callers.NotifyCallerTransferred(attributes).Result;
