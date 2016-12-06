@@ -58,6 +58,7 @@
     <Compile Include="Caller\ICallerHandler.cs" />
     <Compile Include="Caller\LineUpCallerParameters.cs" />
     <Compile Include="Caller\NotifyCallerTransferredParameters.cs" />
+    <Compile Include="Results\CallErrorResult.cs" />
     <Compile Include="Results\ErrorResult.cs" />
     <Compile Include="VirtualQConfiguration.cs" />
     <Compile Include="LineGroups\UpdateLineGroupParameters.cs" />
