@@ -60,6 +60,31 @@ namespace VirtualQNet
             return typeFormatter;
         }
 
+        private CallResult CreateErrorCallResult(ApiErrorMessage errorMessage)
+        {
+            int errorStatus = errorMessage?.Status ?? 0;
+            string errorDescription = errorMessage?.Detail ?? string.Empty;
+            string errorCode = errorMessage?.Code ?? string.Empty;
+            string errorTitle = errorMessage?.Title ?? string.Empty;
+            string pointer = errorMessage?.Source?.Pointer ?? string.Empty;
+
+            return new CallResult
+            {
+                RequestWasSuccessful = false,
+                Error = new CallErrorResult
+                {
+                    Code = errorCode,
+                    Status = errorStatus,
+                    Title = errorTitle,
+                    Description = errorDescription,
+                    Source = new CallSourceResult
+                    {
+                        Pointer = pointer
+                    }
+                }
+            };
+        }
+
         private async Task<CallResult> HandleResponse(HttpResponseMessage response)
         {
             if (response.IsSuccessStatusCode)
@@ -71,21 +96,9 @@ namespace VirtualQNet
 
             MultipleApiErrorMessage errorResults = await response.Content
                 .ReadAsAsync<MultipleApiErrorMessage>(new[] { CreateCustomMediatypeFormatter() });
-            var error = errorResults.Errors.FirstOrDefault();
+            var errorMessage = errorResults.Errors.FirstOrDefault();
 
-            int errorStatus = error?.Status ?? 0;
-            string errorMessage = error?.Detail ?? string.Empty;
-            string errorCode = error?.Code ?? string.Empty;
-            string errorTitle = error?.Title ?? string.Empty;
-
-            return new CallResult
-            {
-                RequestWasSuccessful = false,
-                ErrorStatus = errorStatus,
-                ErrorCode = errorCode,
-                ErrorDescription = errorMessage,
-                ErrorTitle = errorTitle
-            };
+            return CreateErrorCallResult(errorMessage);
         }
 
         private async Task<CallResult<T>> HandleResponse<T>(HttpResponseMessage response)
@@ -94,10 +107,7 @@ namespace VirtualQNet
             CallResult<T> result = new CallResult<T>
             {
                 RequestWasSuccessful = callResult.RequestWasSuccessful,
-                ErrorStatus = callResult.ErrorStatus,
-                ErrorCode = callResult.ErrorCode,
-                ErrorDescription = callResult.ErrorDescription,
-                ErrorTitle = callResult.ErrorTitle
+                Error = callResult.Error
             };
 
             if (callResult.RequestWasSuccessful)
@@ -113,14 +123,20 @@ namespace VirtualQNet
             new CallResult
             {
                 RequestWasSuccessful = false,
-                ErrorDescription = exception.Message
+                Error = new CallErrorResult
+                {
+                    Description = exception.Message
+                }
             };
 
         private CallResult<T> HandleException<T>(Exception exception) =>
             new CallResult<T>
             {
                 RequestWasSuccessful = false,
-                ErrorDescription = exception.Message
+                Error = new CallErrorResult
+                {
+                    Description = exception.Message
+                }
             };
 
         private StringContent CreateContent<T>(T model) =>
@@ -204,7 +220,7 @@ namespace VirtualQNet
             }
         }
 
-        #region IDisposable Support
+#region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)

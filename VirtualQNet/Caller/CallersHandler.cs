@@ -88,7 +88,7 @@ namespace VirtualQNet.Caller
 
             CallResult<MultipleApiMessages<CallerMessage>> callResult = await _ApiClient.Get<MultipleApiMessages<CallerMessage>>(query);
 
-            bool callerNotFound = callResult.ErrorStatus == ERROR_STATUS_NOT_FOUND;
+            bool callerNotFound = callResult.Error?.Status == ERROR_STATUS_NOT_FOUND;
             if (callerNotFound)
                 return new Result<bool>(true, null, false);
             else

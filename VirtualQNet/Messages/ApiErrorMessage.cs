@@ -2,18 +2,27 @@
 
 namespace VirtualQNet.Messages
 {
-    public class ApiErrorMessage
+    internal class ApiErrorMessage
     {
-        [JsonProperty("status")]
-        public int Status { get; set; }
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+        public int? Status { get; set; }
 
-        [JsonProperty("code")]
+        [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
         public string Code { get; set; }
 
-        [JsonProperty("title")]
+        [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }
 
-        [JsonProperty("detail")]
+        [JsonProperty("detail", NullValueHandling = NullValueHandling.Ignore)]
         public string Detail { get; set; }
+
+        [JsonProperty("source", NullValueHandling = NullValueHandling.Ignore)]
+        public ApiErrorSource Source { get; set; }
+    }
+
+    internal class ApiErrorSource
+    {
+        [JsonProperty("pointer", NullValueHandling = NullValueHandling.Ignore)]
+        public string Pointer { get; set; }
     }
 }

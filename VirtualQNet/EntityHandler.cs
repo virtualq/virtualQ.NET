@@ -25,11 +25,14 @@ namespace VirtualQNet
 
         protected ErrorResult CreateErrorResult(CallResult callResult)
         {
+            if (callResult.Error == null) return new ErrorResult(0, null, null, null, null);
+
             return new ErrorResult(
-                callResult.ErrorStatus,
-                callResult.ErrorCode,
-                callResult.ErrorTitle,
-                callResult.ErrorDescription);
+                callResult.Error.Status,
+                callResult.Error.Code,
+                callResult.Error.Title,
+                callResult.Error.Description,
+                new ErrorSource(callResult.Error.Source.Pointer));
         }
     }
 }
