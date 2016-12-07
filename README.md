@@ -19,8 +19,6 @@ Alternatively you can download the [the distribution package](https://github.com
 
 > Note: _Line Groups_ can have several _Lines_ with the same properties like _EWT_ or _Number of Agents_. Instead of updating each line, you update the line group instead. In the simplest case, 1 _Line Group_ has 1 _Line_.
 
-<br>
-
 ### Build Instructions
 
 1. Open the solution in Visual Studio 2015.
@@ -28,8 +26,6 @@ Alternatively you can download the [the distribution package](https://github.com
 3. Build with `Ctrl` + `Shift` + `B`.
 
 The assemblies will be located under `VirtualQNet\bin\Release`.
-
-<br>
 
 ### Running integration tests
 
@@ -41,3 +37,9 @@ The assemblies will be located under `VirtualQNet\bin\Release`.
 6. If a test pass, watch you dashboard to see its effects.
 
 > **Important**: Some tests need to be executed in order to pass.
+
+### Usage
+
+Find detailed usage documentation in the [Wiki](https://github.com/virtualq/virutalQ.NET/wiki)
+
+<br>
