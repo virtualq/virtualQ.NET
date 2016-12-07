@@ -40,6 +40,6 @@ The assemblies will be located under `VirtualQNet\bin\Release`.
 
 ### Usage
 
-Find detailed usage documentation in the [Wiki](https://github.com/virtualq/virutalQ.NET/wiki)
+Find detailed usage documentation in the [Wiki](https://github.com/virtualq/virutalQ.NET/wiki).
 
 <br>
