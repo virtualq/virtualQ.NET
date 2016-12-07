@@ -5,7 +5,7 @@ using VirtualQNet.Lines;
 
 namespace VirtualQNet
 {
-    public class VirtualQ: IDisposable, IVirtualQ
+    public class VirtualQ: IVirtualQ
     {
         public VirtualQ(string apiKey) : this(apiKey, null) { }
         public VirtualQ(string apiKey, VirtualQClientConfiguration configuration)
