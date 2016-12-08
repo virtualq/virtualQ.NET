@@ -3,7 +3,7 @@
 
 Add the VirtualQNet project to your solution. Add a reference to it by project.
 
-Alternatively you can download the [the distribution package](https://github.com/virtualq/virtualQ.NET/tree/master/Distribution) and import the DLL into your project.
+Alternatively you can download it from the [nuget package manager](https://github.com/virtualq/virtualQ.NET/wiki/Installation) and install the DLL into your project.
 
 ### General Requirements
 - Compatible with .NET version 4.5
