@@ -32,7 +32,7 @@ namespace VirtualQNet
                 callResult.Error.Code,
                 callResult.Error.Title,
                 callResult.Error.Description,
-                new ErrorSource(callResult.Error.Source.Pointer));
+                new ErrorSource(callResult.Error.Source?.Pointer));
         }
     }
 }
