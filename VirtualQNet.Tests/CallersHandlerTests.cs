@@ -59,6 +59,30 @@ namespace VirtualQNet.Tests
         }
 
         [TestMethod]
+        public void VerifyCaller_InvalidPhone_ExpectFailure()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                CallerParameters attributes = new CallerParameters
+                {
+                    LineId = 3042,
+                    Phone = "+17343305000"
+                };
+
+                Result<bool> result = client.Callers.VerifyCaller(attributes).Result;
+
+                Assert.IsTrue(result.RequestWasSuccessful);
+                Assert.IsFalse(result.Value);
+            }
+        }
+
+        [TestMethod]
         public void NotifyCallerConnected_ValidLineGroupIdAndPhone_ExpectSuccess()
         {
             string apiKey = ConfigurationHelper.GetApiKey();

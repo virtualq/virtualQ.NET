@@ -85,7 +85,7 @@ namespace VirtualQNet.Caller
 
             const int ERROR_STATUS_NOT_FOUND = 404;
             string query = $"{WAITERS_PATH}?currently_up=true"
-                + $"&prone={attributes.Phone}"
+                + $"&phone={attributes.Phone}"
                 + $"&line_id={attributes.LineId}";
 
             CallResult<MultipleApiMessages<CallerMessage>> callResult = await _ApiClient.Get<MultipleApiMessages<CallerMessage>>(query);
