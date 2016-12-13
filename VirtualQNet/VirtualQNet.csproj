@@ -51,10 +51,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
+    <Compile Include="Caller\CallerCreateMessage.cs" />
+    <Compile Include="Caller\CallerCreateMessageAttributes.cs" />
     <Compile Include="Caller\CallerMessageAttributes.cs" />
+    <Compile Include="Caller\CallerResult.cs" />
     <Compile Include="Caller\CallersHandler.cs" />
     <Compile Include="Caller\CallerMessage.cs" />
     <Compile Include="Caller\CallerParameters.cs" />
+    <Compile Include="Caller\CallerUpdateMessage.cs" />
+    <Compile Include="Caller\CallerUpdateMessageAttributes.cs" />
     <Compile Include="Caller\ICallerHandler.cs" />
     <Compile Include="Caller\LineUpCallerParameters.cs" />
     <Compile Include="Caller\NotifyCallerTransferredParameters.cs" />
