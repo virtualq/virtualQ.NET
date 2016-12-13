@@ -22,7 +22,7 @@ namespace VirtualQNet.Caller
             if (string.IsNullOrWhiteSpace(attributes.Source))
                 throw new ArgumentException(nameof(attributes.Source));
 
-            CallerCreateMessageAttributes messageAttributes = new CallerCreateMessageAttributes
+            CallerMessageAttributes messageAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -30,19 +30,19 @@ namespace VirtualQNet.Caller
                 Source = attributes.Source,
                 Language = attributes.Language
             };
-            SingleApiMessage<CallerCreateMessage> message = CreateMessage<CallerCreateMessage, CallerCreateMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            SingleApiMessage<CallerMessage> message = CreateMessage<CallerMessage, CallerMessageAttributes>(MESSAGE_TYPE, messageAttributes);
             CallResult callResult = await _ApiClient.Post(WAITERS_PATH, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
 
-        public async Task<Result<CallerResult>> NotifyCallerConnected(CallerParameters attributes)
+        public async Task<Result> NotifyCallerConnected(CallerParameters attributes)
         {
             if (string.IsNullOrWhiteSpace(attributes.Phone))
                 throw new ArgumentException(nameof(attributes.Phone));
 
             const string SERVICE_WAITER_SATE_CONNECT = "Connected";
-            CallerUpdateMessageAttributes messageAttributes = new CallerUpdateMessageAttributes
+            CallerMessageAttributes messageAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -50,19 +50,19 @@ namespace VirtualQNet.Caller
             };
             string path = $"{WAITERS_PATH}/0";
 
-            SingleApiMessage<CallerUpdateMessage> message = CreateMessage<CallerUpdateMessage, CallerUpdateMessageAttributes>(MESSAGE_TYPE, messageAttributes);
-            CallResult<SingleApiMessage<CallerMessage>> callResult = await _ApiClient.Put<SingleApiMessage<CallerUpdateMessage>, SingleApiMessage<CallerMessage>>(path, message);
+            SingleApiMessage<CallerMessage> message = CreateMessage<CallerMessage, CallerMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            CallResult callResult = await _ApiClient.Put(path, message);
 
-            return new Result<CallerResult>(callResult.RequestWasSuccessful, CreateErrorResult(callResult), new CallerResult(callResult.Value));
+            return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
 
-        public async Task<Result<CallerResult>> NotifyCallerTransferred(NotifyCallerTransferredParameters attributes)
+        public async Task<Result> NotifyCallerTransferred(NotifyCallerTransferredParameters attributes)
         {
             if (string.IsNullOrWhiteSpace(attributes.Phone))
                 throw new ArgumentException(nameof(attributes.Phone));
 
             const string SERVICE_WAITER_SATE_FINISHED = "Finished";
-            CallerUpdateMessageAttributes messageAttributes = new CallerUpdateMessageAttributes
+            CallerMessageAttributes messageAttributes = new CallerMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -72,10 +72,10 @@ namespace VirtualQNet.Caller
             };
             string path = $"{WAITERS_PATH}/0";
 
-            SingleApiMessage<CallerUpdateMessage> message = CreateMessage<CallerUpdateMessage, CallerUpdateMessageAttributes>(MESSAGE_TYPE, messageAttributes);
-            CallResult<SingleApiMessage<CallerMessage>> callResult = await _ApiClient.Put<SingleApiMessage<CallerUpdateMessage>, SingleApiMessage<CallerMessage>>(path, message);
+            SingleApiMessage<CallerMessage> message = CreateMessage<CallerMessage, CallerMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            CallResult callResult = await _ApiClient.Put(path, message);
 
-            return new Result<CallerResult>(callResult.RequestWasSuccessful, CreateErrorResult(callResult), new CallerResult(callResult.Value));
+            return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
 
         public async Task<Result<bool>> VerifyCaller(CallerParameters attributes)
