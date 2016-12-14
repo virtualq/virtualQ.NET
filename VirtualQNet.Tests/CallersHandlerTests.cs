@@ -99,10 +99,9 @@ namespace VirtualQNet.Tests
                     Phone = "+17343305027"
                 };
 
-                Result<CallerResult> result = client.Callers.NotifyCallerConnected(attributes).Result;
+                Result result = client.Callers.NotifyCallerConnected(attributes).Result;
 
                 Assert.IsTrue(result.RequestWasSuccessful);
-                Assert.IsTrue(result.Value.VirtualQCallerState.Equals("Connected"));
             }
         }
 
@@ -124,10 +123,9 @@ namespace VirtualQNet.Tests
                     AgentId = "B"
                 };
 
-                Result<CallerResult> result = client.Callers.NotifyCallerTransferred(attributes).Result;
+                Result result = client.Callers.NotifyCallerTransferred(attributes).Result;
 
                 Assert.IsTrue(result.RequestWasSuccessful);
-                Assert.IsTrue(result.Value.VirtualQCallerState.Equals("Finished"));
             }
         }
     }
