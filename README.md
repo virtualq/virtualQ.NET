@@ -3,7 +3,7 @@
 
 Installation Options:
 
-- Add the VirtualQNet project to your solution.
+- Add the [project](https://github.com/virtualq/virtualQ.NET/tree/master/VirtualQNet) to your solution.
 - Or use [NuGet package manager](https://www.nuget.org/) to install the DLL into your project. Read the [instructions here.](https://github.com/virtualq/virtualQ.NET/wiki/Installation)
 - Or download the [latest release on github.](https://github.com/virtualq/virtualQ.NET/releases)
 
