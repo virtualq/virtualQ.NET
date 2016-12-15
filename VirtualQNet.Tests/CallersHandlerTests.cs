@@ -9,7 +9,7 @@ namespace VirtualQNet.Tests
     public class CallersHandlerTests
     {
         [TestMethod]
-        public void LineUpCaller_ValidLineGroupId_ExpectSuccess()
+        public void LineUpCaller_ValidLineId_ExpectSuccess()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
             VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
@@ -35,7 +35,7 @@ namespace VirtualQNet.Tests
         }
 
         [TestMethod]
-        public void VerifyCaller_ValidLineGroupIdAndPhone_ExpectSuccess()
+        public void VerifyCaller_ValidLineIdAndPhone_ExpectSuccess()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
             VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
@@ -83,7 +83,7 @@ namespace VirtualQNet.Tests
         }
 
         [TestMethod]
-        public void NotifyCallerConnected_ValidLineGroupIdAndPhone_ExpectSuccess()
+        public void NotifyCallerConnected_ValidLineIdAndPhone_ExpectSuccess()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
             VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
@@ -106,7 +106,7 @@ namespace VirtualQNet.Tests
         }
 
         [TestMethod]
-        public void NotifyCallerTransferred_ValidLineGroupIdAndPhone_ExpectSuccess()
+        public void NotifyCallerTransferred_ValidLineIdAndPhone_ExpectSuccess()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
             VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
@@ -130,7 +130,7 @@ namespace VirtualQNet.Tests
         }
 
         [TestMethod]
-        public void UpdateCallerInformation_ValidLineGroupIdAndPhone_ExpectSuccess()
+        public void UpdateCallerInformation_ValidLineIdAndPhone_ExpectSuccess()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
             VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
