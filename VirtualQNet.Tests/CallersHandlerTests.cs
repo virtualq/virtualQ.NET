@@ -128,5 +128,31 @@ namespace VirtualQNet.Tests
                 Assert.IsTrue(result.RequestWasSuccessful);
             }
         }
+
+        [TestMethod]
+        public void UpdateCallerInformation_ValidLineGroupIdAndPhone_ExpectSuccess()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                UpdateCallerInformationParameters attributes = new UpdateCallerInformationParameters
+                {
+                    LineId = 3042,
+                    Phone = "+17343305027",
+                    AgentId = "A345",
+                    TalkTime = 518,
+                    WaitTimeWhenUp = 30
+                };
+
+                Result result = client.Callers.UpdateCallerInformation(attributes).Result;
+
+                Assert.IsTrue(result.RequestWasSuccessful);
+            }
+        }
     }
 }

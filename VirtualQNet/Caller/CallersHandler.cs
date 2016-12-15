@@ -6,7 +6,7 @@ using VirtualQNet.Results;
 
 namespace VirtualQNet.Caller
 {
-    internal class CallersHandler : EntityHandler, ICallerHandler
+    internal class CallersHandler : EntityHandler, ICallersHandler
     {
         public CallersHandler(ApiClient apiClient) : base(apiClient) { }
 
@@ -98,6 +98,28 @@ namespace VirtualQNet.Caller
                     callResult.RequestWasSuccessful,
                     CreateErrorResult(callResult),
                     callResult.Value == null ? false : callResult.Value.Data.Any());
+        }
+
+        public async Task<Result> UpdateCallerInformation(UpdateCallerInformationParameters attributes)
+        {
+            if (string.IsNullOrWhiteSpace(attributes.Phone))
+                throw new ArgumentException(nameof(attributes.Phone));
+
+            CallerMessageAttributes messageAttributes = new CallerMessageAttributes
+            {
+                LineId = attributes.LineId,
+                Phone = attributes.Phone,
+                TalkTime = attributes.TalkTime,
+                WaitTimeWhenUp = attributes.WaitTimeWhenUp,
+                
+                AgentId = attributes.AgentId
+            };
+            string path = $"{WAITERS_PATH}/0";
+
+            SingleApiMessage<CallerMessage> message = CreateMessage<CallerMessage, CallerMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            CallResult callResult = await _ApiClient.Put(path, message);
+
+            return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
     }
 }

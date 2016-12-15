@@ -24,7 +24,7 @@ namespace VirtualQNet
 
         public ILinesHandler Lines { get; }
         public ILineGroupsHandler LineGroups { get; }
-        public ICallerHandler Callers { get; }
+        public ICallersHandler Callers { get; }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
