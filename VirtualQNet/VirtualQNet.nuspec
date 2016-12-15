@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>virtualQ.API.virtualQNetClient</id>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <title>virtualQ .NET client</title>
     <authors>Niels Liebisch</authors>
     <owners>virtualQ</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET client URL for virtualQ API</description>
-    <releaseNotes>Downgraded Newtonsoft to lower version. This should fix problems on targt mashines.</releaseNotes>
+    <releaseNotes>Added method to update Waiter information.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>api client application</tags>
     <dependencies>
