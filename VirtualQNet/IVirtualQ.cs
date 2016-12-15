@@ -9,6 +9,6 @@ namespace VirtualQNet
     {
         ILinesHandler Lines { get; }
         ILineGroupsHandler LineGroups { get; }
-        ICallerHandler Callers { get; }
+        ICallersHandler Callers { get; }
     }
 }

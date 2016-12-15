@@ -27,5 +27,8 @@ namespace VirtualQNet.Caller
 
         [JsonProperty("agent_id", NullValueHandling = NullValueHandling.Ignore)]
         public string AgentId { get; set; }
+
+        [JsonProperty("talk_time", NullValueHandling = NullValueHandling.Ignore)]
+        public int? TalkTime { get; set; }
     }
 }

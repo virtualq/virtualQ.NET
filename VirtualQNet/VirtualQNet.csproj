@@ -55,9 +55,10 @@
     <Compile Include="Caller\CallersHandler.cs" />
     <Compile Include="Caller\CallerMessage.cs" />
     <Compile Include="Caller\CallerParameters.cs" />
-    <Compile Include="Caller\ICallerHandler.cs" />
+    <Compile Include="Caller\ICallersHandler.cs" />
     <Compile Include="Caller\LineUpCallerParameters.cs" />
     <Compile Include="Caller\NotifyCallerTransferredParameters.cs" />
+    <Compile Include="Caller\UpdateCallerInformationParameters.cs" />
     <Compile Include="Results\CallErrorResult.cs" />
     <Compile Include="Results\ErrorResult.cs" />
     <Compile Include="VirtualQConfiguration.cs" />
