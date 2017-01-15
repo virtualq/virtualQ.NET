@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using VirtualQNet.Results;
 
 namespace VirtualQNet.Caller
@@ -10,5 +11,6 @@ namespace VirtualQNet.Caller
         Task<Result> NotifyCallerTransferred(NotifyCallerTransferredParameters attributes);
         Task<Result<bool>> VerifyCaller(CallerParameters attributes);
         Task<Result> UpdateCallerInformation(UpdateCallerInformationParameters attributes);
+        Task<Result<IEnumerable<CallerResult>>> ListCallersWaiting(ListCallersWaitingParameters attributes);
     }
 }
