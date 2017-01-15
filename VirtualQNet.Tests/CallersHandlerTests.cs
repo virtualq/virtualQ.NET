@@ -1,7 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VirtualQNet.Results;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Dynamic;
 using VirtualQNet.Caller;
+using VirtualQNet.Results;
 
 namespace VirtualQNet.Tests
 {
@@ -19,13 +20,21 @@ namespace VirtualQNet.Tests
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
+                dynamic properties = new ExpandoObject();
+                properties.StringProp = "Value1";
+                properties.ArrayProp = new[] { 45, 25, 78 };
+                properties.DateProp = DateTime.Now;
+                properties.ObjectProp = new { Id = 5, Value = "Value1" };
+
                 LineUpCallerParameters attributes = new LineUpCallerParameters
                 {
                     LineId = 3042,
                     Phone = "+17343305027",
                     Channel = "CallIn",
                     Source = "Phone",
-                    Language = "en"
+                    Language = "en",
+                    Skills = new string[] { "Skill1", "Skill2", "Skill3" },
+                    Properties = properties
                 };
 
                 Result result = client.Callers.LineUpCaller(attributes).Result;
