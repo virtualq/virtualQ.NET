@@ -47,7 +47,7 @@ namespace VirtualQNet.Lines
         public LineGroup LineGroup { get; set; }
     }
 
-    public class LineGroup
+    internal class LineGroup
     {
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public long? Id { get; set; }

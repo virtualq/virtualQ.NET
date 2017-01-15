@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using VirtualQNet.Caller;
 using VirtualQNet.Results;
 
@@ -161,6 +163,31 @@ namespace VirtualQNet.Tests
                 Result result = client.Callers.UpdateCallerInformation(attributes).Result;
 
                 Assert.IsTrue(result.RequestWasSuccessful);
+            }
+        }
+
+        [TestMethod]
+        public void ListCallersWaiting_ValidFilters_ExpectResults()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                ListCallersWaitingParameters attributes = new ListCallersWaitingParameters
+                {
+                    CallCenterId = 1,
+                    LineId = 3042
+                };
+
+                Result<IEnumerable<CallerResult>> result = client.Callers.ListCallersWaiting(attributes).Result;
+                List<CallerResult> callerList = new List<CallerResult>(result.Value);
+
+                Assert.IsTrue(result.RequestWasSuccessful);
+                Assert.IsTrue(callerList.Any());
             }
         }
     }

@@ -51,14 +51,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
+    <Compile Include="Caller\ArrayCallerMessage.cs" />
+    <Compile Include="Caller\CallerCreateMessage.cs" />
+    <Compile Include="Caller\CallerCreateMessageAttributes.cs" />
     <Compile Include="Caller\CallerMessageAttributes.cs" />
+    <Compile Include="Caller\CallerResult.cs" />
     <Compile Include="Caller\CallersHandler.cs" />
     <Compile Include="Caller\CallerMessage.cs" />
     <Compile Include="Caller\CallerParameters.cs" />
+    <Compile Include="Caller\CallerUpdateMessage.cs" />
+    <Compile Include="Caller\CallerUpdateMessageAttributes.cs" />
     <Compile Include="Caller\ICallersHandler.cs" />
     <Compile Include="Caller\LineUpCallerParameters.cs" />
+    <Compile Include="Caller\ListCallersWaitingParameters.cs" />
     <Compile Include="Caller\NotifyCallerTransferredParameters.cs" />
     <Compile Include="Caller\UpdateCallerInformationParameters.cs" />
+    <Compile Include="Messages\ArrayApiMessage.cs" />
     <Compile Include="Results\CallErrorResult.cs" />
     <Compile Include="Results\ErrorResult.cs" />
     <Compile Include="VirtualQConfiguration.cs" />
