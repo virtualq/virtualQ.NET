@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Dynamic;
 
 namespace VirtualQNet.Caller
 {
@@ -30,5 +32,11 @@ namespace VirtualQNet.Caller
 
         [JsonProperty("talk_time", NullValueHandling = NullValueHandling.Ignore)]
         public int? TalkTime { get; set; }
+
+        [JsonProperty("skills", NullValueHandling = NullValueHandling.Ignore)]
+        public IEnumerable<string> Skills { get; set; }
+
+        [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
+        public ExpandoObject Properties { get; set; }
     }
 }

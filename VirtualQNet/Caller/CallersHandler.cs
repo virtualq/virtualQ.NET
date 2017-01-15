@@ -28,7 +28,9 @@ namespace VirtualQNet.Caller
                 Phone = attributes.Phone,
                 Channel = attributes.Channel,
                 Source = attributes.Source,
-                Language = attributes.Language
+                Language = attributes.Language,
+                Skills = attributes.Skills,
+                Properties = attributes.Properties
             };
             SingleApiMessage<CallerMessage> message = CreateMessage<CallerMessage, CallerMessageAttributes>(MESSAGE_TYPE, messageAttributes);
             CallResult callResult = await _ApiClient.Post(WAITERS_PATH, message);
