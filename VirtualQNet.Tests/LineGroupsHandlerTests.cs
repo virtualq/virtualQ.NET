@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using VirtualQNet.LineGroups;
 using VirtualQNet.Results;
 
@@ -56,6 +57,42 @@ namespace VirtualQNet.Tests
 
                 Assert.IsFalse(result.RequestWasSuccessful);
                 Assert.IsTrue(result.Error.Code == "not-found");
+            }
+        }
+
+        [TestMethod]
+        public void UpdateLineGroupCollection_ValidIds_ExpectSuccess()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                List<UpdateLineGroupParameters> lineGroupsToupdate = new List<UpdateLineGroupParameters>();
+                lineGroupsToupdate.Add(new UpdateLineGroupParameters
+                {
+                    Id  = 45,
+                    ServiceAgentsCount = 60,
+                    ServiceEwt = 70
+                });
+                lineGroupsToupdate.Add(new UpdateLineGroupParameters
+                {
+                    Id = 15,
+                    ServiceAgentsCount = 12,
+                    ServiceEwt = 45
+                });
+                UpdateLineGroupCollectionParameters attributes = new UpdateLineGroupCollectionParameters
+                {
+                    CallCenterId = 1,
+                    LineGroups = lineGroupsToupdate
+                };
+
+                Result result = client.LineGroups.UpdateLineGroupCollection(attributes).Result;
+
+                Assert.IsFalse(result.RequestWasSuccessful);
             }
         }
     }
