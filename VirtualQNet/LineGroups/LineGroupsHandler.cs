@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using VirtualQNet.Messages;
 using VirtualQNet.Results;
 
@@ -26,6 +28,31 @@ namespace VirtualQNet.LineGroups
 
             SingleApiMessage<LineGroupMessage> message = CreateMessage<LineGroupMessage, LineGroupMessageAttributes>(MESSAGE_TYPE, messageAttributes);
             CallResult callResult = await _ApiClient.Put(path, message);
+
+            return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
+        }
+
+        public async Task<Result> UpdateLineGroupCollection(UpdateLineGroupCollectionParameters attributes)
+        {
+            IEnumerable<LineGroupMessage> lineGroupMessages = attributes.LineGroups.Select(lg => new LineGroupMessage
+            {
+                Id = lg.Id,
+                Attributes = new LineGroupMessageAttributes
+                {
+                    ServiceAgentList = lg.ServiceAgentList,
+                    ServiceAgentsCount = lg.ServiceAgentsCount,
+                    ServiceAverageTalkTime = lg.ServiceAverageTalkTime,
+                    ServiceCallersCount = lg.ServiceCallersCount,
+                    ServiceEwt = lg.ServiceEwt,
+                    ServiceOpen = lg.ServiceOpen
+                }
+            });
+
+            ArrayApiMessage<LineGroupMessage> messages = new ArrayApiMessage<LineGroupMessage>
+            {
+                Data = lineGroupMessages
+            };
+            CallResult callResult = await _ApiClient.Put(LINE_GROUPS_PATH, messages);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }

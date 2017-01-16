@@ -66,6 +66,7 @@
     <Compile Include="Caller\ListCallersWaitingParameters.cs" />
     <Compile Include="Caller\NotifyCallerTransferredParameters.cs" />
     <Compile Include="Caller\UpdateCallerInformationParameters.cs" />
+    <Compile Include="LineGroups\UpdateLineGroupCollectionParameters.cs" />
     <Compile Include="Messages\ArrayApiMessage.cs" />
     <Compile Include="Results\CallErrorResult.cs" />
     <Compile Include="Results\ErrorResult.cs" />

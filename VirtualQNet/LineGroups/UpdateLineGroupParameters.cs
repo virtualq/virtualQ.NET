@@ -4,6 +4,7 @@ namespace VirtualQNet.LineGroups
 {
     public class UpdateLineGroupParameters
     {
+        public long? Id { get; set; }
         public int? ServiceAgentsCount { get; set; }
         public int? ServiceAverageTalkTime { get; set; }
         public int? ServiceEwt { get; set; }
