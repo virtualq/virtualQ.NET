@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>virtualQ.API.virtualQNetClient</id>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <title>virtualQ .NET client</title>
     <authors>Niels Liebisch</authors>
     <owners>virtualQ</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET client URL for virtualQ API</description>
-    <releaseNotes>Added method to update Waiter information.</releaseNotes>
+    <releaseNotes>Added new methods: List callers waiting in call center, Update List of LineGroups.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>api client application</tags>
     <dependencies>
