@@ -74,13 +74,14 @@ namespace VirtualQNet.Tests
                 List<UpdateLineGroupParameters> lineGroupsToupdate = new List<UpdateLineGroupParameters>();
                 lineGroupsToupdate.Add(new UpdateLineGroupParameters
                 {
-                    Id  = 45,
+                    Id  = 191,
                     ServiceAgentsCount = 60,
                     ServiceEwt = 70
+                    
                 });
                 lineGroupsToupdate.Add(new UpdateLineGroupParameters
                 {
-                    Id = 15,
+                    Id = 185,
                     ServiceAgentsCount = 12,
                     ServiceEwt = 45
                 });
@@ -92,7 +93,7 @@ namespace VirtualQNet.Tests
 
                 Result result = client.LineGroups.UpdateLineGroupCollection(attributes).Result;
 
-                Assert.IsFalse(result.RequestWasSuccessful);
+                Assert.IsTrue(result.RequestWasSuccessful);
             }
         }
     }
