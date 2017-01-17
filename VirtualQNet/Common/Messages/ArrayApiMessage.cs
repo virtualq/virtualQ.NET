@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace VirtualQNet.Messages
+namespace VirtualQNet.Common.Messages
 {
     internal class ArrayApiMessage<T>
     {

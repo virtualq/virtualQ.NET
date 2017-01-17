@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VirtualQNet.Messages;
+using VirtualQNet.Common;
+using VirtualQNet.Common.CallResults;
+using VirtualQNet.Common.Messages;
 using VirtualQNet.Results;
 
 namespace VirtualQNet.Caller
@@ -23,7 +25,7 @@ namespace VirtualQNet.Caller
             if (string.IsNullOrWhiteSpace(attributes.Source))
                 throw new ArgumentException(nameof(attributes.Source));
 
-            CallerCreateMessageAttributes messageAttributes = new CallerCreateMessageAttributes
+            var messageAttributes = new CallerCreateMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -33,7 +35,7 @@ namespace VirtualQNet.Caller
                 Skills = attributes.Skills,
                 Properties = attributes.Properties
             };
-            SingleApiMessage<CallerCreateMessage> message = CreateMessage<CallerCreateMessage, CallerCreateMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            SingleApiMessage<CallerCreateMessage> message = CreateSingleMessage<CallerCreateMessageAttributes, CallerCreateMessage>(MESSAGE_TYPE, messageAttributes);
             CallResult callResult = await _ApiClient.Post(WAITERS_PATH, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
@@ -45,15 +47,15 @@ namespace VirtualQNet.Caller
                 throw new ArgumentException(nameof(attributes.Phone));
 
             const string SERVICE_WAITER_SATE_CONNECT = "Connected";
-            CallerUpdateMessageAttributes messageAttributes = new CallerUpdateMessageAttributes
+            var messageAttributes = new CallerUpdateMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
                 ServiceCallerState = SERVICE_WAITER_SATE_CONNECT
             };
-            string path = $"{WAITERS_PATH}/0";
+            var path = $"{WAITERS_PATH}/0";
 
-            SingleApiMessage<CallerUpdateMessage> message = CreateMessage<CallerUpdateMessage, CallerUpdateMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            SingleApiMessage<CallerUpdateMessage> message = CreateSingleMessage<CallerUpdateMessageAttributes, CallerUpdateMessage>(MESSAGE_TYPE, messageAttributes);
             CallResult callResult = await _ApiClient.Put(path, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
@@ -65,7 +67,7 @@ namespace VirtualQNet.Caller
                 throw new ArgumentException(nameof(attributes.Phone));
 
             const string SERVICE_WAITER_SATE_FINISHED = "Finished";
-            CallerUpdateMessageAttributes messageAttributes = new CallerUpdateMessageAttributes
+            var messageAttributes = new CallerUpdateMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -73,9 +75,9 @@ namespace VirtualQNet.Caller
                 AgentId = attributes.AgentId,
                 ServiceCallerState = SERVICE_WAITER_SATE_FINISHED
             };
-            string path = $"{WAITERS_PATH}/0";
+            var path = $"{WAITERS_PATH}/0";
 
-            SingleApiMessage<CallerUpdateMessage> message = CreateMessage<CallerUpdateMessage, CallerUpdateMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            SingleApiMessage<CallerUpdateMessage> message = CreateSingleMessage<CallerUpdateMessageAttributes, CallerUpdateMessage>(MESSAGE_TYPE, messageAttributes);
             CallResult callResult = await _ApiClient.Put(path, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
@@ -87,13 +89,13 @@ namespace VirtualQNet.Caller
                 throw new ArgumentException(nameof(attributes.Phone));
 
             const int ERROR_STATUS_NOT_FOUND = 404;
-            string query = $"{WAITERS_PATH}?currently_up=true"
+            var query = $"{WAITERS_PATH}?currently_up=true"
                 + $"&phone={attributes.Phone}"
                 + $"&line_id={attributes.LineId}";
 
-            CallResult<MultipleApiMessages<CallerMessage>> callResult = await _ApiClient.Get<MultipleApiMessages<CallerMessage>>(query);
+            CallResult<ArrayApiMessage<CallerMessage>> callResult = await _ApiClient.Get<ArrayApiMessage<CallerMessage>>(query);
 
-            bool callerNotFound = callResult.Error?.Status == ERROR_STATUS_NOT_FOUND;
+            var callerNotFound = callResult.Error?.Status == ERROR_STATUS_NOT_FOUND;
             if (callerNotFound)
                 return new Result<bool>(true, null, false);
             else
@@ -108,7 +110,7 @@ namespace VirtualQNet.Caller
             if (string.IsNullOrWhiteSpace(attributes.Phone))
                 throw new ArgumentException(nameof(attributes.Phone));
 
-            CallerUpdateMessageAttributes messageAttributes = new CallerUpdateMessageAttributes
+            var messageAttributes = new CallerUpdateMessageAttributes
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
@@ -116,9 +118,9 @@ namespace VirtualQNet.Caller
                 WaitTimeWhenUp = attributes.WaitTimeWhenUp,
                 AgentId = attributes.AgentId
             };
-            string path = $"{WAITERS_PATH}/0";
+            var path = $"{WAITERS_PATH}/0";
 
-            SingleApiMessage<CallerUpdateMessage> message = CreateMessage<CallerUpdateMessage, CallerUpdateMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            SingleApiMessage<CallerUpdateMessage> message = CreateSingleMessage<CallerUpdateMessageAttributes, CallerUpdateMessage>(MESSAGE_TYPE, messageAttributes);
             CallResult callResult = await _ApiClient.Put(path, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
@@ -126,13 +128,13 @@ namespace VirtualQNet.Caller
 
         public async Task<Result<IEnumerable<CallerResult>>> ListCallersWaiting(ListCallersWaitingParameters attributes)
         {
-            string filter = $"call_center_id={attributes.CallCenterId}";
+            var filter = $"call_center_id={attributes.CallCenterId}";
             if (attributes.LineId.HasValue) filter = $"{filter}&line_id={attributes.LineId}";
             if (attributes.Updated.HasValue) filter = $"{filter}&updated={attributes.Updated}";
-            string path = $"{WAITERS_PATH}?{filter}&active=true";
+            var path = $"{WAITERS_PATH}?{filter}&active=true";
 
-            CallResult<ArrayCallerMessage> callResult = await _ApiClient.Get<ArrayCallerMessage>(path);
-            IEnumerable<CallerResult> results = callResult.Value?.Data.Select(c => new CallerResult(c));
+            CallResult<ArrayApiMessage<CallerMessage>> callResult = await _ApiClient.Get<ArrayApiMessage<CallerMessage>>(path);
+            var results = callResult.Value?.Data.Select(c => new CallerResult(c));
             
             return new Result<IEnumerable<CallerResult>>(callResult.RequestWasSuccessful, CreateErrorResult(callResult), results);
         }

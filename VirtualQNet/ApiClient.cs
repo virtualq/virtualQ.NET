@@ -7,8 +7,8 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using VirtualQNet.Messages;
-using VirtualQNet.Results;
+using VirtualQNet.Common.Messages;
+using VirtualQNet.Common.CallResults;
 
 namespace VirtualQNet
 {
@@ -28,7 +28,7 @@ namespace VirtualQNet
             const string DEFAULT_BASE_ADDRESS = "https://api.virtualq.io";
             const bool DISPOSE_HANDLER = true;
 
-            HttpClient client = configuration?.ProxyConfiguration == null
+            var client = configuration?.ProxyConfiguration == null
                 ? new HttpClient()
                 : new HttpClient(SetUpClientHandlerForProxy(configuration.ProxyConfiguration), DISPOSE_HANDLER);
 
@@ -54,7 +54,7 @@ namespace VirtualQNet
 
         private JsonMediaTypeFormatter CreateCustomMediatypeFormatter()
         {
-            JsonMediaTypeFormatter typeFormatter = new JsonMediaTypeFormatter();
+            var typeFormatter = new JsonMediaTypeFormatter();
             typeFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue(MEDIA_TYPE));
 
             return typeFormatter;
@@ -63,10 +63,10 @@ namespace VirtualQNet
         private CallResult CreateErrorCallResult(ApiErrorMessage errorMessage)
         {
             int errorStatus = errorMessage?.Status ?? 0;
-            string errorDescription = errorMessage?.Detail ?? string.Empty;
-            string errorCode = errorMessage?.Code ?? string.Empty;
-            string errorTitle = errorMessage?.Title ?? string.Empty;
-            string pointer = errorMessage?.Source?.Pointer ?? string.Empty;
+            var errorDescription = errorMessage?.Detail ?? string.Empty;
+            var errorCode = errorMessage?.Code ?? string.Empty;
+            var errorTitle = errorMessage?.Title ?? string.Empty;
+            var pointer = errorMessage?.Source?.Pointer ?? string.Empty;
 
             return new CallResult
             {
@@ -94,8 +94,8 @@ namespace VirtualQNet
             if (isNotJsonContent)
                 response.EnsureSuccessStatusCode();
 
-            MultipleApiErrorMessage errorResults = await response.Content
-                .ReadAsAsync<MultipleApiErrorMessage>(new[] { CreateCustomMediatypeFormatter() });
+            var errorResults = await response.Content
+                .ReadAsAsync<ArrayApiErrorMessage>(new[] { CreateCustomMediatypeFormatter() });
             var errorMessage = errorResults.Errors.FirstOrDefault();
 
             return CreateErrorCallResult(errorMessage);
@@ -104,7 +104,7 @@ namespace VirtualQNet
         private async Task<CallResult<T>> HandleResponse<T>(HttpResponseMessage response)
         {
             CallResult callResult = await HandleResponse(response);
-            CallResult<T> result = new CallResult<T>
+            var result = new CallResult<T>
             {
                 RequestWasSuccessful = callResult.RequestWasSuccessful,
                 Error = callResult.Error

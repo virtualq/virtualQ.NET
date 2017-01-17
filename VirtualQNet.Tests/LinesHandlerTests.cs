@@ -10,14 +10,14 @@ namespace VirtualQNet.Tests
         public void IsVirtualQActive_ActiveLineId_ExpectTrue()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
-            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            var configuration = new VirtualQClientConfiguration
             {
                 ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
                 Timeout = null
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                long lineId = 3042;
+                var lineId = 3042L;
 
                 Result<bool> result = client.Lines.IsVirtualQActive(lineId).Result;
 
@@ -30,14 +30,14 @@ namespace VirtualQNet.Tests
         public void IsVirtualQActive_InnactiveLineId_ExpectFalse()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
-            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            var configuration = new VirtualQClientConfiguration
             {
                 ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
                 Timeout = null
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                long lineId = 2600;
+                var lineId = 2600L;
 
                 Result<bool> result = client.Lines.IsVirtualQActive(lineId).Result;
 
@@ -50,14 +50,14 @@ namespace VirtualQNet.Tests
         public void IsVirtualQActive_InvalidLineId_ExpectFailure()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
-            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            var configuration = new VirtualQClientConfiguration
             {
                 ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
                 Timeout = null
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                long lineId = 0;
+                var lineId = 0L;
 
                 Result<bool> result = client.Lines.IsVirtualQActive(lineId).Result;
 

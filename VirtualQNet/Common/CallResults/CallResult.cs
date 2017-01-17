@@ -1,4 +1,4 @@
-﻿namespace VirtualQNet.Results
+﻿namespace VirtualQNet.Common.CallResults
 {
     internal class CallResult
     {

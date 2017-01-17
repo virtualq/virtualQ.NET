@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using VirtualQNet.Messages;
+using VirtualQNet.Common;
+using VirtualQNet.Common.CallResults;
+using VirtualQNet.Common.Messages;
 using VirtualQNet.Results;
 
 namespace VirtualQNet.Lines
@@ -14,7 +16,7 @@ namespace VirtualQNet.Lines
         public async Task<Result<bool>> IsVirtualQActive(long lineId)
         {
             const string STATUS_LINE_ACTIVE = "active";
-            string path = $"{LINES_PATH}/{lineId}";
+            var path = $"{LINES_PATH}/{lineId}";
 
             CallResult<SingleApiMessage<LineMessage>> callResult = await _ApiClient.Get<SingleApiMessage<LineMessage>>(path);
 

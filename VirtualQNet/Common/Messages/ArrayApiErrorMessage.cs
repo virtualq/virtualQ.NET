@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace VirtualQNet.Messages
+namespace VirtualQNet.Common.Messages
 {
-    internal class MultipleApiErrorMessage
+    internal class ArrayApiErrorMessage
     {
         [JsonProperty("errors")]
         public IEnumerable<ApiErrorMessage> Errors { get; set; }

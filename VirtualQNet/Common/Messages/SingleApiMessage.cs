@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace VirtualQNet.Messages
+namespace VirtualQNet.Common.Messages
 {
     internal class SingleApiMessage<T>
     {
