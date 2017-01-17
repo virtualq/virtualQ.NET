@@ -34,9 +34,11 @@ namespace VirtualQNet.LineGroups
 
         public async Task<Result> UpdateLineGroupCollection(UpdateLineGroupCollectionParameters attributes)
         {
+            string path = $"{LINE_GROUPS_PATH}/updated";
             IEnumerable<LineGroupMessage> lineGroupMessages = attributes.LineGroups.Select(lg => new LineGroupMessage
             {
                 Id = lg.Id,
+                Type = MESSAGE_TYPE,
                 Attributes = new LineGroupMessageAttributes
                 {
                     ServiceAgentList = lg.ServiceAgentList,
@@ -52,7 +54,7 @@ namespace VirtualQNet.LineGroups
             {
                 Data = lineGroupMessages
             };
-            CallResult callResult = await _ApiClient.Put(LINE_GROUPS_PATH, messages);
+            CallResult callResult = await _ApiClient.Put(path, messages);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
