@@ -129,7 +129,7 @@ namespace VirtualQNet.Caller
             string filter = $"call_center_id={attributes.CallCenterId}";
             if (attributes.LineId.HasValue) filter = $"{filter}&line_id={attributes.LineId}";
             if (attributes.Updated.HasValue) filter = $"{filter}&updated={attributes.Updated}";
-            string path = $"{WAITERS_PATH}?{filter}";
+            string path = $"{WAITERS_PATH}?{filter}&active=true";
 
             CallResult<ArrayCallerMessage> callResult = await _ApiClient.Get<ArrayCallerMessage>(path);
             IEnumerable<CallerResult> results = callResult.Value?.Data.Select(c => new CallerResult(c));

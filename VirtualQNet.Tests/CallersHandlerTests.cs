@@ -186,7 +186,6 @@ namespace VirtualQNet.Tests
                 Result<IEnumerable<CallerResult>> result = client.Callers.ListCallersWaiting(attributes).Result;
 
                 Assert.IsTrue(result.RequestWasSuccessful);
-                Assert.IsTrue(result.Value.Any());
             }
         }
     }
