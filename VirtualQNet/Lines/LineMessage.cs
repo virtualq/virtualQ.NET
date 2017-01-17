@@ -1,4 +1,4 @@
-﻿using VirtualQNet.Messages;
+﻿using VirtualQNet.Common.Messages;
 
 namespace VirtualQNet.Lines
 {

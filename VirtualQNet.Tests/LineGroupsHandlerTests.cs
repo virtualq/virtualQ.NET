@@ -12,15 +12,15 @@ namespace VirtualQNet.Tests
         public void UpdateLinegroup_ValidGroupId_ExpectSuccess()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
-            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            var configuration = new VirtualQClientConfiguration
             {
                 ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
                 Timeout = null
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                long lineGroupIdToUpdate = 185;
-                UpdateLineGroupParameters attributes = new UpdateLineGroupParameters
+                var lineGroupIdToUpdate = 185L;
+                var attributes = new UpdateLineGroupParameters
                 {
                     ServiceEwt = 300,
                     ServiceCallersCount = 2,
@@ -39,15 +39,15 @@ namespace VirtualQNet.Tests
         public void UpdateLinegroup_InvalidGroupId_ExpectFailure()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
-            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            var configuration = new VirtualQClientConfiguration
             {
                 ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
                 Timeout = null
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                long lineGroupIdToUpdate = 1925;
-                UpdateLineGroupParameters attributes = new UpdateLineGroupParameters
+                var lineGroupIdToUpdate = 1925L;
+                var attributes = new UpdateLineGroupParameters
                 {
                     ServiceAgentsCount = 60,
                     ServiceEwt = 70
@@ -64,14 +64,14 @@ namespace VirtualQNet.Tests
         public void UpdateLineGroupCollection_ValidIds_ExpectSuccess()
         {
             string apiKey = ConfigurationHelper.GetApiKey();
-            VirtualQClientConfiguration configuration = new VirtualQClientConfiguration
+            var configuration = new VirtualQClientConfiguration
             {
                 ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
                 Timeout = null
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                List<UpdateLineGroupParameters> lineGroupsToupdate = new List<UpdateLineGroupParameters>();
+                var lineGroupsToupdate = new List<UpdateLineGroupParameters>();
                 lineGroupsToupdate.Add(new UpdateLineGroupParameters
                 {
                     Id  = 191,
@@ -85,7 +85,7 @@ namespace VirtualQNet.Tests
                     ServiceAgentsCount = 12,
                     ServiceEwt = 45
                 });
-                UpdateLineGroupCollectionParameters attributes = new UpdateLineGroupCollectionParameters
+                var attributes = new UpdateLineGroupCollectionParameters
                 {
                     CallCenterId = 1,
                     LineGroups = lineGroupsToupdate

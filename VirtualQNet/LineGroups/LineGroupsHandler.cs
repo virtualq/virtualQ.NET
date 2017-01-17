@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using VirtualQNet.Messages;
+using VirtualQNet.Common;
+using VirtualQNet.Common.CallResults;
+using VirtualQNet.Common.Messages;
 using VirtualQNet.Results;
 
 namespace VirtualQNet.LineGroups
@@ -15,8 +16,8 @@ namespace VirtualQNet.LineGroups
 
         public async Task<Result> UpdateLineGroup(long lineGroupId, UpdateLineGroupParameters attributes)
         {
-            string path = $"{LINE_GROUPS_PATH}/{lineGroupId}";
-            LineGroupMessageAttributes messageAttributes = new LineGroupMessageAttributes
+            var path = $"{LINE_GROUPS_PATH}/{lineGroupId}";
+            var messageAttributes = new LineGroupMessageAttributes
             {
                 ServiceAgentsCount = attributes.ServiceAgentsCount,
                 ServiceAverageTalkTime = attributes.ServiceAverageTalkTime,
@@ -26,7 +27,7 @@ namespace VirtualQNet.LineGroups
                 ServiceAgentList = attributes.ServiceAgentList
             };
 
-            SingleApiMessage<LineGroupMessage> message = CreateMessage<LineGroupMessage, LineGroupMessageAttributes>(MESSAGE_TYPE, messageAttributes);
+            SingleApiMessage<LineGroupMessage> message = CreateSingleMessage<LineGroupMessageAttributes, LineGroupMessage>(MESSAGE_TYPE, messageAttributes);
             CallResult callResult = await _ApiClient.Put(path, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
@@ -34,8 +35,8 @@ namespace VirtualQNet.LineGroups
 
         public async Task<Result> UpdateLineGroupCollection(UpdateLineGroupCollectionParameters attributes)
         {
-            string path = $"{LINE_GROUPS_PATH}/updated";
-            IEnumerable<LineGroupMessage> lineGroupMessages = attributes.LineGroups.Select(lg => new LineGroupMessage
+            var path = $"{LINE_GROUPS_PATH}/updated";
+            var lineGroupMessages = attributes.LineGroups.Select(lg => new LineGroupMessage
             {
                 Id = lg.Id,
                 Type = MESSAGE_TYPE,
@@ -49,12 +50,8 @@ namespace VirtualQNet.LineGroups
                     ServiceOpen = lg.ServiceOpen
                 }
             });
-
-            ArrayApiMessage<LineGroupMessage> messages = new ArrayApiMessage<LineGroupMessage>
-            {
-                Data = lineGroupMessages
-            };
-            CallResult callResult = await _ApiClient.Put(path, messages);
+            ArrayApiMessage<LineGroupMessage> message = CreateArrayMessage<LineGroupMessageAttributes, LineGroupMessage>(lineGroupMessages);
+            CallResult callResult = await _ApiClient.Put(path, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
