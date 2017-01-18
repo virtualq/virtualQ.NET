@@ -150,13 +150,20 @@ namespace VirtualQNet.Tests
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
+                dynamic properties = new ExpandoObject();
+                properties.StringProp = "Value2";
+                properties.ArrayProp = new[] { 5, 2 };
+
                 var attributes = new UpdateCallerInformationParameters
                 {
                     LineId = 3042,
                     Phone = "+17343305027",
                     AgentId = "A345",
                     TalkTime = 518,
-                    WaitTimeWhenUp = 30
+                    WaitTimeWhenUp = 30,
+                    EWT = 50,
+                    Skills = new string[] { "Skill4", "Skill5", "Skill6" },
+                    Properties = properties
                 };
 
                 Result result = client.Callers.UpdateCallerInformation(attributes).Result;
