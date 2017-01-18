@@ -65,8 +65,12 @@
     <Compile Include="Caller\Parameters\ListCallersWaitingParameters.cs" />
     <Compile Include="Caller\Parameters\NotifyCallerTransferredParameters.cs" />
     <Compile Include="Caller\Parameters\UpdateCallerInformationParameters.cs" />
+    <Compile Include="LineGroups\Messages\LineGroupMessage.cs" />
+    <Compile Include="LineGroups\Messages\LineGroupMessageAttributes.cs" />
+    <Compile Include="LineGroups\Parameters\ListLineGroupsParameters.cs" />
     <Compile Include="LineGroups\Parameters\UpdateLineGroupCollectionParameters.cs" />
     <Compile Include="Common\CallResults\CallErrorResult.cs" />
+    <Compile Include="LineGroups\Results\LineGroupResult.cs" />
     <Compile Include="Results\ErrorResult.cs" />
     <Compile Include="VirtualQConfiguration.cs" />
     <Compile Include="LineGroups\Parameters\UpdateLineGroupParameters.cs" />
@@ -78,8 +82,8 @@
     <Compile Include="Common\Messages\ArrayApiMessage.cs" />
     <Compile Include="IVirtualQ.cs" />
     <Compile Include="LineGroups\ILineGroupsHandler.cs" />
-    <Compile Include="LineGroups\Messages\LineGroupMessage.cs" />
-    <Compile Include="LineGroups\Messages\LineGroupMessageAttributes.cs" />
+    <Compile Include="LineGroups\Messages\LineGroupUpdateMessage.cs" />
+    <Compile Include="LineGroups\Messages\LineGroupUpdateMessageAttributes.cs" />
     <Compile Include="LineGroups\LineGroupsHandler.cs" />
     <Compile Include="Lines\ILinesHandler.cs" />
     <Compile Include="Lines\LineMessage.cs" />
