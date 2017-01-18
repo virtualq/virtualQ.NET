@@ -96,5 +96,27 @@ namespace VirtualQNet.Tests
                 Assert.IsTrue(result.RequestWasSuccessful);
             }
         }
+
+        [TestMethod]
+        public void ListLineGroups_ValidFilters_ExpectResults()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            var configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                var attributes = new ListLineGroupsParameters
+                {
+                    CallCenterId = 1
+                };
+
+                Result<IEnumerable<LineGroupResult>> result = client.LineGroups.ListLineGroups(attributes).Result;
+
+                Assert.IsTrue(result.RequestWasSuccessful);
+            }
+        }
     }
 }

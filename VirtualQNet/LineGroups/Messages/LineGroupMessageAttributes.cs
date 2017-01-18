@@ -1,26 +1,58 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 
-namespace VirtualQNet.LineGroups
+namespace VirtualQNet.LineGroups.Messages
 {
     internal class LineGroupMessageAttributes
     {
-        [JsonProperty("service_agents_count", NullValueHandling = NullValueHandling.Ignore)]
-        public int? ServiceAgentsCount { get; set; }
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
 
-        [JsonProperty("service_average_talk_time", NullValueHandling = NullValueHandling.Ignore)]
-        public int? ServiceAverageTalkTime { get; set; }
+        [JsonProperty("allow-callback", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowCallback { get; set; }
 
-        [JsonProperty("service_ewt", NullValueHandling = NullValueHandling.Ignore)]
-        public int? ServiceEwt { get; set; }
+        [JsonProperty("allow-sms", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowSms { get; set; }
 
-        [JsonProperty("service_open", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ServiceOpen { get; set; }
+        [JsonProperty("cc-type", NullValueHandling = NullValueHandling.Ignore)]
+        public string CcType { get; set; }
 
-        [JsonProperty("service_waiters_count", NullValueHandling = NullValueHandling.Ignore)]
-        public int? ServiceCallersCount { get; set; }
+        [JsonProperty("foresight-closing-in-minutes", NullValueHandling = NullValueHandling.Ignore)]
+        public int? ForesightClosingInMinutes { get; set; }
 
-        [JsonProperty("service_agent_list", NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<string> ServiceAgentList { get; set; }
+        [JsonProperty("virtualq-min-agent-count", NullValueHandling = NullValueHandling.Ignore)]
+        public int? VirtualQMinAgentCount { get; set; }
+
+        [JsonProperty("virtualq-min-waiting-time", NullValueHandling = NullValueHandling.Ignore)]
+        public int? VirtualQMinWaitingTime { get; set; }
+
+        [JsonProperty("virtualq-notice-time", NullValueHandling = NullValueHandling.Ignore)]
+        public int? VirtualQNoticeTime { get; set; }
+
+        [JsonProperty("virtualq-timeout-time", NullValueHandling = NullValueHandling.Ignore)]
+        public int? VirtualQTimeoutTime { get; set; }
+
+        [JsonProperty("virtualq-waiters-count", NullValueHandling = NullValueHandling.Ignore)]
+        public int? VirtualQWaitersCount { get; set; }
+
+        [JsonProperty("service-waiters-count", NullValueHandling = NullValueHandling.Ignore)]
+        public int? ServiceWaitersCount { get; set; }
+
+        [JsonProperty("call-center", NullValueHandling = NullValueHandling.Ignore)]
+        public CallCenter CallCenter { get; set; }
+    }
+
+    internal class CallCenter
+    {
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Id { get; set; }
+
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        [JsonProperty("call_center_open", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? CallCenterOpen { get; set; }
+
+        [JsonProperty("virtualq_active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? VirtualQActive { get; set; }
     }
 }
