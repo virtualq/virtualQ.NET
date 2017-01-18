@@ -114,6 +114,10 @@ namespace VirtualQNet.Caller
             {
                 LineId = attributes.LineId,
                 Phone = attributes.Phone,
+                Skills = attributes.Skills,
+                Properties = attributes.Properties,
+                EWT = attributes.EWT,
+                ServiceCallerState = attributes.ServiceState,
                 TalkTime = attributes.TalkTime,
                 WaitTimeWhenUp = attributes.WaitTimeWhenUp,
                 AgentId = attributes.AgentId
