@@ -19,7 +19,7 @@ namespace VirtualQNet.Caller
         public ExpandoObject Properties { get; set; }
 
         [JsonProperty("ewt", NullValueHandling = NullValueHandling.Ignore)]
-        public long? EWT { get; set; }
+        public int? EWT { get; set; }
 
         [JsonProperty("service_waiter_state", NullValueHandling = NullValueHandling.Ignore)]
         public string ServiceCallerState { get; set; }
