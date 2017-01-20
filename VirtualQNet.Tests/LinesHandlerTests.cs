@@ -1,4 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
+using VirtualQNet.Lines;
 using VirtualQNet.Results;
 
 namespace VirtualQNet.Tests
@@ -64,6 +67,30 @@ namespace VirtualQNet.Tests
                 Assert.IsFalse(result.RequestWasSuccessful);
                 Assert.IsFalse(result.Value);
                 Assert.IsTrue(result.Error.Code == "not-found");
+            }
+        }
+
+        [TestMethod]
+        public void ListLine_ValidFilters_ExpectResults()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            var configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                var attributes = new ListLinesParameters
+                {
+                    CallCenterId = 1,
+                    LineGroupId = 185
+                };
+
+                Result<IEnumerable<LineResult>> result = client.Lines.ListLines(attributes).Result;
+
+                Assert.IsTrue(result.RequestWasSuccessful);
+                Assert.IsTrue(result.Value.Any());
             }
         }
     }

@@ -71,6 +71,8 @@
     <Compile Include="LineGroups\Parameters\UpdateLineGroupCollectionParameters.cs" />
     <Compile Include="Common\CallResults\CallErrorResult.cs" />
     <Compile Include="LineGroups\Results\LineGroupResult.cs" />
+    <Compile Include="Lines\Parameters\ListLinesParameters.cs" />
+    <Compile Include="Lines\Results\LineResult.cs" />
     <Compile Include="Results\ErrorResult.cs" />
     <Compile Include="VirtualQConfiguration.cs" />
     <Compile Include="LineGroups\Parameters\UpdateLineGroupParameters.cs" />
@@ -86,8 +88,8 @@
     <Compile Include="LineGroups\Messages\LineGroupUpdateMessageAttributes.cs" />
     <Compile Include="LineGroups\LineGroupsHandler.cs" />
     <Compile Include="Lines\ILinesHandler.cs" />
-    <Compile Include="Lines\LineMessage.cs" />
-    <Compile Include="Lines\LineMessageAttributes.cs" />
+    <Compile Include="Lines\Messages\LineMessage.cs" />
+    <Compile Include="Lines\Messages\LineMessageAttributes.cs" />
     <Compile Include="Lines\LinesHandler.cs" />
     <Compile Include="Results\Result.cs" />
     <Compile Include="Common\Messages\SingleApiMessage.cs" />

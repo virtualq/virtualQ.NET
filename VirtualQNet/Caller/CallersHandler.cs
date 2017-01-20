@@ -138,7 +138,7 @@ namespace VirtualQNet.Caller
             var path = $"{WAITERS_PATH}?{filter}&active=true";
 
             CallResult<ArrayApiMessage<CallerMessage>> callResult = await _ApiClient.Get<ArrayApiMessage<CallerMessage>>(path);
-            var results = callResult.Value?.Data.Select(c => new CallerResult(c));
+            var results = callResult.Value?.Data.Select(m => new CallerResult(m));
             
             return new Result<IEnumerable<CallerResult>>(callResult.RequestWasSuccessful, CreateErrorResult(callResult), results);
         }

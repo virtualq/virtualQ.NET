@@ -64,7 +64,7 @@ namespace VirtualQNet.LineGroups
             var path = $"{LINE_GROUPS_PATH}?{filter}";
 
             CallResult<ArrayApiMessage<LineGroupMessage>> callResult = await _ApiClient.Get<ArrayApiMessage<LineGroupMessage>>(path);
-            var results = callResult.Value?.Data.Select(c => new LineGroupResult(c));
+            var results = callResult.Value?.Data.Select(m => new LineGroupResult(m));
 
             return new Result<IEnumerable<LineGroupResult>>(callResult.RequestWasSuccessful, CreateErrorResult(callResult), results);
         }
