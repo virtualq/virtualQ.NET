@@ -28,19 +28,19 @@
         }
 
         public long? Id { get; }
-        public string Name { get;  }
-        public string Category { get;  }
+        public string Name { get; }
+        public string Category { get; }
         public bool? Direct { get; set; }
-        public string FastDialDescription { get;  }
-        public string Info { get;  }
-        public string OpeningTimesDescription { get;  }
-        public string PrivateLinesKey { get;  }
-        public double? RatingsAverage { get;  }
-        public string ServicePhoneNumber { get;  }
-        public string TelephoneChargeDescription { get;  }
-        public string VirtualQLineState { get;  }
-        public string VirtualQLineStateMode { get;  }
-        public string VirtualQPhoneNumber { get;  }
+        public string FastDialDescription { get; }
+        public string Info { get; }
+        public string OpeningTimesDescription { get; }
+        public string PrivateLinesKey { get; }
+        public double? RatingsAverage { get; }
+        public string ServicePhoneNumber { get; }
+        public string TelephoneChargeDescription { get; }
+        public string VirtualQLineState { get; }
+        public string VirtualQLineStateMode { get; }
+        public string VirtualQPhoneNumber { get; }
         public long? LineGroupId { get; set; }
         public string LineGroupName { get; set; }
         public bool? AllowCallback { get; set; }
