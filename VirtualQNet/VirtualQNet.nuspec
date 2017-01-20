@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>virtualQ.API.virtualQNetClient</id>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
     <title>virtualQ .NET client</title>
     <authors>Niels Liebisch</authors>
     <owners>virtualQ</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET client URL for virtualQ API</description>
-    <releaseNotes>Changed update caller EWT to int.</releaseNotes>
+    <releaseNotes>Added method to list lines.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>api client application</tags>
     <dependencies>
