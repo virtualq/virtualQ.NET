@@ -30,7 +30,7 @@
         public long? Id { get; }
         public string Name { get; }
         public string Category { get; }
-        public bool? Direct { get; set; }
+        public bool? Direct { get; }
         public string FastDialDescription { get; }
         public string Info { get; }
         public string OpeningTimesDescription { get; }
@@ -41,12 +41,12 @@
         public string VirtualQLineState { get; }
         public string VirtualQLineStateMode { get; }
         public string VirtualQPhoneNumber { get; }
-        public long? LineGroupId { get; set; }
-        public string LineGroupName { get; set; }
-        public bool? AllowCallback { get; set; }
-        public bool? AllowSms { get; set; }
-        public int? ServiceCallersCount { get; set; }
-        public int? VirtualQEwt { get; set; }
-        public int? VirtualQCallersCount { get; set; }
+        public long? LineGroupId { get; }
+        public string LineGroupName { get; }
+        public bool? AllowCallback { get; }
+        public bool? AllowSms { get; }
+        public int? ServiceCallersCount { get; }
+        public int? VirtualQEwt { get; }
+        public int? VirtualQCallersCount { get; }
     }
 }
