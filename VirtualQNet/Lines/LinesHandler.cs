@@ -37,7 +37,6 @@ namespace VirtualQNet.Lines
         {
             var filter = $"call_center_id={attributes.CallCenterId}";
             if (attributes.LineGroupId.HasValue) filter = $"{filter}&line_group_id={attributes.LineGroupId}";
-            if (!string.IsNullOrWhiteSpace(attributes.PrivateKey)) filter = $"{filter}&private_key={attributes.PrivateKey}";
             if (!string.IsNullOrWhiteSpace(attributes.Query)) filter = $"{filter}&q={attributes.Query}";
             var path = $"{LINES_PATH}?{filter}";
 
