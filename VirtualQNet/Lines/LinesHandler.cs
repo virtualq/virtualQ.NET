@@ -18,7 +18,7 @@ namespace VirtualQNet.Lines
         public async Task<Result<bool>> IsVirtualQActive(long lineId)
         {
             const string STATUS_LINE_ACTIVE = "active";
-            var path = $"{LINES_PATH}/{lineId}";
+            var path = $"{LINES_PATH}/{lineId}?check_active=true";
 
             CallResult<SingleApiMessage<LineMessage>> callResult = await _ApiClient.Get<SingleApiMessage<LineMessage>>(path);
 

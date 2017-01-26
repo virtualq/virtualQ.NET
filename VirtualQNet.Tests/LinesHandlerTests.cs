@@ -40,7 +40,7 @@ namespace VirtualQNet.Tests
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                var lineId = 2600L;
+                var lineId = 3036L;
 
                 Result<bool> result = client.Lines.IsVirtualQActive(lineId).Result;
 
