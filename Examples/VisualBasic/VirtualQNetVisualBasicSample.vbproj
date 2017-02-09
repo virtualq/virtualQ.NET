@@ -105,7 +105,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\VirtualQNet\VirtualQNet.csproj">
+    <ProjectReference Include="..\..\VirtualQNet\VirtualQNet.csproj">
       <Project>{c2da8450-2147-48d6-9afa-3077a149cdcd}</Project>
       <Name>VirtualQNet</Name>
     </ProjectReference>

@@ -2,8 +2,8 @@
 Imports VirtualQNet.Lines
 
 Module SampleApp
-    Private Const apiKey As String = ""
-    Private Const apiBaseAddress As String = "http://staging-api.virtualq.io"
+    Private Const API_KEY As String = ""
+    Private Const API_BASE_ADDRESS As String = "http://staging-api.virtualq.io"
 
     Sub Main()
         Console.WriteLine("Starting asynchronous call")
@@ -14,9 +14,9 @@ Module SampleApp
 
     Private Sub SynchronousCallSample()
         Dim config As New VirtualQClientConfiguration()
-        config.ApiBaseAddress = apiBaseAddress
+        config.ApiBaseAddress = API_BASE_ADDRESS
 
-        Using client As New VirtualQ(apiKey, config)
+        Using client As New VirtualQ(API_KEY, config)
             Dim params As New ListLinesParameters
             params.CallCenterId = 1
             ' Note the ussage of the Result property, this will perform a syncrhonous call to the method
@@ -32,9 +32,9 @@ Module SampleApp
 
     Private Async Sub AsyunchronousCallSample()
         Dim config As New VirtualQClientConfiguration()
-        config.ApiBaseAddress = apiBaseAddress
+        config.ApiBaseAddress = API_BASE_ADDRESS
 
-        Using client As New VirtualQ(apiKey, config)
+        Using client As New VirtualQ(API_KEY, config)
             Dim params As New ListLinesParameters
             params.CallCenterId = 1
             ' Note the ussage of the Async and Await keywords, this will perform an asyncrhonous call to the method
