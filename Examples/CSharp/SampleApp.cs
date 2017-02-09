@@ -58,7 +58,7 @@ namespace VirtualQNetCSharpSample
                 {
                     CallCenterId = 1
                 };
-                // Note the ussage of the Async and Await keywords, this will perform an asyncrhonous call to the method
+                // Note the ussage of the async and await keywords, this will perform an asyncrhonous call to the method
                 // The main thread will not be blocked
                 var result = await client.Lines.ListLines(_params);
                 if (result.RequestWasSuccessful)
