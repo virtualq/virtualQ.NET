@@ -23,7 +23,7 @@ Module SampleApp
             Dim result = client.Lines.ListLines(params).Result
             If (result.RequestWasSuccessful) Then
                 Dim firstLine = result.Value.FirstOrDefault()
-                Console.WriteLine($"Call from {NameOf(SynchronousCallSample)} complete: {firstLine}")
+                Console.WriteLine($"Call from {NameOf(SynchronousCallSample)} complete: {firstLine.Name}")
             Else
                 Console.WriteLine($"Error from {NameOf(SynchronousCallSample)}: {result.Error.Description}")
             End If
@@ -42,7 +42,7 @@ Module SampleApp
             Dim result = Await client.Lines.ListLines(params)
             If (result.RequestWasSuccessful) Then
                 Dim firstLine = result.Value.FirstOrDefault()
-                Console.WriteLine($"Call from {NameOf(AsyunchronousCallSample)} complete: {firstLine}")
+                Console.WriteLine($"Call from {NameOf(AsyunchronousCallSample)} complete: {firstLine.Name}")
             Else
                 Console.WriteLine($"Error from {NameOf(AsyunchronousCallSample)}: {result.Error.Description}")
             End If

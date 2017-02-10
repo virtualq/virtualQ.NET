@@ -36,7 +36,7 @@ namespace VirtualQNetCSharpSample
                 if (result.RequestWasSuccessful)
                 {
                     var firstLine = result.Value.FirstOrDefault();
-                    Console.WriteLine($"Call from {nameof(SynchronousCallSample)} complete: {firstLine}");
+                    Console.WriteLine($"Call from {nameof(SynchronousCallSample)} complete: {firstLine.Name}");
                 }
                 else
                 {
@@ -64,11 +64,11 @@ namespace VirtualQNetCSharpSample
                 if (result.RequestWasSuccessful)
                 {
                     var firstLine = result.Value.FirstOrDefault();
-                    Console.WriteLine($"Call from {nameof(SynchronousCallSample)} complete: {firstLine}");
+                    Console.WriteLine($"Call from {nameof(AsyunchronousCallSample)} complete: {firstLine.Name}");
                 }
                 else
                 {
-                    Console.WriteLine($"Error from {nameof(SynchronousCallSample)}: {result.Error.Description}");
+                    Console.WriteLine($"Error from {nameof(AsyunchronousCallSample)}: {result.Error.Description}");
                 }
             }
         }
