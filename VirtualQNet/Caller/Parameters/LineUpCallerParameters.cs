@@ -9,6 +9,6 @@ namespace VirtualQNet.Caller
         public string Source { get; set; }
         public string Language { get; set; }
         public IEnumerable<string> Skills { get; set; }
-        public ExpandoObject Properties { get; set; }
+        public string Properties { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Dynamic;
 
 namespace VirtualQNet.Caller
 {
@@ -16,7 +15,7 @@ namespace VirtualQNet.Caller
         public IEnumerable<string> Skills { get; set; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public ExpandoObject Properties { get; set; }
+        public string Properties { get; set; }
 
         [JsonProperty("ewt", NullValueHandling = NullValueHandling.Ignore)]
         public int? EWT { get; set; }

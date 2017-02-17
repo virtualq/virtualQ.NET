@@ -6,7 +6,7 @@ namespace VirtualQNet.Caller
     public class UpdateCallerInformationParameters: CallerParameters
     {
         public IEnumerable<string> Skills { get; set; }
-        public ExpandoObject Properties { get; set; }
+        public string Properties { get; set; }
         public int? EWT { get; set; }
         public string ServiceState { get; set; }
         public int? WaitTimeWhenUp { get; set; }
