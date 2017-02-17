@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 
 namespace VirtualQNet.Caller
 {
@@ -40,7 +39,7 @@ namespace VirtualQNet.Caller
         public string Message { get; }
         public DateTime? NotifiedAt { get; }
         public string Phone { get; }
-        public ExpandoObject Properties { get; set; }
+        public string Properties { get; set; }
         public IEnumerable<string> Skills { get; set; }
         public string Source { get; }
         public string Token { get; }
