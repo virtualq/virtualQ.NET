@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using VirtualQNet.Caller;
 using VirtualQNet.Results;
 
@@ -19,6 +21,12 @@ namespace VirtualQNet.Tests
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
+                dynamic properties = new ExpandoObject();
+                properties.StringProp = "Value1";
+                properties.ArrayProp = new[] { 45, 25, 78 };
+                properties.DateProp = DateTime.Now;
+                properties.ObjectProp = new { Id = 5, Value = "Value1" };
+
                 var attributes = new LineUpCallerParameters
                 {
                     LineId = 3042,
@@ -27,7 +35,7 @@ namespace VirtualQNet.Tests
                     Source = "Phone",
                     Language = "en",
                     Skills = new string[] { "Skill1", "Skill2", "Skill3" },
-                    Properties = "{'StringProp': 'Value1','ArrayProp': [45, 25, 78]}"
+                    Properties = properties
                 };
 
                 Result result = client.Callers.LineUpCaller(attributes).Result;
@@ -142,6 +150,10 @@ namespace VirtualQNet.Tests
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
+                dynamic properties = new ExpandoObject();
+                properties.StringProp = "Value2";
+                properties.ArrayProp = new[] { 5, 2 };
+
                 var attributes = new UpdateCallerInformationParameters
                 {
                     LineId = 3042,
@@ -151,7 +163,7 @@ namespace VirtualQNet.Tests
                     WaitTimeWhenUp = 30,
                     EWT = 50,
                     Skills = new string[] { "Skill4", "Skill5", "Skill6" },
-                    Properties = "{'StringProp': 'Value2', 'ArrayProp': [5, 2]}"
+                    Properties = properties
                 };
 
                 Result result = client.Callers.UpdateCallerInformation(attributes).Result;
