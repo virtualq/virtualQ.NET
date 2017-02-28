@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>virtualQ.API.virtualQNetClient</id>
-    <version>1.0.11</version>
+    <version>1.0.12</version>
     <title>virtualQ .NET client</title>
     <authors>Niels Liebisch</authors>
     <owners>virtualQ</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET client URL for virtualQ API</description>
-    <releaseNotes>Method IsVirtualQActive now sends a value for the API to count usage requests. No interface changes.</releaseNotes>
+    <releaseNotes>Can now update caller EWT. No interface changes.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>api client application</tags>
     <dependencies>
