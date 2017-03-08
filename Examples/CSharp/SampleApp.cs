@@ -8,7 +8,7 @@ namespace VirtualQNetCSharpSample
     class SampleApp
     {
         private const string API_KEY = "";
-        private const string API_BASE_ADDRESS = "http://staging-api.virtualq.io";
+        private const string API_BASE_ADDRESS = "https://staging-api.virtualq.io";
 
         static void Main(string[] args)
         {

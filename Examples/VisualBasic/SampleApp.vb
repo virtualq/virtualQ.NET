@@ -3,7 +3,7 @@ Imports VirtualQNet.Lines
 
 Module SampleApp
     Private Const API_KEY As String = ""
-    Private Const API_BASE_ADDRESS As String = "http://staging-api.virtualq.io"
+    Private Const API_BASE_ADDRESS As String = "https://staging-api.virtualq.io"
 
     Sub Main()
         Console.WriteLine("Starting asynchronous call")
