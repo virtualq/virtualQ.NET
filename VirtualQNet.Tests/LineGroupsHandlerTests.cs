@@ -74,14 +74,14 @@ namespace VirtualQNet.Tests
                 var lineGroupsToupdate = new List<UpdateLineGroupParameters>();
                 lineGroupsToupdate.Add(new UpdateLineGroupParameters
                 {
-                    Id  = 191,
+                    Id  = 2,
                     ServiceAgentsCount = 60,
                     ServiceEwt = 70
                     
                 });
                 lineGroupsToupdate.Add(new UpdateLineGroupParameters
                 {
-                    Id = 185,
+                    Id = 223,
                     ServiceAgentsCount = 12,
                     ServiceEwt = 45
                 });
