@@ -10,6 +10,7 @@ namespace VirtualQNet.Caller
         Task<Result> NotifyCallerConnected(CallerParameters attributes);
         Task<Result> NotifyCallerTransferred(NotifyCallerTransferredParameters attributes);
         Task<Result<bool>> VerifyCaller(CallerParameters attributes);
+        Task<Result<CallerResult>> GetCaller(CallerParameters attributes);
         Task<Result> UpdateCallerInformation(UpdateCallerInformationParameters attributes);
         Task<Result<IEnumerable<CallerResult>>> ListCallersWaiting(ListCallersWaitingParameters attributes);
     }

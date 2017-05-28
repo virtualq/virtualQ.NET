@@ -29,7 +29,7 @@ namespace VirtualQNet.Tests
 
                 var attributes = new LineUpCallerParameters
                 {
-                    LineId = 3042,
+                    LineId = 2600,
                     Phone = "+17343305027",
                     Channel = "CallIn",
                     Source = "Phone",
@@ -57,7 +57,7 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new CallerParameters
                 {
-                    LineId = 3042,
+                    LineId = 2600,
                     Phone = "+17343305027"
                 };
 
@@ -81,7 +81,7 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new CallerParameters
                 {
-                    LineId = 3042,
+                    LineId = 2600,
                     Phone = "+17343305000"
                 };
 
@@ -89,6 +89,54 @@ namespace VirtualQNet.Tests
 
                 Assert.IsTrue(result.RequestWasSuccessful);
                 Assert.IsFalse(result.Value);
+            }
+        }
+
+        [TestMethod]
+        public void GetCaller_ValidLineIdAndPhone_ExpectSuccess()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            var configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                var attributes = new CallerParameters
+                {
+                    LineId = 2600,
+                    Phone = "+17343305027"
+                };
+
+                Result<CallerResult> result = client.Callers.GetCaller(attributes).Result;
+
+                Assert.IsTrue(result.RequestWasSuccessful);
+                Assert.IsNotNull(result.Value);
+            }
+        }
+
+        [TestMethod]
+        public void GetCaller_InvalidPhone_ExpectFailure()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            var configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                var attributes = new CallerParameters
+                {
+                    LineId = 2600,
+                    Phone = "+17343305000"
+                };
+
+                Result<CallerResult> result = client.Callers.GetCaller(attributes).Result;
+
+                Assert.IsTrue(result.RequestWasSuccessful);
+                Assert.IsNull(result.Value);
             }
         }
 
@@ -105,7 +153,7 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new CallerParameters
                 {
-                    LineId = 3042,
+                    LineId = 2600,
                     Phone = "+17343305027"
                 };
 
@@ -128,7 +176,7 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new NotifyCallerTransferredParameters
                 {
-                    LineId = 3042,
+                    LineId = 2600,
                     Phone = "+17343305027",
                     AgentId = "B"
                 };
@@ -156,7 +204,7 @@ namespace VirtualQNet.Tests
 
                 var attributes = new UpdateCallerInformationParameters
                 {
-                    LineId = 3042,
+                    LineId = 2600,
                     Phone = "+17343305027",
                     AgentId = "A345",
                     TalkTime = 518,
@@ -186,7 +234,7 @@ namespace VirtualQNet.Tests
                 var attributes = new ListCallersWaitingParameters
                 {
                     CallCenterId = 1,
-                    LineId = 3042
+                    LineId = 2600
                 };
 
                 Result<IEnumerable<CallerResult>> result = client.Callers.ListCallersWaiting(attributes).Result;

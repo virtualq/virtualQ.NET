@@ -20,7 +20,7 @@ namespace VirtualQNet.Tests
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                var lineId = 3042L;
+                var lineId = 2600L;
 
                 Result<bool> result = client.Lines.IsVirtualQActive(lineId).Result;
 
@@ -40,7 +40,7 @@ namespace VirtualQNet.Tests
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                var lineId = 3036L;
+                var lineId = 1743L;
 
                 Result<bool> result = client.Lines.IsVirtualQActive(lineId).Result;
 

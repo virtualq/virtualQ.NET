@@ -15,6 +15,7 @@ namespace VirtualQNet.Caller
 
         private const string WAITERS_PATH = "waiters";
         private const string MESSAGE_TYPE = "waiters";
+        private const int ERROR_STATUS_NOT_FOUND = 404;
 
         public async Task<Result> LineUpCaller(LineUpCallerParameters attributes)
         {
@@ -83,17 +84,21 @@ namespace VirtualQNet.Caller
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
 
+        private async Task<CallResult<ArrayApiMessage<CallerMessage>>> FetchCallerFromService(CallerParameters attributes)
+        {
+            var query = $"{WAITERS_PATH}?currently_up=true"
+                + $"&phone={attributes.Phone}"
+                + $"&line_id={attributes.LineId}";
+
+            return await _ApiClient.Get<ArrayApiMessage<CallerMessage>>(query);
+        }
+
         public async Task<Result<bool>> VerifyCaller(CallerParameters attributes)
         {
             if (string.IsNullOrWhiteSpace(attributes.Phone))
                 throw new ArgumentException(nameof(attributes.Phone));
 
-            const int ERROR_STATUS_NOT_FOUND = 404;
-            var query = $"{WAITERS_PATH}?currently_up=true"
-                + $"&phone={attributes.Phone}"
-                + $"&line_id={attributes.LineId}";
-
-            CallResult<ArrayApiMessage<CallerMessage>> callResult = await _ApiClient.Get<ArrayApiMessage<CallerMessage>>(query);
+            CallResult<ArrayApiMessage<CallerMessage>> callResult = await FetchCallerFromService(attributes);
 
             var callerNotFound = callResult.Error?.Status == ERROR_STATUS_NOT_FOUND;
             if (callerNotFound)
@@ -103,6 +108,23 @@ namespace VirtualQNet.Caller
                     callResult.RequestWasSuccessful,
                     CreateErrorResult(callResult),
                     callResult.Value == null ? false : callResult.Value.Data.Any());
+        }
+
+        public async Task<Result<CallerResult>> GetCaller(CallerParameters attributes)
+        {
+            if (string.IsNullOrWhiteSpace(attributes.Phone))
+                throw new ArgumentException(nameof(attributes.Phone));
+
+            CallResult<ArrayApiMessage<CallerMessage>> callResult = await FetchCallerFromService(attributes);
+
+            var callerNotFound = callResult.Error?.Status == ERROR_STATUS_NOT_FOUND;
+            if (callerNotFound)
+                return new Result<CallerResult>(true, null, null);
+            else
+                return new Result<CallerResult>(
+                    callResult.RequestWasSuccessful,
+                    CreateErrorResult(callResult),
+                    callResult.Value?.Data.Select(m => new CallerResult(m)).FirstOrDefault());
         }
 
         public async Task<Result> UpdateCallerInformation(UpdateCallerInformationParameters attributes)
