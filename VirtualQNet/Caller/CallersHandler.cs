@@ -84,21 +84,16 @@ namespace VirtualQNet.Caller
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
 
-        private async Task<CallResult<ArrayApiMessage<CallerMessage>>> FetchCallerFromService(CallerParameters attributes)
-        {
-            var query = $"{WAITERS_PATH}?currently_up=true"
-                + $"&phone={attributes.Phone}"
-                + $"&line_id={attributes.LineId}";
-
-            return await _ApiClient.Get<ArrayApiMessage<CallerMessage>>(query);
-        }
-
         public async Task<Result<bool>> VerifyCaller(CallerParameters attributes)
         {
             if (string.IsNullOrWhiteSpace(attributes.Phone))
                 throw new ArgumentException(nameof(attributes.Phone));
 
-            CallResult<ArrayApiMessage<CallerMessage>> callResult = await FetchCallerFromService(attributes);
+            var query = $"{WAITERS_PATH}?currently_up=true"
+                + $"&phone={attributes.Phone}"
+                + $"&line_id={attributes.LineId}";
+
+            CallResult<ArrayApiMessage<CallerMessage>> callResult = await _ApiClient.Get<ArrayApiMessage<CallerMessage>>(query);
 
             var callerNotFound = callResult.Error?.Status == ERROR_STATUS_NOT_FOUND;
             if (callerNotFound)
@@ -115,7 +110,11 @@ namespace VirtualQNet.Caller
             if (string.IsNullOrWhiteSpace(attributes.Phone))
                 throw new ArgumentException(nameof(attributes.Phone));
 
-            CallResult<ArrayApiMessage<CallerMessage>> callResult = await FetchCallerFromService(attributes);
+            var query = $"{WAITERS_PATH}?active=true"
+                + $"&phone={attributes.Phone}"
+                + $"&line_id={attributes.LineId}";
+
+            CallResult<ArrayApiMessage<CallerMessage>> callResult = await _ApiClient.Get<ArrayApiMessage<CallerMessage>>(query);
 
             var callerNotFound = callResult.Error?.Status == ERROR_STATUS_NOT_FOUND;
             if (callerNotFound)
