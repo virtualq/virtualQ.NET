@@ -10,6 +10,7 @@ namespace VirtualQNet.LineGroups
         public int? ServiceEwt { get; set; }
         public bool? ServiceOpen { get; set; }
         public int? ServiceCallersCount { get; set; }
+        public int? ServiceCallsPerHour { get; set; }
         public IEnumerable<string> ServiceAgentList { get; set; }
     }
 }

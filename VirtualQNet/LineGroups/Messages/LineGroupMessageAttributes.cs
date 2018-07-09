@@ -37,6 +37,10 @@ namespace VirtualQNet.LineGroups.Messages
         [JsonProperty("service-waiters-count", NullValueHandling = NullValueHandling.Ignore)]
         public int? ServiceWaitersCount { get; set; }
 
+        [JsonProperty("service-calls-per-hourt", NullValueHandling = NullValueHandling.Ignore)]
+        public int? ServiceCallsPerHour { get; set; }
+        
+
         [JsonProperty("call-center", NullValueHandling = NullValueHandling.Ignore)]
         public CallCenter CallCenter { get; set; }
     }

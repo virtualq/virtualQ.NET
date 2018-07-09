@@ -22,5 +22,10 @@ namespace VirtualQNet.LineGroups
 
         [JsonProperty("service_agent_list", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> ServiceAgentList { get; set; }
+
+        [JsonProperty("service_calls_per_hour", NullValueHandling = NullValueHandling.Ignore)]
+        public int? ServiceCallsPerHour { get; set; }
+
+        
     }
 }

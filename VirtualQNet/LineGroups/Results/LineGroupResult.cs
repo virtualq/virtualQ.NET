@@ -18,6 +18,7 @@ namespace VirtualQNet.LineGroups
             VirtualQTimeoutTime = message?.Attributes?.VirtualQTimeoutTime;
             VirtualQWaitersCount = message?.Attributes?.VirtualQWaitersCount;
             ServiceWaitersCount = message?.Attributes?.ServiceWaitersCount;
+            ServiceCallsPerHour = message?.Attributes?.ServiceCallsPerHour;
             CallCenterId = message?.Attributes?.CallCenter?.Id;
             CallCenterName = message?.Attributes?.CallCenter?.Name;
             CallCenterOpen = message?.Attributes?.CallCenter?.CallCenterOpen;
@@ -36,6 +37,7 @@ namespace VirtualQNet.LineGroups
         public int? VirtualQTimeoutTime { get; set; }
         public int? VirtualQWaitersCount { get; set; }
         public int? ServiceWaitersCount { get; set; }
+        public int? ServiceCallsPerHour { get; set; }        
         public long? CallCenterId { get; set; }
         public string CallCenterName { get; set; }
         public bool? CallCenterOpen { get; set; }
