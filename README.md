@@ -19,7 +19,7 @@ Installation Options:
 - Create a _Service Line_
 - Find your _API Key_ on the dashboard. Click on your Email on top right.
 
-> Note: _Line Groups_ can have several _Lines_ with the same properties like _EWT_ or _Number of Agents_. Instead of updating each line, you update the line group instead. In the simplest case, 1 _Line Group_ has 1 _Line_.
+> Note: _Line Groups_ can have several _Lines_ with the same properties like _EWT_ or _Number of Agents_. Instead of updating each line, you update the line group. In the simplest case, 1 _Line Group_ has 1 _Line_.
 
 ### Build Instructions
 
