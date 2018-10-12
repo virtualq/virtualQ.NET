@@ -26,6 +26,7 @@ namespace VirtualQNet.Tests
                     ServiceCallersCount = 2,
                     ServiceAverageTalkTime = 35,
                     ServiceAgentsCount = 3,
+                    ServiceAgentsIdleCount = 1,
                     ServiceAgentList = new string[] { "A", "B", "C" }
                 };
 
@@ -50,6 +51,7 @@ namespace VirtualQNet.Tests
                 var attributes = new UpdateLineGroupParameters
                 {
                     ServiceAgentsCount = 60,
+                    ServiceAgentsIdleCount = 10,
                     ServiceEwt = 70
                 };
 
@@ -74,15 +76,17 @@ namespace VirtualQNet.Tests
                 var lineGroupsToupdate = new List<UpdateLineGroupParameters>();
                 lineGroupsToupdate.Add(new UpdateLineGroupParameters
                 {
-                    Id  = 2,
+                    Id = 2,
                     ServiceAgentsCount = 60,
+                    ServiceAgentsIdleCount = 10,
                     ServiceEwt = 70
-                    
+
                 });
                 lineGroupsToupdate.Add(new UpdateLineGroupParameters
                 {
                     Id = 223,
                     ServiceAgentsCount = 12,
+                    ServiceAgentsIdleCount = 8,
                     ServiceEwt = 45
                 });
                 var attributes = new UpdateLineGroupCollectionParameters

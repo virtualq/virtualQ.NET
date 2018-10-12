@@ -26,6 +26,9 @@ namespace VirtualQNet.LineGroups
         [JsonProperty("service_calls_per_hour", NullValueHandling = NullValueHandling.Ignore)]
         public int? ServiceCallsPerHour { get; set; }
 
-        
+        [JsonProperty("service_idle_agents_count", NullValueHandling = NullValueHandling.Ignore)]
+        public int? ServiceAgentsIdleCount { get; set; }
+
+
     }
 }

@@ -27,7 +27,8 @@ namespace VirtualQNet.LineGroups
                 ServiceOpen = attributes.ServiceOpen,
                 ServiceCallersCount = attributes.ServiceCallersCount,
                 ServiceAgentList = attributes.ServiceAgentList,
-                ServiceCallsPerHour = attributes.ServiceCallsPerHour
+                ServiceCallsPerHour = attributes.ServiceCallsPerHour,
+                ServiceAgentsIdleCount = attributes.ServiceAgentsIdleCount
             };
 
             SingleApiMessage<LineGroupUpdateMessage> message = CreateSingleMessage<LineGroupUpdateMessageAttributes, LineGroupUpdateMessage>(MESSAGE_TYPE, messageAttributes);
@@ -51,7 +52,8 @@ namespace VirtualQNet.LineGroups
                     ServiceCallersCount = lg.ServiceCallersCount,
                     ServiceEwt = lg.ServiceEwt,
                     ServiceOpen = lg.ServiceOpen,
-                    ServiceCallsPerHour = lg.ServiceCallsPerHour
+                    ServiceCallsPerHour = lg.ServiceCallsPerHour,
+                    ServiceAgentsIdleCount = lg.ServiceAgentsIdleCount
                 }
             });
             ArrayApiMessage<LineGroupUpdateMessage> message = CreateArrayMessage<LineGroupUpdateMessageAttributes, LineGroupUpdateMessage>(lineGroupMessages);

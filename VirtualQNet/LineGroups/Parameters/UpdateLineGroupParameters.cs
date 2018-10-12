@@ -6,6 +6,7 @@ namespace VirtualQNet.LineGroups
     {
         public long? Id { get; set; }
         public int? ServiceAgentsCount { get; set; }
+        public int? ServiceAgentsIdleCount { get; set; }        
         public int? ServiceAverageTalkTime { get; set; }
         public int? ServiceEwt { get; set; }
         public bool? ServiceOpen { get; set; }
