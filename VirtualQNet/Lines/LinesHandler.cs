@@ -33,6 +33,22 @@ namespace VirtualQNet.Lines
                 value);
         }
 
+        public async Task<Result<bool>> NewCallOffered(long lineId)
+        {
+            
+            var path = $"{LINES_PATH}/{lineId}/log_call_offered";
+
+            CallResult<SingleApiMessage<LineMessage>> callResult = await _ApiClient.Get<SingleApiMessage<LineMessage>>(path);
+
+            var value = callResult.RequestWasSuccessful;
+                
+
+            return new Result<bool>(
+                callResult.RequestWasSuccessful,
+                CreateErrorResult(callResult),
+                value);
+        }
+
         public async Task<Result<IEnumerable<LineResult>>> ListLines(ListLinesParameters attributes)
         {
             var filter = $"call_center_id={attributes.CallCenterId}";

@@ -7,6 +7,7 @@ namespace VirtualQNet.Lines
     public interface ILinesHandler
     {
         Task<Result<bool>> IsVirtualQActive(long lineId);
+        Task<Result<bool>> NewCallOffered(long lineId);
         Task<Result<IEnumerable<LineResult>>> ListLines(ListLinesParameters attributes);
     }
 }
