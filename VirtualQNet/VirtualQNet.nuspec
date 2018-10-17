@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>virtualQ.API.virtualQNetClient</id>
-    <version>1.0.14</version>
+    <version>1.0.15</version>
     <title>virtualQ .NET client</title>
     <authors>Niels Liebisch</authors>
     <owners>virtualQ</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET client URL for virtualQ API</description>
-    <releaseNotes>Replacing currently_up parameter for active on GetCaller method.</releaseNotes>
+    <releaseNotes>Added Calls offered / Idle Agents in SDK</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>api client application</tags>
     <dependencies>
