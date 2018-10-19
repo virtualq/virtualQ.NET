@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VirtualQNet.Caller;
 using VirtualQNet.Common;
 using VirtualQNet.Common.CallResults;
 using VirtualQNet.Common.Messages;
@@ -14,6 +15,7 @@ namespace VirtualQNet.Lines
         public LinesHandler(ApiClient apiClient) : base(apiClient) { }
 
         private const string LINES_PATH = "lines";
+        private const string MESSAGE_TYPE = "lines";
 
         public async Task<Result<bool>> IsVirtualQActive(long lineId)
         {
@@ -36,39 +38,24 @@ namespace VirtualQNet.Lines
         public async Task<Result<bool>> NewCallOffered(long lineId)
         {
 
-            //var path = $"{LINES_PATH}/{lineId}/log_call_offered";
 
-            //CallResult<SingleApiMessage<LineMessage>> callResult = await _ApiClient.Get<SingleApiMessage<LineMessage>>(path);
+            CallResult callResult = new CallResult();
 
-            //var value = callResult.RequestWasSuccessful;
+            var path = $"{LINES_PATH}/{lineId}/log_call_offered";
 
-
-            //return new Result<bool>(
-            //    callResult.RequestWasSuccessful,
-            //    CreateErrorResult(callResult),
-            //    value);
-
-
-            var value = false;
-            CallResult<SingleApiMessage<LineMessage>> callResult = new CallResult<SingleApiMessage<LineMessage>>();
-
-            try
+            var messageAttributes = new CallerCreateMessageAttributes
             {
-                var path = $"{LINES_PATH}/{lineId}/log_call_offered";
+                LineId = lineId
+            };
+            SingleApiMessage<CallerCreateMessage> message = CreateSingleMessage<CallerCreateMessageAttributes, CallerCreateMessage>(MESSAGE_TYPE, messageAttributes);
+            callResult = await _ApiClient.Post(path, message);
 
-                callResult = await _ApiClient.Get<SingleApiMessage<LineMessage>>(path);
-                value = true;
 
-            }
-            catch (Exception)
-            {
-
-            }
 
             return new Result<bool>(
-                value,
+                callResult.RequestWasSuccessful,
                 CreateErrorResult(callResult),
-                value);
+                callResult.RequestWasSuccessful);
         }
 
         public async Task<Result<IEnumerable<LineResult>>> ListLines(ListLinesParameters attributes)
