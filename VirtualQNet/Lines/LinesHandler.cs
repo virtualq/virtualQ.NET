@@ -35,16 +35,38 @@ namespace VirtualQNet.Lines
 
         public async Task<Result<bool>> NewCallOffered(long lineId)
         {
-            
-            var path = $"{LINES_PATH}/{lineId}/log_call_offered";
 
-            CallResult<SingleApiMessage<LineMessage>> callResult = await _ApiClient.Get<SingleApiMessage<LineMessage>>(path);
+            //var path = $"{LINES_PATH}/{lineId}/log_call_offered";
 
-            var value = callResult.RequestWasSuccessful;
-                
+            //CallResult<SingleApiMessage<LineMessage>> callResult = await _ApiClient.Get<SingleApiMessage<LineMessage>>(path);
+
+            //var value = callResult.RequestWasSuccessful;
+
+
+            //return new Result<bool>(
+            //    callResult.RequestWasSuccessful,
+            //    CreateErrorResult(callResult),
+            //    value);
+
+
+            var value = false;
+            CallResult<SingleApiMessage<LineMessage>> callResult = new CallResult<SingleApiMessage<LineMessage>>();
+
+            try
+            {
+                var path = $"{LINES_PATH}/{lineId}/log_call_offered";
+
+                callResult = await _ApiClient.Get<SingleApiMessage<LineMessage>>(path);
+                value = true;
+
+            }
+            catch (Exception)
+            {
+
+            }
 
             return new Result<bool>(
-                callResult.RequestWasSuccessful,
+                value,
                 CreateErrorResult(callResult),
                 value);
         }
