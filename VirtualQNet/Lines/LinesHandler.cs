@@ -38,7 +38,6 @@ namespace VirtualQNet.Lines
         public async Task<Result<bool>> NewCallOffered(long lineId)
         {
 
-
             CallResult callResult = new CallResult();
 
             var path = $"{LINES_PATH}/{lineId}/log_call_offered";
