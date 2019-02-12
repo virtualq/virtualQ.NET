@@ -51,6 +51,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
+    <Compile Include="CallCenter\CallCenterHandler.cs" />
+    <Compile Include="CallCenter\ICallCenterHandler.cs" />
+    <Compile Include="CallCenter\Messages\CallCenterCreateMessageAttributes.cs" />
+    <Compile Include="CallCenter\Messages\CallCenterMessage.cs" />
+    <Compile Include="CallCenter\Parameters\ListCallCenterParameters.cs" />
+    <Compile Include="CallCenter\Parameters\UpdateVersionNumberCallCenterParameters.cs" />
+    <Compile Include="CallCenter\Results\CallCenterResult.cs" />
     <Compile Include="Caller\Messages\CallerCreateMessage.cs" />
     <Compile Include="Caller\Messages\CallerCreateMessageAttributes.cs" />
     <Compile Include="Caller\Messages\CallerMessageAttributes.cs" />
