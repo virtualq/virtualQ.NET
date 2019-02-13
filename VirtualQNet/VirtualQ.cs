@@ -1,4 +1,5 @@
 ﻿using System;
+using VirtualQNet.CallCenter;
 using VirtualQNet.Caller;
 using VirtualQNet.LineGroups;
 using VirtualQNet.Lines;
@@ -18,6 +19,7 @@ namespace VirtualQNet
             Lines = new LinesHandler(_ApiClient);
             LineGroups = new LineGroupsHandler(_ApiClient);
             Callers = new CallersHandler(_ApiClient);
+            CallCenter = new CallCenterHandler(_ApiClient);
         }
 
         private ApiClient _ApiClient { get; }
@@ -25,6 +27,7 @@ namespace VirtualQNet
         public ILinesHandler Lines { get; }
         public ILineGroupsHandler LineGroups { get; }
         public ICallersHandler Callers { get; }
+        public ICallCenterHandler CallCenter { get; }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
