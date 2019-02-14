@@ -8,6 +8,7 @@ namespace VirtualQNet.CallCenter.Parameters
 {
     public class UpdateVersionNumberCallCenterParameters
     {
+        public long Id { get; set; }
         public string ConnectorVersion { get; set; }
     }
 }

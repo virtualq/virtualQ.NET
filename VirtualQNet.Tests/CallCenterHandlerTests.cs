@@ -13,6 +13,29 @@ namespace VirtualQNet.Tests
     public class CallCenterHandlerTests
     {
         [TestMethod]
+        public void UpdateCallCenter()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            var configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                var attributes = new UpdateVersionNumberCallCenterParameters
+                {
+                    Id = 24,
+                    ConnectorVersion = "version number update test via VirtualQ C# SDK is a success| Version Number: 1.5.0"
+                };
+
+                Result result = client.CallCenter.UpdateCallCenter(attributes).Result;
+
+                Assert.IsTrue(result.RequestWasSuccessful);
+            }
+        }
+        
+        [TestMethod]
         public void ListCallCenters()
         {
             string apiKey = ConfigurationHelper.GetApiKey();

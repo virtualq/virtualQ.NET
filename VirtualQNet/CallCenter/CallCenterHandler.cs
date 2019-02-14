@@ -26,11 +26,13 @@ namespace VirtualQNet.CallCenter
                 throw new ArgumentException(nameof(updateVersionNumberCallCenterParameters.ConnectorVersion));
             var messageAttributes = new CallCenterCreateMessageAttributes
             {
+                Id = updateVersionNumberCallCenterParameters.Id,
                 ConnectorVersion = updateVersionNumberCallCenterParameters.ConnectorVersion
             };
 
             SingleApiMessage<CallCenterMessage> message = CreateSingleMessage<CallCenterCreateMessageAttributes, CallCenterMessage>(MESSAGE_TYPE, messageAttributes);
-            CallResult callResult = await _ApiClient.Put(CALL_CENTER_PATH, message);
+            var path = $"{CALL_CENTER_PATH}/{messageAttributes.Id}";
+            CallResult callResult = await _ApiClient.Put(path, message);
 
             return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
         }
