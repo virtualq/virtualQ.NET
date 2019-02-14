@@ -1,4 +1,5 @@
 ﻿using System;
+using VirtualQNet.CallCenter;
 using VirtualQNet.Caller;
 using VirtualQNet.LineGroups;
 using VirtualQNet.Lines;
@@ -10,5 +11,6 @@ namespace VirtualQNet
         ILinesHandler Lines { get; }
         ILineGroupsHandler LineGroups { get; }
         ICallersHandler Callers { get; }
+        ICallCenterHandler CallCenter { get; }
     }
 }

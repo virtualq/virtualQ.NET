@@ -63,6 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CallCenterHandlerTests.cs" />
     <Compile Include="CallersHandlerTests.cs" />
     <Compile Include="ConfigurationHelper.cs" />
     <Compile Include="LineGroupsHandlerTests.cs" />

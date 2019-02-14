@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>virtualQ.API.virtualQNetClient</id>
-    <version>1.0.16</version>
+    <version>1.0.17</version>
     <title>virtualQ .NET client</title>
     <authors>Niels Liebisch</authors>
     <owners>virtualQ</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET client URL for virtualQ API</description>
-    <releaseNotes>Fixed NewCallOffered to Use Post insted of Get</releaseNotes>
+    <releaseNotes>Added support for version number update of CallCenter</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>api client application</tags>
     <dependencies>
