@@ -22,6 +22,7 @@ namespace VirtualQNet.CallCenter.Results
             TimeZone = callCenterMessage?.Attributes?.TimeZone;
             AcdTypeVersion = callCenterMessage?.Attributes?.AcdTypeVersion;
             ConnectorVersion = callCenterMessage?.Attributes?.ConnectorVersion;
+            Notes = callCenterMessage?.Attributes?.Notes;
         }
 
         public long? Id { get; }
@@ -35,5 +36,6 @@ namespace VirtualQNet.CallCenter.Results
         public string TimeZone { get; }
         public string AcdTypeVersion { get; }
         public string ConnectorVersion { get; }
+        public string Notes { get; }
     }
 }

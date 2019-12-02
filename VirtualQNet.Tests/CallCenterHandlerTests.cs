@@ -60,5 +60,31 @@ namespace VirtualQNet.Tests
                 Assert.IsTrue(result.Value.Any());
             }
         }
+
+        [TestMethod]
+        public void GetCallCenter()
+        {
+            string apiKey = ConfigurationHelper.GetApiKey();
+            var configuration = new VirtualQClientConfiguration
+            {
+                ApiBaseAddress = ConfigurationHelper.GetApiUrl(),
+                Timeout = null
+            };
+            using (VirtualQ client = new VirtualQ(apiKey, configuration))
+            {
+                var attributes = new ListCallCenterParameters
+                {
+                    Id = 1
+                };
+
+                Result<CallCenterResult> result = client.CallCenter.GetCallCenter(attributes).Result;
+
+                if (result.Value != null)
+                    Trace.WriteLine("Call Centter Names:" + result.Value);
+
+                Assert.IsTrue(result.RequestWasSuccessful);
+                Assert.IsTrue(result.Value != null);
+            }
+        }
     }
 }

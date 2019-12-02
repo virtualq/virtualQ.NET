@@ -13,5 +13,6 @@ namespace VirtualQNet.CallCenter
     {
         Task<Result> UpdateCallCenter(UpdateVersionNumberCallCenterParameters updateVersionNumberCallCenterParameters);
         Task<Result<IEnumerable<CallCenterResult>>> ListCallCenters(ListCallCenterParameters attributes);
+        Task<Result<CallCenterResult>> GetCallCenter(ListCallCenterParameters attributes);
     }
 }
