@@ -18,6 +18,7 @@
             VirtualQLineState = message?.Attributes?.VirtualQLineState;
             VirtualQLineStateMode = message?.Attributes?.VirtualQLineStateMode;
             VirtualQPhoneNumber = message?.Attributes?.VirtualQPhoneNumber;
+            ForwardingPhoneNumber = message?.Attributes?.ForwardingPhoneNumber;
             LineGroupId = message?.Attributes?.LineGroup?.Id;
             LineGroupName = message?.Attributes?.LineGroup?.Name;
             AllowCallback = message?.Attributes?.LineGroup?.AllowCallback;
@@ -41,6 +42,7 @@
         public string VirtualQLineState { get; }
         public string VirtualQLineStateMode { get; }
         public string VirtualQPhoneNumber { get; }
+        public string ForwardingPhoneNumber { get; set; }
         public long? LineGroupId { get; }
         public string LineGroupName { get; }
         public bool? AllowCallback { get; }
