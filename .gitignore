@@ -274,3 +274,26 @@ __pycache__/
 # Cake - Uncomment if you are using it
 # tools/
 /virtualQ.NET-1.0.15.zip
+VirtualQNet/Microsoft.AspNet.WebApi.Client.5.2.3/.signature.p7s
+VirtualQNet/Microsoft.AspNet.WebApi.Client.5.2.3/lib/net45/System.Net.Http.Formatting.dll
+VirtualQNet/Microsoft.AspNet.WebApi.Client.5.2.3/lib/net45/System.Net.Http.Formatting.xml
+VirtualQNet/Microsoft.AspNet.WebApi.Client.5.2.3/lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.dll
+VirtualQNet/Microsoft.AspNet.WebApi.Client.5.2.3/lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.xml
+VirtualQNet/Newtonsoft.Json.6.0.4/.signature.p7s
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/net20/Newtonsoft.Json.dll
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/net20/Newtonsoft.Json.xml
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/net35/Newtonsoft.Json.dll
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/net35/Newtonsoft.Json.xml
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/net40/Newtonsoft.Json.dll
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/net40/Newtonsoft.Json.xml
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/net45/Newtonsoft.Json.dll
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/net45/Newtonsoft.Json.xml
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/netcore45/Newtonsoft.Json.dll
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/netcore45/Newtonsoft.Json.xml
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll
+VirtualQNet/Newtonsoft.Json.6.0.4/lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml
+VirtualQNet/Newtonsoft.Json.6.0.4/tools/install.ps1
+VirtualQNet/NuGet.CommandLine.4.9.3/.signature.p7s
+VirtualQNet/NuGet.CommandLine.4.9.3/tools/NuGet.exe
