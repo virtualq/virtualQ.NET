@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 using VirtualQNet.LineGroups;
 using VirtualQNet.Results;
 
@@ -114,11 +115,11 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new ListLineGroupsParameters
                 {
-                    CallCenterId = 1
+                    CallCenterId = 94
                 };
 
                 Result<IEnumerable<LineGroupResult>> result = client.LineGroups.ListLineGroups(attributes).Result;
-
+                var linegorups = string.Join(",", result.Value.Select(lg => lg.Name));
                 Assert.IsTrue(result.RequestWasSuccessful);
             }
         }

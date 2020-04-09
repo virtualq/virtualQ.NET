@@ -41,5 +41,8 @@ namespace VirtualQNet.CallCenter.Messages
 
         [JsonProperty("connector_version", NullValueHandling = NullValueHandling.Ignore)]
         public string ConnectorVersion { get; set; }
+
+        [JsonProperty("notes", NullValueHandling = NullValueHandling.Ignore)]
+        public string Notes { get; set; }
     }
 }

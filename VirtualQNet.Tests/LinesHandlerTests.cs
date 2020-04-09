@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using VirtualQNet.Lines;
 using VirtualQNet.Results;
@@ -83,12 +84,13 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new ListLinesParameters
                 {
-                    CallCenterId = 1,
-                    LineGroupId = 185
+                    CallCenterId = 218
+                    //LineGroupId = 468
                 };
 
                 Result<IEnumerable<LineResult>> result = client.Lines.ListLines(attributes).Result;
-
+                
+                Trace.WriteLine("Lines Names: \n" + string.Join("\n", result.Value.Select(l => l.Name + "|" + l.VirtualQLineState + "|" + l.ForwardingPhoneNumber )));
                 Assert.IsTrue(result.RequestWasSuccessful);
                 Assert.IsTrue(result.Value.Any());
             }

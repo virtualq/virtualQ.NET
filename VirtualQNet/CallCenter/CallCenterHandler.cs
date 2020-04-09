@@ -46,5 +46,14 @@ namespace VirtualQNet.CallCenter
 
             return new Result<IEnumerable<CallCenterResult>>(callResult.RequestWasSuccessful, CreateErrorResult(callResult), results);
         }
+
+        public async Task<Result<CallCenterResult>> GetCallCenter(ListCallCenterParameters attributes)
+        {
+            var path = $"{CALL_CENTER_PATH}/{attributes.Id}";
+            CallResult<SingleApiMessage<CallCenterMessage >> callResult = await _ApiClient.Get<SingleApiMessage<CallCenterMessage>>(path);
+            var results = callResult.Value?.Data != null ? new CallCenterResult(callResult.Value.Data) : null;
+
+            return new Result<CallCenterResult>(callResult.RequestWasSuccessful, CreateErrorResult(callResult), results);
+        }
     }
 }

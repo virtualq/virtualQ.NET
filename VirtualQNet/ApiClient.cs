@@ -104,6 +104,7 @@ namespace VirtualQNet
         private async Task<CallResult<T>> HandleResponse<T>(HttpResponseMessage response)
         {
             CallResult callResult = await HandleResponse(response);
+            //var jsonContent = await response.Content.ReadAsStringAsync();
             var result = new CallResult<T>
             {
                 RequestWasSuccessful = callResult.RequestWasSuccessful,
@@ -148,6 +149,18 @@ namespace VirtualQNet
         private const string API_ROUTE = "api/v2";
         private string BuildApiPath(string path) => $"{API_ROUTE}/{path}";
 
+        public async Task<CallResult> Get<T>(string path, string id)
+        {
+            try
+            {
+                return await HandleResponse(await _Client.GetAsync(BuildApiPath(path)));
+            }
+            catch (Exception exception)
+            {
+                return HandleException<T>(exception);
+            }
+        }
+
         public async Task<CallResult<T>> Get<T>(string path)
         {
             try
@@ -164,7 +177,9 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse(await _Client.PostAsync(BuildApiPath(path), CreateContent(model)));
+                var requestContent = CreateContent(model);
+                //var jsonContent = await requestContent.ReadAsStringAsync();
+                return await HandleResponse(await _Client.PostAsync(BuildApiPath(path), requestContent));
             }
             catch (Exception exception)
             {

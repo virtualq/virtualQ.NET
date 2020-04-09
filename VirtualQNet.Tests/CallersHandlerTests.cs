@@ -26,10 +26,11 @@ namespace VirtualQNet.Tests
                 properties.ArrayProp = new[] { 45, 25, 78 };
                 properties.DateProp = DateTime.Now;
                 properties.ObjectProp = new { Id = 5, Value = "Value1" };
+                properties.DictionaryProp = new Dictionary<string, string>() { { "prop1", "Value1" }, { "prop2", "Value2" } };
 
                 var attributes = new LineUpCallerParameters
                 {
-                    LineId = 2600,
+                    LineId = 3384,
                     Phone = "+17343305027",
                     Channel = "CallIn",
                     Source = "Phone",
@@ -105,7 +106,7 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new CallerParameters
                 {
-                    LineId = 2600,
+                    LineId = 3384,
                     Phone = "+17343305027"
                 };
 
@@ -129,7 +130,7 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new CallerParameters
                 {
-                    LineId = 2600,
+                    LineId = 3384,
                     Phone = "+17343305000"
                 };
 
@@ -233,8 +234,8 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new ListCallersWaitingParameters
                 {
-                    CallCenterId = 1,
-                    LineId = 2600
+                    CallCenterId = 24,
+                    LineId = 3384
                 };
 
                 Result<IEnumerable<CallerResult>> result = client.Callers.ListCallersWaiting(attributes).Result;

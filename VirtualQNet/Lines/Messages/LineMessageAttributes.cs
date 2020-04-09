@@ -43,6 +43,9 @@ namespace VirtualQNet.Lines
         [JsonProperty("virtualq-phone-number", NullValueHandling = NullValueHandling.Ignore)]
         public string VirtualQPhoneNumber { get; set; }
 
+        [JsonProperty("forwarding-phone-number", NullValueHandling = NullValueHandling.Ignore)]
+        public string ForwardingPhoneNumber { get; set; }
+
         [JsonProperty("line-group", NullValueHandling = NullValueHandling.Ignore)]
         public LineGroup LineGroup { get; set; }
     }
