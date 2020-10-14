@@ -27,7 +27,7 @@ namespace VirtualQNet
         private HttpClient SetUpClient(string apiKey, VirtualQClientConfiguration configuration) {
             const string DEFAULT_BASE_ADDRESS = "https://api.virtualq.io";
             const bool DISPOSE_HANDLER = true;
-
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             var client = configuration?.ProxyConfiguration == null
                 ? new HttpClient()
                 : new HttpClient(SetUpClientHandlerForProxy(configuration.ProxyConfiguration), DISPOSE_HANDLER);
@@ -41,7 +41,6 @@ namespace VirtualQNet
 
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
-
             return client;
         }
 

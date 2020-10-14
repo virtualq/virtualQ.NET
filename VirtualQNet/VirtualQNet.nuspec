@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>virtualQ.API.virtualQNetClient</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <title>virtualQ .NET client</title>
     <authors>Niels Liebisch and Zeeshan Ali Khan</authors>
     <owners>virtualQ</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET client URL for virtualQ API</description>
-    <releaseNotes>Added support for notes for CallCenter and forwarding number for virtualQ Line</releaseNotes>
+    <releaseNotes>Added support for TLS1.2</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>api client application</tags>
     <dependencies>
