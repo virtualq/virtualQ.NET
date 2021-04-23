@@ -37,9 +37,12 @@ namespace VirtualQNet.Caller
                 Properties = attributes.Properties
             };
             SingleApiMessage<CallerCreateMessage> message = CreateSingleMessage<CallerCreateMessageAttributes, CallerCreateMessage>(MESSAGE_TYPE, messageAttributes);
-            CallResult callResult = await _ApiClient.Post(WAITERS_PATH, message);
+            CallResult<SingleApiMessage<CallerMessage>> callResult = await _ApiClient.Post<SingleApiMessage<CallerCreateMessage>, SingleApiMessage<CallerMessage>>(WAITERS_PATH, message);
 
-            return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
+            return new Result<CallerResult>(
+                    callResult.RequestWasSuccessful,
+                    CreateErrorResult(callResult),
+                    new CallerResult(callResult.Value == null? null: callResult.Value.Data ?? null));
         }
 
         public async Task<Result> NotifyCallerConnected(CallerParameters attributes)
