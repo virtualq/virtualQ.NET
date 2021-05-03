@@ -20,17 +20,17 @@ namespace VirtualQNet.CallCenter
 
         public CallCenterHandler(ApiClient apiClient) : base(apiClient) { }
         
-        public async Task<Result> UpdateCallCenter(UpdateVersionNumberCallCenterParameters updateVersionNumberCallCenterParameters)
+        public async Task<Result> UpdateCallCenter(UpdateCallCenterParameters updateCallCenterParameters)
         {
-            if (string.IsNullOrWhiteSpace(updateVersionNumberCallCenterParameters.ConnectorVersion) || string.IsNullOrEmpty(updateVersionNumberCallCenterParameters.ConnectorVersion))
-                throw new ArgumentException(nameof(updateVersionNumberCallCenterParameters.ConnectorVersion));
-            var messageAttributes = new CallCenterCreateMessageAttributes
+            var messageAttributes = new CallCenterUpdateAttributes
             {
-                Id = updateVersionNumberCallCenterParameters.Id,
-                ConnectorVersion = updateVersionNumberCallCenterParameters.ConnectorVersion
+                Id = updateCallCenterParameters.Id,
+                ConnectorVersion = updateCallCenterParameters.ConnectorVersion,
+                ConnectorConnectionStatus = updateCallCenterParameters.ConnectorConnectionStatus,
+                ConnectorLastRestartTime = updateCallCenterParameters.ConnectorLastRestartTime
             };
 
-            SingleApiMessage<CallCenterMessage> message = CreateSingleMessage<CallCenterCreateMessageAttributes, CallCenterMessage>(MESSAGE_TYPE, messageAttributes);
+            SingleApiMessage<CallCenterMessage1> message = CreateSingleMessage<CallCenterUpdateAttributes, CallCenterMessage1>(MESSAGE_TYPE, messageAttributes);
             var path = $"{CALL_CENTER_PATH}/{messageAttributes.Id}";
             CallResult callResult = await _ApiClient.Put(path, message);
 

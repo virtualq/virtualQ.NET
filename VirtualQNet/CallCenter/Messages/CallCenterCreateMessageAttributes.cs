@@ -39,10 +39,20 @@ namespace VirtualQNet.CallCenter.Messages
         [JsonProperty("acd_type_version", NullValueHandling = NullValueHandling.Ignore)]
         public string AcdTypeVersion { get; set; }
 
-        [JsonProperty("connector_version", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("connector-version", NullValueHandling = NullValueHandling.Ignore)]
         public string ConnectorVersion { get; set; }
 
         [JsonProperty("notes", NullValueHandling = NullValueHandling.Ignore)]
         public string Notes { get; set; }
+
+        [JsonProperty("connector-configuration", NullValueHandling = NullValueHandling.Ignore)]
+        public string ConnectorConfiguration { get; set; }
+
+        [JsonProperty("connector-last-restart-at", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? ConnectorLastRestartTime { get; set; }
+
+        [JsonProperty("connector-connection-status", NullValueHandling = NullValueHandling.Ignore)]
+        public string ConnectorConnectionStatus { get; set; }
+
     }
 }

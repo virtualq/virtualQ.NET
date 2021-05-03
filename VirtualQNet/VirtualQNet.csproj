@@ -53,8 +53,9 @@
     <Compile Include="CallCenter\ICallCenterHandler.cs" />
     <Compile Include="CallCenter\Messages\CallCenterCreateMessageAttributes.cs" />
     <Compile Include="CallCenter\Messages\CallCenterMessage.cs" />
+    <Compile Include="CallCenter\Messages\CallCenterUpdateAttributes.cs" />
     <Compile Include="CallCenter\Parameters\ListCallCenterParameters.cs" />
-    <Compile Include="CallCenter\Parameters\UpdateVersionNumberCallCenterParameters.cs" />
+    <Compile Include="CallCenter\Parameters\UpdateCallCenterParameters.cs" />
     <Compile Include="CallCenter\Results\CallCenterResult.cs" />
     <Compile Include="Caller\Messages\CallerCreateMessage.cs" />
     <Compile Include="Caller\Messages\CallerCreateMessageAttributes.cs" />

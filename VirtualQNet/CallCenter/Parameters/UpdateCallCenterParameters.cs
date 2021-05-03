@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace VirtualQNet.CallCenter.Parameters
 {
-    public class UpdateVersionNumberCallCenterParameters
+    public class UpdateCallCenterParameters
     {
         public long Id { get; set; }
         public string ConnectorVersion { get; set; }
+        public DateTime ConnectorLastRestartTime { get; set; }
+        public string ConnectorConnectionStatus { get; set; }
     }
 }

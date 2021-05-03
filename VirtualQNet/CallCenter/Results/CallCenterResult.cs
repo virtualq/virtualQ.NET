@@ -23,6 +23,9 @@ namespace VirtualQNet.CallCenter.Results
             AcdTypeVersion = callCenterMessage?.Attributes?.AcdTypeVersion;
             ConnectorVersion = callCenterMessage?.Attributes?.ConnectorVersion;
             Notes = callCenterMessage?.Attributes?.Notes;
+            ConnectorConfiguration = callCenterMessage?.Attributes?.ConnectorConfiguration;
+            ConnectorLastRestartTime = callCenterMessage?.Attributes?.ConnectorLastRestartTime;
+            ConnectorConnectionStatus = callCenterMessage?.Attributes?.ConnectorConnectionStatus;
         }
 
         public long? Id { get; }
@@ -37,5 +40,8 @@ namespace VirtualQNet.CallCenter.Results
         public string AcdTypeVersion { get; }
         public string ConnectorVersion { get; }
         public string Notes { get; }
+        public string ConnectorConfiguration { get; set; }
+        public DateTime? ConnectorLastRestartTime { get; set; }
+        public string ConnectorConnectionStatus { get; set; }
     }
 }
