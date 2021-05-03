@@ -7,7 +7,9 @@
     <authors>Niels Liebisch and Zeeshan Ali Khan</authors>
     <owners>virtualQ</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>- update connector status, connector last restart time, connector /r/n - get remote configuration from connector settings tab.</description>
+    <description>- update connector status, connector last restart time, connector.
+	- get remote configuration from connector settings tab.
+	- get caller data on lineup request.</description>
     <releaseNotes>Added support for connector settting page. https://github.com/virtualq/virtualQ.NET/wiki/6.-CallCenter</releaseNotes>
     <copyright>Copyright 2021</copyright>
     <tags>api client application</tags>
