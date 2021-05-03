@@ -20,7 +20,7 @@ namespace VirtualQNet.CallCenter
 
         public CallCenterHandler(ApiClient apiClient) : base(apiClient) { }
         
-        public async Task<Result> UpdateCallCenter(UpdateCallCenterParameters UpdateCallCenterParameters)
+        public async Task<Result> UpdateCallCenter(UpdateCallCenterParameters updateCallCenterParameters)
         {
             var messageAttributes = new CallCenterUpdateAttributes
             {
