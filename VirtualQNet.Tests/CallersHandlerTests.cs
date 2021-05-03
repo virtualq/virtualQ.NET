@@ -30,10 +30,10 @@ namespace VirtualQNet.Tests
 
                 var attributes = new LineUpCallerParameters
                 {
-                    LineId = 3384,
+                    LineId = 3534,
                     Phone = "+17343305027",
-                    Channel = "CallIn",
-                    Source = "Phone",
+                    Channel = "callbackext",
+                    Source = "Phone", 
                     Language = "en",
                     Skills = new string[] { "Skill1", "Skill2", "Skill3" },
                     Properties = properties

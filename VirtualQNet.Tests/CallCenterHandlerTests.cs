@@ -23,10 +23,12 @@ namespace VirtualQNet.Tests
             };
             using (VirtualQ client = new VirtualQ(apiKey, configuration))
             {
-                var attributes = new UpdateVersionNumberCallCenterParameters
+                var attributes = new UpdateCallCenterParameters
                 {
-                    Id = 24,
-                    ConnectorVersion = "version number update test via VirtualQ C# SDK is a success| Version Number: 1.5.0"
+                    Id = 1,
+                    //ConnectorVersion = "Testing Version zak 132",
+                    ConnectorConnectionStatus = "Its down",
+                    ConnectorLastRestartTime = DateTime.Now
                 };
 
                 Result result = client.CallCenter.UpdateCallCenter(attributes).Result;

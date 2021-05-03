@@ -84,15 +84,15 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new ListLinesParameters
                 {
-                    CallCenterId = 218
+                    CallCenterId = -1
                     //LineGroupId = 468
                 };
 
-                Result<IEnumerable<LineResult>> result = client.Lines.ListLines(attributes).Result;
+                Result<bool> result = client.Lines.NewCallOffered(3128000).Result;
                 
-                Trace.WriteLine("Lines Names: \n" + string.Join("\n", result.Value.Select(l => l.Name + "|" + l.VirtualQLineState + "|" + l.ForwardingPhoneNumber )));
+                //Trace.WriteLine("Lines Names: \n" + string.Join("\n", result.Value.Select(l => l.Name + "|" + l.VirtualQLineState + "|" + l.VirtualQLineState )));
                 Assert.IsTrue(result.RequestWasSuccessful);
-                Assert.IsTrue(result.Value.Any());
+                //Assert.IsTrue(result.Value.Any());
             }
         }
     }
