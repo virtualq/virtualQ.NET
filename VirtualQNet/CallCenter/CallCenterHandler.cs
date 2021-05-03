@@ -24,10 +24,10 @@ namespace VirtualQNet.CallCenter
         {
             var messageAttributes = new CallCenterUpdateAttributes
             {
-                Id = UpdateCallCenterParameters.Id,
-                ConnectorVersion = UpdateCallCenterParameters.ConnectorVersion,
-                ConnectorConnectionStatus = UpdateCallCenterParameters.ConnectorConnectionStatus,
-                ConnectorLastRestartTime = UpdateCallCenterParameters.ConnectorLastRestartTime
+                Id = updateCallCenterParameters.Id,
+                ConnectorVersion = updateCallCenterParameters.ConnectorVersion,
+                ConnectorConnectionStatus = updateCallCenterParameters.ConnectorConnectionStatus,
+                ConnectorLastRestartTime = updateCallCenterParameters.ConnectorLastRestartTime
             };
 
             SingleApiMessage<CallCenterMessage1> message = CreateSingleMessage<CallCenterUpdateAttributes, CallCenterMessage1>(MESSAGE_TYPE, messageAttributes);
