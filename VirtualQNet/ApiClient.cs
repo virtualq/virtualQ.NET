@@ -216,7 +216,7 @@ namespace VirtualQNet
         {
             try
             {
-                return await HandleResponse<U>(await _Client.PutAsJsonAsync(BuildApiPath(path), CreateContent(model)));
+                return await HandleResponse<U>(await _Client.PutAsync(BuildApiPath(path), CreateContent(model)));
             }
             catch (Exception exception)
             {

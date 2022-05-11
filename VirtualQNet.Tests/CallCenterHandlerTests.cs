@@ -26,8 +26,8 @@ namespace VirtualQNet.Tests
                 var attributes = new UpdateCallCenterParameters
                 {
                     Id = 1,
-                    //ConnectorVersion = "Testing Version zak 132",
-                    ConnectorConnectionStatus = "Its down",
+                    ConnectorVersion = "Testing Version zak 7777",
+                    ConnectorConnectionStatus = "Its UP o up",
                     ConnectorLastRestartTime = DateTime.Now
                 };
 

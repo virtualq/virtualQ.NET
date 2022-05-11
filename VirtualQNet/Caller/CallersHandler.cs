@@ -60,9 +60,12 @@ namespace VirtualQNet.Caller
             var path = $"{WAITERS_PATH}/0";
 
             SingleApiMessage<CallerUpdateMessage> message = CreateSingleMessage<CallerUpdateMessageAttributes, CallerUpdateMessage>(MESSAGE_TYPE, messageAttributes);
-            CallResult callResult = await _ApiClient.Put(path, message);
+            CallResult<SingleApiMessage<CallerMessage>> callResult = await _ApiClient.Put<SingleApiMessage<CallerUpdateMessage>, SingleApiMessage<CallerMessage>>(path, message);
 
-            return new Result(callResult.RequestWasSuccessful, CreateErrorResult(callResult));
+            return new Result<CallerResult>(
+                callResult.RequestWasSuccessful,
+                CreateErrorResult(callResult),
+                new CallerResult(callResult.Value == null ? null : callResult.Value.Data ?? null));
         }
 
         public async Task<Result> NotifyCallerTransferred(NotifyCallerTransferredParameters attributes)
