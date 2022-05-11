@@ -154,10 +154,9 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new CallerParameters
                 {
-                    LineId = 2600,
+                    LineId = 3534,
                     Phone = "+17343305027"
                 };
-
                 Result result = client.Callers.NotifyCallerConnected(attributes).Result;
 
                 Assert.IsTrue(result.RequestWasSuccessful);
@@ -177,7 +176,7 @@ namespace VirtualQNet.Tests
             {
                 var attributes = new NotifyCallerTransferredParameters
                 {
-                    LineId = 2600,
+                    LineId = 3534,
                     Phone = "+17343305027",
                     AgentId = "B"
                 };
